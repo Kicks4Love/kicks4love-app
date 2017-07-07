@@ -5,7 +5,11 @@ import { StackNavigator } from 'react-navigation';
 var styles = require('./index.styles');
 
 class Index extends Component {
-  static navigationOptions = { title: 'Latest News' };
+  static navigationOptions = { 
+    title: 'Latest News',
+    headerStyle: { backgroundColor: '#f8f8f8'},
+    headerTitleStyle: { color: '#777'},
+  };
   render() {
     return (
       <View style={styles.container}>
