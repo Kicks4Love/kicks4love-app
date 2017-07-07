@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 var styles = StyleSheet.create({
+	header: {
+			alignItems: 'center',
+			height: 60
+	},
 	container: {
 	    flex: 1,
 	    justifyContent: 'center',
