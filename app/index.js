@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { Text, View, Button, Image } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/Menu';
+
 const styles = require('./index.styles');
 
-export default class Kicks4LoveApp extends Component {
+class Index extends Component {
+  static navigationOptions = { 
+    title: 'Latest News',
+    headerStyle: { backgroundColor: '#f8f8f8'},
+    headerTitleStyle: { color: '#777'},
+  };
 
   constructor(props) {
     super(props);
@@ -30,7 +37,7 @@ export default class Kicks4LoveApp extends Component {
       isOpen: false
     });
   }
-
+  
   render() {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
 
@@ -58,3 +65,9 @@ export default class Kicks4LoveApp extends Component {
     );
   }
 }
+
+const Kicks4LoveApp = StackNavigator({
+  Home: { screen: Index }
+});
+
+export default Kicks4LoveApp;
