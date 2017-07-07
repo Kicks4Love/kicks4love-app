@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import SideMenu from 'react-native-side-menu';
+import Menu from './components/Menu';
 
-var styles = require('./index.styles');
+const styles = require('./index.styles');
 
 class Index extends Component {
   static navigationOptions = { 
@@ -10,20 +12,56 @@ class Index extends Component {
     headerStyle: { backgroundColor: '#f8f8f8'},
     headerTitleStyle: { color: '#777'},
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItem: 'Home',
+      isOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState((previousState) => {
+      return { isOpen: !previousState.isOpen };
+    });
+  }
+
+  updateMenuState(isOpen) {
+    this.setState({ isOpen: isOpen });
+  }
+
+  onMenuItemSelected = (item) => {
+    this.setState({
+      selectedItem: item,
+      isOpen: false
+    });
+  }
+  
   render() {
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+
+    // TODO: make header state-alone component @leonma333
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <SideMenu
+        menu={menu}
+        isOpen={this.state.isOpen}
+        onChange={(isOpen) => this.updateMenuState(isOpen)}>
+
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Button title={'toggle'} onPress={ () => this.toggle() }>
+            </Button>
+          </View>
+          <Text style={styles.welcome}>
+            Welcome to Kicks4Love Mobile App!
+          </Text>
+          <Text style={styles.instructions}>
+            Currently selected item: {this.state.selectedItem}
+          </Text>
+
+        </View>
+      </SideMenu>
     );
   }
 }
