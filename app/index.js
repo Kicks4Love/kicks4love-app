@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 var styles = require('./index.styles');
 
-export default class Kicks4LoveApp extends Component {
+class Index extends Component {
+  static navigationOptions = { title: 'Latest News' };
   render() {
     return (
       <View style={styles.container}>
@@ -21,3 +23,9 @@ export default class Kicks4LoveApp extends Component {
     );
   }
 }
+
+const Kicks4LoveApp = StackNavigator({
+  Home: { screen: Index }
+});
+
+export default Kicks4LoveApp;
