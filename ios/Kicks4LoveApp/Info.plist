@@ -49,5 +49,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome.ttf</string>
+		<string>Foundation.ttf</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 </dict>
 </plist>

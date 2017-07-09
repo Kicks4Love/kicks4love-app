@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  Dimensions
-} from 'react-native';
-
-const window = Dimensions.get('window');
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   menu: {
-    flex: 1,
-    width: window.width,
-    height: window.height,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#f8f8f8',
     padding: 20,
   },
-
   item: {
     fontSize: 30,
     fontWeight: '300',
@@ -25,7 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Menu extends Component {
+export default class Drawer extends Component {
   render() {
     return(
       <ScrollView scrollsToTop={false} style={styles.menu}>
@@ -37,7 +25,7 @@ export default class Menu extends Component {
         </Text>
 
         <Text
-          onPress={() => this.props.onItemSelected('Featured')}
+          onPress={() => this.props.onItemSelected('Features')}
           style={styles.item}>
           Featured
         </Text>
@@ -59,11 +47,13 @@ export default class Menu extends Component {
           style={styles.item}>
           Street Snaps
         </Text>
+
+        <Text
+          onPress={() => this.props.onItemSelected('Rumors')}
+          style={styles.item}>
+          Rumors
+        </Text>
       </ScrollView>
     )
   }
 }
-
-Menu.propTypes = {
-  onItemSelected: React.PropTypes.func.isRequired
-};
