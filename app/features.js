@@ -4,15 +4,13 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Drawer from './components/Drawer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Features from './features';
-
 const styles = require('./styles/index.styles');
 
-class Index extends Component {
+export default class Index extends Component {
   // TODO: extract navigationOptions to a helper method
   static navigationOptions = props => ({ 
-    title: 'Home',
-    drawerLabel: 'Home',
+    title: 'Features',
+    drawerLabel: 'Features',
     headerStyle: { backgroundColor: '#f8f8f8'},
     headerLeft: (
       <TouchableOpacity onPress={() => props.navigation.navigate('DrawerOpen')} >
@@ -30,23 +28,9 @@ class Index extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Kicks4Love Mobile App!
+          Features!
         </Text>
       </View>
     );
   }
 }
-
-const stack = StackNavigator({
-  Home: { screen: Index },
-  Features: { screen: Features }
-});
-
-const app = DrawerNavigator({
-  Home: { screen: stack },
-  Features: { screen: Features }
-}, {
-  contentComponent: Drawer
-});
-
-export default app;
