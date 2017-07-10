@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   drawerContainer: {
-    backgroundColor: '#f8f8f8',
-    padding: 20
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    padding: 25
   },
-  drawerItem: {
+  drawerImage: {
+    width: 140,
+    height: 140,
+    resizeMode: 'contain'
+  },
+  menuItem: {
     fontSize: 25,
     fontWeight: '200',
     paddingTop: 5,
@@ -31,14 +38,18 @@ export default class Drawer extends Component {
 
   render() {
     return(
-      <ScrollView scrollsToTop={false} style={styles.drawerContainer}>
-        <Text style={styles.drawerItem} onPress={() => this.navigate('Home')}>Home</Text>
-        <Text style={styles.drawerItem} onPress={() => this.navigate('Features')}>Features</Text>
-        <Text style={styles.drawerItem}>On Court</Text>
-        <Text style={styles.drawerItem}>Trend</Text>
-        <Text style={styles.drawerItem}>Street Snaps</Text>
-        <Text style={styles.drawerItem}>Rumors</Text>
-      </ScrollView>
+      <View style={styles.drawerContainer}>
+        <Image source={require('../images/main_logo.png')} style={styles.drawerImage} />
+        <ScrollView scrollsToTop={false} style={styles.menu}>
+          <Text style={styles.menuItem} onPress={() => this.navigate('Home')}>Home</Text>
+          <Text style={styles.menuItem} onPress={() => this.navigate('Features')}>Features</Text>
+          <Text style={styles.menuItem}>Calendar</Text>
+          <Text style={styles.menuItem}>On Court</Text>
+          <Text style={styles.menuItem}>Trend</Text>
+          <Text style={styles.menuItem}>Street Snaps</Text>
+          <Text style={styles.menuItem}>Rumors</Text>
+        </ScrollView>
+      </View>
     )
   }
 }
