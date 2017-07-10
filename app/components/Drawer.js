@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   drawerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    padding: 25
+    padding: 25,
   },
   drawerImage: {
     width: 140,
@@ -16,9 +17,26 @@ const styles = StyleSheet.create({
   menuItem: {
     fontSize: 25,
     fontWeight: '200',
-    paddingTop: 5,
+    marginTop: 5,
     textAlign: 'center'
   },
+  menuItemMoreContainer: {
+    padding: 5,
+    borderTopWidth: 0.5, 
+    borderStyle: 'solid',
+    marginTop: 10
+  },
+  meunItemMoreItem: {
+    flexDirection: 'row',
+    marginTop: 5,
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  menuItemMoreItemText: {
+    fontWeight: '200',
+    fontSize: 17
+  }
 });
 
 export default class Drawer extends Component {
@@ -48,6 +66,10 @@ export default class Drawer extends Component {
           <Text style={styles.menuItem}>Trend</Text>
           <Text style={styles.menuItem}>Street Snaps</Text>
           <Text style={styles.menuItem}>Rumors</Text>
+          <View style={styles.menuItemMoreContainer}>
+            <View style={styles.meunItemMoreItem}><Icon name="cog" style={{fontSize: 16}} /><Text style={styles.menuItemMoreItemText}> Setting</Text></View>
+            <View style={styles.meunItemMoreItem}><Icon name="envelope" style={{fontSize: 14}} /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></View>
+          </View>
         </ScrollView>
       </View>
     )
