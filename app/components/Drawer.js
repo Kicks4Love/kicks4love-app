@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -59,16 +59,16 @@ export default class Drawer extends Component {
       <View style={styles.drawerContainer}>
         <Image source={require('../images/main_logo.png')} style={styles.drawerImage} />
         <ScrollView scrollsToTop={false} style={styles.menu}>
-          <Text style={styles.menuItem} onPress={() => this.navigate('Home')}>Home</Text>
-          <Text style={styles.menuItem} onPress={() => this.navigate('Features')}>Features</Text>
-          <Text style={styles.menuItem}>Calendar</Text>
-          <Text style={styles.menuItem}>On Court</Text>
-          <Text style={styles.menuItem}>Trend</Text>
-          <Text style={styles.menuItem}>Street Snaps</Text>
-          <Text style={styles.menuItem}>Rumors</Text>
+          <TouchableOpacity onPress={() => this.navigate('Home')}><Text style={styles.menuItem}>Home</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate('Features')}><Text style={styles.menuItem}>Features</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.menuItem}>Calendar</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.menuItem}>Trend</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
           <View style={styles.menuItemMoreContainer}>
-            <View style={styles.meunItemMoreItem}><Icon name="cog" style={{fontSize: 16}} /><Text style={styles.menuItemMoreItemText}> Setting</Text></View>
-            <View style={styles.meunItemMoreItem}><Icon name="envelope" style={{fontSize: 14}} /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></View>
+            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="cog" style={{fontSize: 16}} /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="envelope" style={{fontSize: 14}} /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
           </View>
         </ScrollView>
       </View>
