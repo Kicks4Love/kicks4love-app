@@ -9,8 +9,9 @@ import Features from './components/features';
 
 const appStyles = require('./styles/application.styles');
 
-const navigationOptions = props => ({ 
-  title: <Image source={require('./images/nav_logo.png')} style={appStyles.logo} />,
+const navigationOptions = props => ({
+  title: 'Kicks4love',
+  headerTitle: <Image source={require('./images/nav_logo.png')} style={appStyles.logo} />,
   headerStyle: { backgroundColor: '#fff' },
   headerLeft: (
     <TouchableOpacity onPress={() => props.navigation.navigate('DrawerOpen')} >
