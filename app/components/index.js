@@ -13,7 +13,7 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://f0d6e4fc.ngrok.io/api/v0/home_posts?next_page=1')
+    return fetch('https://9ff6ba98.ngrok.io/api/v0/home_posts?next_page=1')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ 
@@ -21,6 +21,9 @@ export default class Index extends Component {
           sliderRecord: responseJson.slider_posts, 
           postRecord: responseJson.posts
         });
+      })
+      .catch((error) => {
+        Alert.alert(error);
       });
   }
 
