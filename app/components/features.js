@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text, View, ListView } from 'react-native';
-
-const { container, loading } = require('../styles/features.styles');
+import FeaturePostDetail from './post/FeaturePostDetail';
+import { container, loading } from '../styles/features.styles';
 
 const BASE_REQUEST_URI = 'https://9ff6ba98.ngrok.io/api/v0/featured_posts';
 
@@ -15,7 +15,6 @@ export default class Index extends Component {
     super(props);
     this.state = {
       isLoading: true,
-
       next_page: 1,
       no_more: false,
       hasError: false
@@ -47,6 +46,7 @@ export default class Index extends Component {
       });
   }
 
+// TODO: set error view
   render() {
     let content;
     if (this.state.isLoading) {
@@ -60,7 +60,8 @@ export default class Index extends Component {
       content = (
         <ListView
           dataSource={this.state.featuredPosts}
-          renderRow={(rowData) => <Text>{rowData.post.title}</Text>}/>
+          renderRow={ (rowData) => <FeaturePostDetail metadata={rowData} /> }
+          />
       )
     }
     return (
