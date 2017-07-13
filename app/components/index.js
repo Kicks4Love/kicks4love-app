@@ -13,7 +13,6 @@ export default class Index extends Component {
 		headerTitle: <Image source={require('../images/nav_logo.png')} style={ logo } />
 	};
 
-export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = { isLoading: true, sliderRecord: [], postRecord: [] }
