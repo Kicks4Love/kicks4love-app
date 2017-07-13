@@ -12,6 +12,11 @@ var styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: 80
+	},
+	loadMore:{
+		height: 50,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 });
 

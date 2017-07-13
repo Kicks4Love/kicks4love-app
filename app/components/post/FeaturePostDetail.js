@@ -10,15 +10,15 @@ const FeaturePostDetail = ( { metadata } ) => {
           source={cover_img_src}
           style={coverImage}/>
       </View>
-      <View>
+      <View style={detailSectionContainer}>
         <Text style={titleText}>{metadata.post.title}</Text>
       </View>
       <View style={subInfoContainer}>
         <Text style={subText}>{metadata.post.created_at.substring(0, 10)}</Text>
         <Text style={subText}>{`${metadata.score}/5.0`}</Text>
       </View>
-      <View>
-        <Text style={contentText}>{metadata.post.content[0].substring(0, 50)}</Text>
+      <View style={detailSectionContainer}>
+        <Text style={contentText}>{`${metadata.post.content[0].substring(0, 80)}...`}</Text>
       </View>
     </View>
   )
@@ -45,16 +45,21 @@ const styles = StyleSheet.create({
     fontWeight : 'bold'
   },
   subInfoContainer: {
+    margin: 5,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   subText: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#B6B5B5'
   },
   contentText: {
     fontSize: 15,
     color: '#29293d'
+  },
+  detailSectionContainer: {
+    margin: 5,
+    alignItems: 'center'
   }
 });
 
@@ -63,7 +68,8 @@ const {container,
   subInfoContainer,
   titleText,
   subText,
-  contentText
+  contentText,
+  detailSectionContainer
 } = styles;
 
 export default FeaturePostDetail;
