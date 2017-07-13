@@ -24,7 +24,6 @@ const FeaturePostDetail = ( { metadata } ) => {
   )
 };
 
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   coverImage: {
-    // resizeMode: 'contain',
+    resizeMode: 'cover',
     flex: 1,
     height: 250,
     width: null
@@ -63,7 +62,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const {container,
+const {
+  container,
   coverImage,
   subInfoContainer,
   titleText,

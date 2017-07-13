@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text, View, ListView } from 'react-native';
-import FeaturePostDetail from './post/FeaturePostDetail';
+import FeaturePostDetail from './post/featurePostDetail';
 import { container, loading, loadMore } from '../styles/features.styles';
 
 const BASE_REQUEST_URI = 'https://9ff6ba98.ngrok.io/api/v0/featured_posts';
 
 export default class Index extends Component {
-
-  static navigationOptions ={
+  static navigationOptions = {
     headerTitle: 'Features'
   }
 
@@ -28,18 +27,15 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-
     return this.requestData(true);
-
   }
 
   requestData(chinese) {
-    if (this.state.no_more)
-      return null;
+    if (this.state.no_more) return null;
+
     let new_next_page = this.state.next_page + 1;
     let lang = chinese ? 'cn' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
-    console.log(`making request with ${request_uri}`);
     if (new_next_page > 1)
       this.setState({moreIsLoading: true});
     return fetch(request_uri)
@@ -57,7 +53,6 @@ export default class Index extends Component {
       })
       .catch(error => {
         this.setState({isLoading: false, hasError: true});
-        console.log(error);
       });
   }
 
@@ -71,7 +66,7 @@ export default class Index extends Component {
     );
   }
 
-// TODO: set error view
+  // TODO: set error view
   render() {
     let content;
     if (this.state.isLoading) {
