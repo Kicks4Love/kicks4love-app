@@ -3,10 +3,10 @@ import { ActivityIndicator, Alert, View, Text, Image, ScrollView, Dimensions } f
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 
-const indexStyles = require('../styles/index.styles');
-const width = Dimensions.get('window').width;
+import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
+const width = Dimensions.get('window').width;
 
 export default class Index extends Component {
 	static navigationOptions = {
