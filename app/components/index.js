@@ -19,13 +19,15 @@ export default class Index extends Component {
   }
 
   makeRemoteRequest = () => {
-    return fetch('https://1a8ca480.ngrok.io/api/v0/home_posts?next_page='+ this.state.page)
+    console.log(this.state.page);
+    let request_uri = 'https://1a8ca480.ngrok.io/api/v0/home_posts?next_page=2';
+    return fetch(request_uri)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ 
           isLoading: false,
-          sliderRecord: responseJson.slider_posts, 
-          postRecord: page==1 ? responseJson.posts : [...this.state.postRecord, ...responseJson.posts],
+          postRecord:[...this.state.postRecord, ...responseJson.posts],
+          page: this.state.page+1,
         });
       })
       .catch((error) => {
@@ -34,12 +36,7 @@ export default class Index extends Component {
   };
 
   handleLoadMore = () => {
-    this.setState({
-      page: this.state.page +1
-    }, () =>{
       this.makeRemoteRequest();
-    });
-
   };
 
   componentDidMount() {
@@ -57,29 +54,8 @@ export default class Index extends Component {
       });
   }
 
-
-
-	build() {
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-
-    let slider = this.state.sliderRecord.map(function (item){
-      return (
-        <View key={item.post_type + '/' + item.post.id} style={indexStyles.slide}>
-          <Image source={{uri: item.image_url}} style={indexStyles.slideImage}>
-            <View style={indexStyles.slideImageInnerFrame}/>
-          </Image>
-          <Text style={indexStyles.slideText}>{item.post.title}</Text>
-        </View>
-      );
-    });
-
-    let posts = this.state.postRecord.map(function (item){
+  getPost = () => {
+    return this.state.postRecord.map(function (item){
       let tag = '';
       switch (item.post_type) {
         case 'features':
@@ -109,6 +85,31 @@ export default class Index extends Component {
         </View>
       );
     });
+  };
+
+
+
+	build() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
+    let slider = this.state.sliderRecord.map(function (item){
+      return (
+        <View key={item.post_type + '/' + item.post.id} style={indexStyles.slide}>
+          <Image source={{uri: item.image_url}} style={indexStyles.slideImage}>
+            <View style={indexStyles.slideImageInnerFrame}/>
+          </Image>
+          <Text style={indexStyles.slideText}>{item.post.title}</Text>
+        </View>
+      );
+    });
+
+    
 
 		return (
       <ScrollView>
@@ -142,8 +143,8 @@ export default class Index extends Component {
                   </View>
                 </View>
             )}
-            onEndReached = {this.handleLoadMore}
-            onEndThreshold = {0}
+            onEndReached = {this.handleLoadMore()}
+            //onEndThreshold = {0}
             keyExtractor={item => item.post_type + '/' + item.post.id}
           />
       </List>
