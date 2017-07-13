@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, View, ListView } from 'react-native';
-import FeaturePostDetail from './post/featurePostDetail';
+import { ActivityIndicator, Text, View, FlatList } from 'react-native';
+import FeaturePostDetail from './post/FeaturePostDetail';
 import { container, loading, loadMore } from '../styles/features.styles';
 
 const BASE_REQUEST_URI = 'https://9ff6ba98.ngrok.io/api/v0/featured_posts';
@@ -12,16 +12,12 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props);
-    let initial_ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
     this.state = {
       isLoading: true,
       next_page: 0,
       no_more: false,
       hasError: false,
       moreIsLoading: false,
-      postsDs: initial_ds,
       featuredPosts: []
     }
   }
@@ -31,22 +27,21 @@ export default class Index extends Component {
   }
 
   requestData(chinese) {
-    if (this.state.no_more) return null;
-
+    if (this.state.no_more || this.state.moreIsLoading)
+      return null;
     let new_next_page = this.state.next_page + 1;
-    let lang = chinese ? 'cn' : 'en';
-    let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
     if (new_next_page > 1)
       this.setState({moreIsLoading: true});
+    let lang = chinese ? 'cn' : 'en';
+    let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
+    console.log(`making request with ${request_uri}`);
     return fetch(request_uri)
       .then(response => response.json())
       .then(responseJson => {
-        updated_featuredPosts = this.state.featuredPosts.concat(responseJson.posts);
         this.setState( (prevState) => ({
-          featuredPosts: updated_featuredPosts,
+          featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
           next_page: new_next_page,
           isLoading: false,
-          postsDs: prevState.postsDs.cloneWithRows(updated_featuredPosts),
           moreIsLoading: false,
           no_more: responseJson.no_more
         }) );
@@ -56,17 +51,16 @@ export default class Index extends Component {
       });
   }
 
-  loadMoreIndicator() {
+  loadMoreIndicator = () => {
     let shouldShow = this.state.moreIsLoading && !this.state.no_more;
-    let loadMoreStuff = shouldShow ? <ActivityIndicator animating={true}/> : null;
+    if (!shouldShow) return null;
     return (
       <View style={loadMore}>
-        {loadMoreStuff}
+        <ActivityIndicator animating={true}/>
       </View>
     );
   }
 
-  // TODO: set error view
   render() {
     let content;
     if (this.state.isLoading) {
@@ -81,13 +75,14 @@ export default class Index extends Component {
         content = <Text>An error occured</Text>
       } else {
         content = (
-          <ListView
-            dataSource={this.state.postsDs}
-            renderRow={ (rowData) => <FeaturePostDetail metadata={rowData} /> }
+          <FlatList
+            data={this.state.featuredPosts}
+            keyExtractor={item => item.post.id}
+            extraData={this.state}
+            renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
             onEndReached={ () => this.requestData(true) }
-            renderFooter={ () => this.loadMoreIndicator() }
-            onEndReachedThreshold={10}
-            scrollEventThrottle={150} />
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={this.loadMoreIndicator}/>
         )
       }
     }
