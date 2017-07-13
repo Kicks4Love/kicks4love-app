@@ -6,8 +6,14 @@ import { List, ListItem } from "react-native-elements";
 
 const indexStyles = require('../styles/index.styles');
 const width = Dimensions.get('window').width;
+import { logo } from '../styles/application.styles'
 
-export default class Index extends Component {  
+
+export default class Index extends Component {
+	static navigationOptions = {
+		headerTitle: <Image source={require('../images/nav_logo.png')} style={ logo } />
+	};
+
   constructor(props) {
     super(props);
     this.state = { 
@@ -43,9 +49,9 @@ export default class Index extends Component {
     return fetch('https://1a8ca480.ngrok.io/api/v0/home_posts?next_page=1')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ 
+        this.setState({
           isLoading: false,
-          sliderRecord: responseJson.slider_posts, 
+          sliderRecord: responseJson.slider_posts,
           postRecord: responseJson.posts
         });
       })
