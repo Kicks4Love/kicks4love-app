@@ -98,7 +98,6 @@ export default class Index extends Component {
 		let content = this.build();
 
 	  return (
-      <List>
           <FlatList
             data={this.state.postRecord}
             renderItem={({item}) => (
@@ -117,7 +116,6 @@ export default class Index extends Component {
             ListFooterComponent={this.loadMoreIndicator}
             keyExtractor={item => item.post_type + '/' + item.post.id+ '/' + item.created_at}
           />
-      </List>
 	  );
 	}
 }
