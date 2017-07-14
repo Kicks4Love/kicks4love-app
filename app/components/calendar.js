@@ -77,9 +77,9 @@ export default class Calendar extends Component {
       this.setState({
         isLoading: true,
         hasError: false,
-        currentIndex: state.index,
         posts: []
       });
+      this.state.currentIndex = state.index;
       console.log(this.state.currentIndex);
       this.requestData(false);
     }
@@ -103,6 +103,8 @@ export default class Calendar extends Component {
       content = (
         <ActivityIndicator animating={true} size="large"/>
       );
+    } else if (this.state.posts.length < 1) {
+      content = (<Text>No Data</Text>);
     } else {
       if (this.state.hasError)
         content = <Text>An error occured</Text>
@@ -125,4 +127,4 @@ export default class Calendar extends Component {
     	</ScrollView>
   	);
 	}
-}
+} 
