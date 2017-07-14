@@ -15,7 +15,7 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true, sliderRecord: [], postRecord: [] }
+    this.state = { isLoading: true, sliderRecord: [], postRecord: [] };
   }
 
 	componentDidMount() {
@@ -38,7 +38,7 @@ export default class Index extends Component {
 	build() {
     if (this.state.isLoading) {
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
+        <View style={indexStyles.loader}>
           <ActivityIndicator />
         </View>
       );
