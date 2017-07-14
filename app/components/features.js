@@ -27,14 +27,14 @@ export default class Index extends Component {
   }
 
   requestData(chinese) {
-    if (this.state.no_more || this.state.moreIsLoading)
-      return null;
+    if (this.state.no_more || this.state.moreIsLoading) return null;
+
     let new_next_page = this.state.next_page + 1;
     if (new_next_page > 1)
       this.setState({moreIsLoading: true});
     let lang = chinese ? 'cn' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
-    console.log(`making request with ${request_uri}`);
+
     return fetch(request_uri)
       .then(response => response.json())
       .then(responseJson => {
@@ -71,9 +71,9 @@ export default class Index extends Component {
           style={ loading }/>
       )
     } else {
-      if (this.state.hasError) {
+      if (this.state.hasError)
         content = <Text>An error occured</Text>
-      } else {
+      else {
         content = (
           <FlatList
             data={this.state.featuredPosts}
