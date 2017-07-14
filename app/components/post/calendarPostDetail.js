@@ -14,7 +14,6 @@ class CalendarPostDetail extends Component {
   }
 
   render() {
-    console.log(this.props.metadata.date);
     let priceStr = this.props.metadata.price <= 0 ? 'N/A' : parseFloat(this.props.metadata.price).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '1,');
 
     return (

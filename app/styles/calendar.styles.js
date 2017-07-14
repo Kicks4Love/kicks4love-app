@@ -20,6 +20,9 @@ var styles = StyleSheet.create({
 	selectedMonth: {
 		fontSize: 23,
 		fontWeight: 'bold'
+	},
+	noData: {
+		textAlign: 'center'
 	}
 });
 

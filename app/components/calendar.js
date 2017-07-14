@@ -41,11 +41,9 @@ export default class Calendar extends Component {
     let lang = chinese ? 'cn' : 'en';
     let selectedMonth = this.state.months[this.state.currentIndex];
     let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.getFullYear()}&month=${selectedMonth.getMonth() + 1}&l=${lang}`;
-    console.log(request_uri);
     return fetch(request_uri)
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson);
         let newPosts = [];
         responseJson.posts.forEach(function(data) {
           newPosts.push({
@@ -73,14 +71,12 @@ export default class Calendar extends Component {
     });
 
     let updateIndex = function(e, state) {
-      console.log(state.index);
       this.setState({
         isLoading: true,
         hasError: false,
         posts: []
       });
       this.state.currentIndex = state.index;
-      console.log(this.state.currentIndex);
       this.requestData(false);
     }
 
@@ -104,7 +100,9 @@ export default class Calendar extends Component {
         <ActivityIndicator animating={true} size="large"/>
       );
     } else if (this.state.posts.length < 1) {
-      content = (<Text>No Data</Text>);
+      content = (
+        <Text style={calendarStyles.noData}>No release this month</Text>
+      );
     } else {
       if (this.state.hasError)
         content = <Text>An error occured</Text>
