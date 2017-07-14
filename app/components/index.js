@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, View, Text, Image, ScrollView, FlatList,Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
-import { List, ListItem } from "react-native-elements";
 
 const indexStyles = require('../styles/index.styles');
 const width = Dimensions.get('window').width;
