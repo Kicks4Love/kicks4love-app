@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CalendarPostDetail from './post/calendarPostDetail';
 import Swiper from 'react-native-swiper';
 
+const BASE_REQUEST_URI = 'https://1211e58f.ngrok.io/api/v0/calendar_posts';
 const calendarStyles = require('../styles/calendar.styles');
 const width = Dimensions.get('window').width;
 const currentDate = new Date();
 
 export default class Calendar extends Component {  
+  static navigationOptions = {
+    headerTitle: 'Calendar'
+  }
+
 	constructor(props) {
     super(props);
     this.state = { isLoading: true, currentIndex: 3 };
@@ -30,7 +36,6 @@ export default class Calendar extends Component {
 
     let updateIndex = function(e, state) {
       this.setState({isLoading: false, currentIndex: state.index});
-      console.log(this.state);
     }
 
     return (
@@ -51,6 +56,8 @@ export default class Calendar extends Component {
   	return (
   		<ScrollView>
   			{monthSwiper}
+        <CalendarPostDetail />
+        <CalendarPostDetail />
     	</ScrollView>
   	);
 	}
