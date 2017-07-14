@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Image, StyleSheet, Animated, TouchableHighlight } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 
 class CalendarPostDetail extends Component {
   constructor(props) {
@@ -14,17 +14,20 @@ class CalendarPostDetail extends Component {
   }
 
   render() {
+    console.log(this.props.metadata.date);
+    let priceStr = this.props.metadata.price <= 0 ? 'N/A' : parseFloat(this.props.metadata.price).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '1,');
+
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this.toggleCover.bind(this)}>
-          <Image source={{uri: 'https://kicks4love.com/uploads/feature_post/14/feature1.jpg'}} style={styles.coverImage}>
-            <Animated.View style={[styles.cover, !this.state.pressed && styles.coverRemoved]}>
-              <Text style={[styles.coverTitle, !this.state.pressed && styles.coverRemoved]}>Air Jordan 5 "Red Suede"</Text>
-              <Text style={[styles.coverPrice, !this.state.pressed && styles.coverRemoved]}>$ 190.00</Text>
-            </Animated.View>
+          <Image source={{uri: this.props.metadata.image}} style={styles.coverImage}>
+            <View style={[styles.cover, !this.state.pressed && styles.coverRemoved]}>
+              <Text style={[styles.coverTitle, !this.state.pressed && styles.coverRemoved]}>{this.props.metadata.title}</Text>
+              <Text style={[styles.coverPrice, !this.state.pressed && styles.coverRemoved]}>$ {priceStr}</Text>
+            </View>
           </Image>
         </TouchableHighlight>
-        <Text style={styles.date}>07/01</Text>
+        <Text style={styles.date}>{(this.props.metadata.date.getMonth() + 1 < 10 ? '0' + (this.props.metadata.date.getMonth() + 1) : (this.props.metadata.date.getMonth() + 1)) + '/' + this.props.metadata.date.getDate()}</Text>
       </View>
     )
   }
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     width: null
   },
   cover: {
-    backgroundColor: 'rgba(255, 255, 255, .7)',
+    backgroundColor: 'rgba(255, 255, 255, .8)',
     flex: 1,
     padding: 15
   },
@@ -69,10 +72,5 @@ const styles = StyleSheet.create({
     marginTop: 5
   }
 });
-
-const {
-  coverImage,
-  cover
-} = styles;
 
 export default CalendarPostDetail;
