@@ -36,14 +36,6 @@ export default class Index extends Component {
 	}
 
 	build() {
-    if (this.state.isLoading) {
-      return (
-        <View style={indexStyles.loader}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-
     let slider = this.state.sliderRecord.map(function (item){
       return (
         <View key={item.post_type + '/' + item.post.id} style={indexStyles.slide}>
@@ -101,6 +93,14 @@ export default class Index extends Component {
 	}
 
 	render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={indexStyles.container}>
+          <ActivityIndicator animating={true} size="large" style={indexStyles.loader} />
+        </View>
+      );
+    }
+
 		let content = this.build();
 
 	  return (

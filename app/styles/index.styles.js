@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const indexStyles = StyleSheet.create({
-	loader: {
-		flex: 1, 
-		paddingTop: 20
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	sliderPagination: {
 		position: 'absolute',

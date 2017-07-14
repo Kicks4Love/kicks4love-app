@@ -67,11 +67,8 @@ export default class Index extends Component {
     let content;
     if (this.state.isLoading) {
       content = (
-        <ActivityIndicator
-          animating={true}
-          size="large"
-          style={ loading }/>
-      )
+        <ActivityIndicator animating={true} size="large" />
+      );
     } else {
       if (this.state.hasError)
         content = <Text>An error occured</Text>

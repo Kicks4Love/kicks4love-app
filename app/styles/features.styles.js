@@ -4,19 +4,10 @@ var styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
-	},
-	loading: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: 80
+		alignItems: 'center'
 	},
 	loadMore:{
-		height: 50,
-		justifyContent: 'center',
-		alignItems: 'center'
+		marginBottom: 5
 	}
 });
 
