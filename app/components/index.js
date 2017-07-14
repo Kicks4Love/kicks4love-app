@@ -3,10 +3,16 @@ import { ActivityIndicator, Alert, View, Text, Image, ScrollView, Dimensions } f
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 
-const indexStyles = require('../styles/index.styles');
+import indexStyles from '../styles/index.styles';
+import { logo } from '../styles/application.styles'
+
 const width = Dimensions.get('window').width;
 
-export default class Index extends Component {  
+export default class Index extends Component {
+	static navigationOptions = {
+		headerTitle: <Image source={require('../images/nav_logo.png')} style={ logo } />
+	};
+
   constructor(props) {
     super(props);
     this.state = { isLoading: true, sliderRecord: [], postRecord: [] }
@@ -16,9 +22,9 @@ export default class Index extends Component {
     return fetch('https://9ff6ba98.ngrok.io/api/v0/home_posts?next_page=1')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ 
+        this.setState({
           isLoading: false,
-          sliderRecord: responseJson.slider_posts, 
+          sliderRecord: responseJson.slider_posts,
           postRecord: responseJson.posts
         });
       })
