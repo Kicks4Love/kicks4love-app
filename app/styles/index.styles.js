@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const indexStyles = StyleSheet.create({
-	main: {
-		backgroundColor: '#fff',
-		flex: 1
+	loader: {
+		flex: 1, 
+		paddingTop: 20
 	},
 	sliderPagination: {
 		position: 'absolute',
