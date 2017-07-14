@@ -3,7 +3,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Drawer from './components/Drawer';
+import Drawer from './components/drawer';
 import Index from './components/index'
 import Features from './components/features';
 

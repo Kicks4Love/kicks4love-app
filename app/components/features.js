@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text, View, FlatList } from 'react-native';
-import FeaturePostDetail from './post/FeaturePostDetail';
+import FeaturePostDetail from './post/featurePostDetail';
 import { container, loading, loadMore } from '../styles/features.styles';
 
-const BASE_REQUEST_URI = 'https://9ff6ba98.ngrok.io/api/v0/featured_posts';
+const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/featured_posts';
 
 export default class Index extends Component {
   static navigationOptions = {
@@ -36,19 +36,21 @@ export default class Index extends Component {
     let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
 
     return fetch(request_uri)
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState( (prevState) => ({
-          featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
-          next_page: new_next_page,
-          isLoading: false,
-          moreIsLoading: false,
-          no_more: responseJson.no_more
-        }) );
-      })
-      .catch(error => {
-        this.setState({isLoading: false, hasError: true});
-      });
+    .then(response => {
+      if (response.ok) return response.json()
+      throw new Error(`Unsuccessful response with status: ${response.status}`);
+    }).then(responseJson => {
+      this.setState( (prevState) => ({
+        featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
+        next_page: new_next_page,
+        isLoading: false,
+        moreIsLoading: false,
+        no_more: responseJson.no_more
+      }) );
+    }).catch(error => {
+      console.log(error);
+      this.setState({isLoading: false, hasError: true});
+    });
   }
 
   loadMoreIndicator = () => {

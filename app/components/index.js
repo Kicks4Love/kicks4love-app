@@ -18,20 +18,22 @@ export default class Index extends Component {
     this.state = { isLoading: true, sliderRecord: [], postRecord: [] }
   }
 
-  componentDidMount() {
-    return fetch('https://9ff6ba98.ngrok.io/api/v0/home_posts?next_page=1')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          sliderRecord: responseJson.slider_posts,
-          postRecord: responseJson.posts
-        });
-      })
-      .catch((error) => {
-        Alert.alert(error);
-      });
-  }
+	componentDidMount() {
+		return fetch('https://cb406d91.ngrok.io/api/v0/home_posts?next_page=1')
+		.then((response) => {
+			if (response.ok) return response.json()
+			throw new Error(`Unsuccessful response with status: ${response.status}`);
+		}).then((responseJson) => {
+			this.setState({
+				isLoading: false,
+				sliderRecord: responseJson.slider_posts,
+				postRecord: responseJson.posts
+			});
+		}).catch((error) => {
+			console.log(error);
+			Alert.alert(error.message);
+		});
+	}
 
 	build() {
     if (this.state.isLoading) {
