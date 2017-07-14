@@ -8,7 +8,7 @@ const indexStyles = require('../styles/index.styles');
 const width = Dimensions.get('window').width;
 import { logo } from '../styles/application.styles'
 
-const BASE_REQUEST_URI = 'https://54fa2d49.ngrok.io/api/v0/home_posts?';
+const BASE_REQUEST_URI = 'https://00d6f1ec.ngrok.io/api/v0/home_posts?';
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -20,6 +20,7 @@ export default class Index extends Component {
     this.state = { 
       isLoading: true, 
       no_more: false,
+      moreIsLoading: false,
       sliderRecord: [], 
       postRecord: [],
       page:0
@@ -27,18 +28,20 @@ export default class Index extends Component {
   }
 
   makeRemoteRequest = (chinese) => {
-    console.log(this.state.page);
-    if (this.state.no_more) return null;
-    let lang = chinese ? 'cn' : 'en';
+   
     let next_page = this.state.page + 1;
+    if (this.state.no_more || this.state.moreIsLoading) return null;
+    if (next_page > 1) this.setState({moreIsLoading: true});
+    let lang = chinese ? 'cn' : 'en';
+    
     let request_uri = `${BASE_REQUEST_URI}next_page=${next_page}&l=${lang}`;
-
+    console.log(this.state.page);
     return fetch(request_uri)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState((prevState) => ({ 
           isLoading: false,
-          postRecord: [...this.state.postRecord, ...responseJson.posts],
+          postRecord: next_page == 1? responseJson.posts : [...this.state.postRecord, ...responseJson.posts],
           page: next_page,
           sliderRecord: next_page == 1? responseJson.slider_posts : prevState.sliderRecord
         }) );
@@ -110,9 +113,8 @@ export default class Index extends Component {
             )}
             ListHeaderComponent={content}
             onEndReached = {this.handleLoadMore()}
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={1}
             ListFooterComponent={this.loadMoreIndicator}
-            onEndReachedThreshold={0.5}
             keyExtractor={item => item.post_type + '/' + item.post.id+ '/' + item.created_at}
           />
       </List>
