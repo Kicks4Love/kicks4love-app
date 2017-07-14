@@ -8,6 +8,7 @@ const indexStyles = require('../styles/index.styles');
 const width = Dimensions.get('window').width;
 import { logo } from '../styles/application.styles'
 
+const BASE_REQUEST_URI = 'https://54fa2d49.ngrok.io/api/v0/home_posts?';
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -18,23 +19,29 @@ export default class Index extends Component {
     super(props);
     this.state = { 
       isLoading: true, 
+      no_more: false,
       sliderRecord: [], 
       postRecord: [],
-      page:1
+      page:0
    }
   }
 
-  makeRemoteRequest = () => {
+  makeRemoteRequest = (chinese) => {
     console.log(this.state.page);
-    let request_uri = 'https://1a8ca480.ngrok.io/api/v0/home_posts?next_page=2';
+    if (this.state.no_more) return null;
+    let lang = chinese ? 'cn' : 'en';
+    let next_page = this.state.page + 1;
+    let request_uri = `${BASE_REQUEST_URI}next_page=${next_page}&l=${lang}`;
+
     return fetch(request_uri)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ 
+        this.setState((prevState) => ({ 
           isLoading: false,
-          postRecord:[...this.state.postRecord, ...responseJson.posts],
-          page: this.state.page+1,
-        });
+          postRecord: [...this.state.postRecord, ...responseJson.posts],
+          page: next_page,
+          sliderRecord: next_page == 1? responseJson.slider_posts : prevState.sliderRecord
+        }) );
       })
       .catch((error) => {
         Alert.alert(error);
@@ -46,54 +53,8 @@ export default class Index extends Component {
   };
 
   componentDidMount() {
-    return fetch('https://1a8ca480.ngrok.io/api/v0/home_posts?next_page=1')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          sliderRecord: responseJson.slider_posts,
-          postRecord: responseJson.posts
-        });
-      })
-      .catch((error) => {
-        Alert.alert(error);
-      });
+    return this.makeRemoteRequest(true);
   }
-
-  getPost = () => {
-    return this.state.postRecord.map(function (item){
-      let tag = '';
-      switch (item.post_type) {
-        case 'features':
-          tag = 'Features';
-          break;
-        case 'trend':
-          tag = 'Trend';
-          break;
-        case 'oncourt':
-          tag = 'On Court';
-          break;
-        case 'streetsnap':
-          tag = 'Street Snap';
-          break;
-        case 'rumors':
-          tag = 'Rumors';
-          break;
-      }
-      return (
-        <View key={item.post_type + '/' + item.post.id} style={indexStyles.box}>
-          <Image source={{uri: item.image_url, width: width * 0.4, height: 100}} style={indexStyles.coverImage} />
-          <View style={indexStyles.boxContent}>
-            <Text style={indexStyles.boxTitle}>{item.post.title} <Text style={indexStyles.boxDate}>{item.post.created_at.slice(0, 10)}</Text></Text>
-            <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{tag}</Text></Text>
-            <Text style={indexStyles.boxRate}>{item.score}/5.0 <Image source={require('../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
-          </View>
-        </View>
-      );
-    });
-  };
-
-
 
 	build() {
     if (this.state.isLoading) {
@@ -135,8 +96,6 @@ export default class Index extends Component {
 
 	  return (
       <List>
-  	      {content}
-
           <FlatList
             data={this.state.postRecord}
             renderItem={({item}) => (
@@ -149,9 +108,12 @@ export default class Index extends Component {
                   </View>
                 </View>
             )}
+            ListHeaderComponent={content}
             onEndReached = {this.handleLoadMore()}
-            //onEndThreshold = {0}
-            keyExtractor={item => item.post_type + '/' + item.post.id}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={this.loadMoreIndicator}
+            onEndReachedThreshold={0.5}
+            keyExtractor={item => item.post_type + '/' + item.post.id+ '/' + item.created_at}
           />
       </List>
 	  );
