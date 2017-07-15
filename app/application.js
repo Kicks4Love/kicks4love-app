@@ -3,9 +3,10 @@ import { Image, TouchableOpacity } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Drawer from './components/Drawer';
+import Drawer from './components/drawer';
 import Index from './components/index'
 import Features from './components/features';
+import Calendar from './components/calendar';
 
 const appStyles = require('./styles/application.styles');
 
@@ -26,14 +27,16 @@ const navigationOptions = ({navigation}) => ({
 
 const stack = StackNavigator({
   Home: { screen: Index },
-  Features: { screen: Features }
+  Features: { screen: Features },
+  Calendar: { screen: Calendar }
 }, {
   navigationOptions: navigationOptions,
 });
 
 const app = DrawerNavigator({
   Home: { screen: stack },
-  Features: { screen: Features }
+  Features: { screen: Features },
+  Calendar: { screen: Calendar }
 }, {
   contentComponent: Drawer
 });

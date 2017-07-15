@@ -1,43 +1,44 @@
 import { StyleSheet } from 'react-native';
 
-var styles = StyleSheet.create({
-	main: {
-		backgroundColor: '#fff',
-		flex: 1
+const indexStyles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	sliderPagination: {
 		position: 'absolute',
 		bottom: 55
 	},
-  	slide: {
-    	flex: 1,
-	    alignItems: 'center',
-	    flexDirection: 'column'
-  	},
-  	slideImage: {
-  		resizeMode: 'cover',
-  		position: 'absolute',
-  		top: 0,
-  		left: 0,
-  		right: 0,
-  		height: 250
-  	},
-  	slideImageInnerFrame: {
-  		backgroundColor: 'rgba(0, 0, 0, .2)', 
-  		flex: 1
-  	},
+	slide: {
+		flex: 1,
+		alignItems: 'center',
+		flexDirection: 'column'
+	},
+	slideImage: {
+		resizeMode: 'cover',
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		height: 250
+	},
+	slideImageInnerFrame: {
+		backgroundColor: 'rgba(0, 0, 0, .2)',
+		flex: 1
+	},
 	slideText: {
-	    height: 50,
-	    fontSize: 17,
-	    fontWeight: 'bold',
-	    position: 'absolute',
-	    backgroundColor: '#fff',
-	    bottom: 0,
-	    left: 0,
-	    right: 0,
-	    paddingLeft: 10,
-	    paddingRight: 10,
-	    paddingTop: 5
+		height: 50,
+		fontSize: 17,
+		fontWeight: 'bold',
+		position: 'absolute',
+		backgroundColor: '#fff',
+		bottom: 0,
+		left: 0,
+		right: 0,
+		paddingLeft: 10,
+		paddingRight: 10,
+		paddingTop: 5
 	},
 	logan: {
 		backgroundColor: '#999999',
@@ -52,15 +53,15 @@ var styles = StyleSheet.create({
 		padding: 10,
 		backgroundColor: '#fff',
 		shadowColor: '#777',
-    	shadowOffset: { width: 0, height: 1 },
-    	shadowOpacity: 0.5,
-    	marginBottom: 10
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.5,
+		marginBottom: 10
 	},
 	coverImage: {
 		resizeMode: 'cover'
 	},
 	boxContent: {
-		flex: 1, 
+		flex: 1,
 		marginLeft: 10
 	},
 	boxTitle: {
@@ -68,30 +69,30 @@ var styles = StyleSheet.create({
 		fontSize: 16
 	},
 	boxDate: {
-		fontWeight: '200', 
+		fontWeight: '200',
 		color: '#9b9b9b',
 		fontSize: 12
 	},
 	boxPostType: {
-		position: 'absolute', 
-		bottom: 0, 
+		position: 'absolute',
+		bottom: 0,
 		left: 0
 	},
 	boxPostTypeText: {
-		textDecorationLine: 'underline', 
+		textDecorationLine: 'underline',
 		textDecorationStyle: 'dotted'
 	},
 	boxRate: {
-		position: 'absolute', 
-		bottom: 0, 
+		position: 'absolute',
+		bottom: 0,
 		right: 0
 	},
 	boxRateImage: {
-		height: 15, 
-		width: 20, 
-		resizeMode: 'contain', 
+		height: 15,
+		width: 20,
+		resizeMode: 'contain',
 		marginTop: 2
 	}
 });
 
-module.exports = styles;
+module.exports = indexStyles;

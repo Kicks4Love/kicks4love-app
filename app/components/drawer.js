@@ -61,7 +61,7 @@ export default class Drawer extends Component {
         <ScrollView scrollsToTop={false} style={styles.menu}>
           <TouchableOpacity onPress={() => this.navigate('Home')}><Text style={styles.menuItem}>Home</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Features')}><Text style={styles.menuItem}>Features</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.menuItem}>Calendar</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate('Calendar')}><Text style={styles.menuItem}>Calendar</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.menuItem}>Trend</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>

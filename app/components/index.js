@@ -3,11 +3,11 @@ import { ActivityIndicator, Alert, View, Text, Image, ScrollView, FlatList,Dimen
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 
-const indexStyles = require('../styles/index.styles');
-const width = Dimensions.get('window').width;
+import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
 const BASE_REQUEST_URI = 'https://00d6f1ec.ngrok.io/api/v0/home_posts?';
+const width = Dimensions.get('window').width;
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -59,14 +59,6 @@ export default class Index extends Component {
   }
 
 	build() {
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-
     let slider = this.state.sliderRecord.map(function (item){
       return (
         <View key={item.post_type + '/' + item.post.id} style={indexStyles.slide}>
@@ -94,6 +86,14 @@ export default class Index extends Component {
 	}
 
 	render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={indexStyles.container}>
+          <ActivityIndicator animating={true} size="large" style={indexStyles.loader} />
+        </View>
+      );
+    }
+
 		let content = this.build();
 
 	  return (
