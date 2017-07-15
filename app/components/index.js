@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert, View, Text, Image, ScrollView, Dimensions } from 'react-native';
+import { ActivityIndicator, Alert, View, Text, Image, ScrollView, FlatList,Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
+const BASE_REQUEST_URI = 'https://00d6f1ec.ngrok.io/api/v0/home_posts?';
 const width = Dimensions.get('window').width;
 
 export default class Index extends Component {
@@ -15,25 +16,47 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true, sliderRecord: [], postRecord: [] };
+    this.state = { 
+      isLoading: true, 
+      no_more: false,
+      moreIsLoading: false,
+      sliderRecord: [], 
+      postRecord: [],
+      page:0
+   }
   }
 
-	componentDidMount() {
-		return fetch('https://cb406d91.ngrok.io/api/v0/home_posts?next_page=1')
-		.then((response) => {
-			if (response.ok) return response.json()
-			throw new Error(`Unsuccessful response with status: ${response.status}`);
-		}).then((responseJson) => {
-			this.setState({
-				isLoading: false,
-				sliderRecord: responseJson.slider_posts,
-				postRecord: responseJson.posts
-			});
-		}).catch((error) => {
-			console.log(error);
-			Alert.alert(error.message);
-		});
-	}
+  makeRemoteRequest = (chinese) => {
+   
+    let next_page = this.state.page + 1;
+    if (this.state.no_more || this.state.moreIsLoading) return null;
+    if (next_page > 1) this.setState({moreIsLoading: true});
+    let lang = chinese ? 'cn' : 'en';
+    
+    let request_uri = `${BASE_REQUEST_URI}next_page=${next_page}&l=${lang}`;
+    console.log(this.state.page);
+    return fetch(request_uri)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState((prevState) => ({ 
+          isLoading: false,
+          postRecord: next_page == 1? responseJson.posts : [...this.state.postRecord, ...responseJson.posts],
+          page: next_page,
+          sliderRecord: next_page == 1? responseJson.slider_posts : prevState.sliderRecord
+        }) );
+      })
+      .catch((error) => {
+        Alert.alert(error);
+      });
+  };
+
+  handleLoadMore = () => {
+      this.makeRemoteRequest();
+  };
+
+  componentDidMount() {
+    return this.makeRemoteRequest(true);
+  }
 
 	build() {
     let slider = this.state.sliderRecord.map(function (item){
@@ -47,39 +70,10 @@ export default class Index extends Component {
       );
     });
 
-    let posts = this.state.postRecord.map(function (item){
-      let tag = '';
-      switch (item.post_type) {
-        case 'features':
-          tag = 'Features';
-          break;
-        case 'trend':
-          tag = 'Trend';
-          break;
-        case 'oncourt':
-          tag = 'On Court';
-          break;
-        case 'streetsnap':
-          tag = 'Street Snap';
-          break;
-        case 'rumors':
-          tag = 'Rumors';
-          break;
-      }
-      return (
-        <View key={item.post_type + '/' + item.post.id} style={indexStyles.box}>
-          <Image source={{uri: item.image_url, width: width * 0.4, height: 100}} style={indexStyles.coverImage} />
-          <View style={indexStyles.boxContent}>
-            <Text style={indexStyles.boxTitle}>{item.post.title} <Text style={indexStyles.boxDate}>{item.post.created_at.slice(0, 10)}</Text></Text>
-            <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{tag}</Text></Text>
-            <Text style={indexStyles.boxRate}>{item.score}/5.0 <Image source={require('../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
-          </View>
-        </View>
-      );
-    });
+    
 
 		return (
-      <View>
+      <ScrollView>
   			<Swiper showsButtons={true} autoplay={true} height={300} activeDotColor={'#fff'} paginationStyle={indexStyles.sliderPagination}
   				nextButton={<Icon name="chevron-right" style={{color: '#fff', fontSize: 28}} />}
   				prevButton={<Icon name="chevron-left" style={{color: '#fff', fontSize: 28}} />}
@@ -87,8 +81,7 @@ export default class Index extends Component {
           {slider}
         </Swiper>
         <Text style={indexStyles.logan}><Icon name="check" /> Using Kicks4Love App, Better Experience</Text>
-        {posts}
-      </View>
+      </ScrollView>
 		);
 	}
 
@@ -104,9 +97,24 @@ export default class Index extends Component {
 		let content = this.build();
 
 	  return (
-	    <ScrollView>
-	      {content}
-	    </ScrollView>
+          <FlatList
+            data={this.state.postRecord}
+            renderItem={({item}) => (
+                <View style={indexStyles.box}>
+                  <Image source={{uri: item.image_url, width: width * 0.4, height: 100}} style={indexStyles.coverImage} />
+                  <View style={indexStyles.boxContent}>
+                    <Text style={indexStyles.boxTitle}>{item.post.title} <Text style={indexStyles.boxDate}>{item.post.created_at.slice(0, 10)}</Text></Text>
+                    <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{item.post_type}</Text></Text>
+                    <Text style={indexStyles.boxRate}>{item.score}/5.0 <Image source={require('../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
+                  </View>
+                </View>
+            )}
+            ListHeaderComponent={content}
+            onEndReached = {this.handleLoadMore()}
+            onEndReachedThreshold={1}
+            ListFooterComponent={this.loadMoreIndicator}
+            keyExtractor={item => item.post_type + '/' + item.post.id+ '/' + item.created_at}
+          />
 	  );
 	}
 }
