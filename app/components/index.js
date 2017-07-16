@@ -3,7 +3,6 @@ import { ActivityIndicator, TouchableOpacity, Alert, View, Text, Image, ScrollVi
 import IndexPostDetail from './post/indexPostDetail';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
-
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
