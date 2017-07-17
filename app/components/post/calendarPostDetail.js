@@ -15,6 +15,11 @@ class CalendarPostDetail extends Component {
     });
   }
 
+  formatNumber(number) {
+    if (number < 10) return '0' + number;
+    return number;
+  }
+
   render() {
     let priceStr = this.props.metadata.price <= 0 ? 'N/A' : parseFloat(this.props.metadata.price).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '1,');
 
@@ -28,7 +33,7 @@ class CalendarPostDetail extends Component {
             </View>
           </Image>
         </TouchableHighlight>
-        <Text style={calendarStyles.date}>{(this.props.metadata.date.getMonth() + 1 < 10 ? '0' + (this.props.metadata.date.getMonth() + 1) : (this.props.metadata.date.getMonth() + 1)) + '/' + this.props.metadata.date.getDate()}</Text>
+        <Text style={calendarStyles.date}>{this.formatNumber(this.props.metadata.date.getMonth() + 1) + '/' + this.formatNumber(this.props.metadata.date.getDate())}</Text>
       </View>
     )
   }
