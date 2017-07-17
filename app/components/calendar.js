@@ -6,7 +6,8 @@ import Swiper from 'react-native-swiper';
 
 import calendarStyles from '../styles/calendar.styles';
 
-const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/calendar_posts';
+const CONFIG = require('../config');
+const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/calendar_posts`;
 const WIDTH = Dimensions.get('window').width;
 const CURRENT_DATE = new Date();
 

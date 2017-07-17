@@ -7,7 +7,8 @@ import Swiper from 'react-native-swiper';
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
-const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/home_posts';
+const CONFIG = require('../config');
+const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/home_posts`;
 
 export default class Index extends Component {
 	static navigationOptions = {

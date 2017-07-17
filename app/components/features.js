@@ -4,7 +4,8 @@ import FeaturePostDetail from './post/featurePostDetail';
 
 import { container, loadMore } from '../styles/features.styles';
 
-const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/featured_posts';
+const CONFIG = require('../config');
+const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/featured_posts`;
 
 export default class Index extends Component {
   static navigationOptions = {
