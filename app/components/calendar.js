@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarPostDetail from './post/calendarPostDetail';
 import Swiper from 'react-native-swiper';
 
-const BASE_REQUEST_URI = 'https://53a84007.ngrok.io/api/v0/calendar_posts';
+const BASE_REQUEST_URI = 'https://2e3dbc06.ngrok.io/api/v0/calendar_posts';
 const calendarStyles = require('../styles/calendar.styles');
 const width = Dimensions.get('window').width;
 const currentDate = new Date();
@@ -26,7 +26,8 @@ export default class Calendar extends Component {
 
     this.state = {
       isLoading: true,
-      currentIndex: 3,
+      currentMonthIndex: 3,
+      currentPostIndex: 3,
       hasError: false,
       months: allMonth,
       posts: []
@@ -39,7 +40,7 @@ export default class Calendar extends Component {
 
   requestData(chinese) {
     let lang = chinese ? 'cn' : 'en';
-    let selectedMonth = this.state.months[this.state.currentIndex];
+    let selectedMonth = this.state.months[this.state.currentMonthIndex];
     let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.getFullYear()}&month=${selectedMonth.getMonth() + 1}&l=${lang}`;
     return fetch(request_uri)
       .then(response => response.json())
@@ -66,7 +67,7 @@ export default class Calendar extends Component {
     let self = this;
     let months = this.state.months.map(function (item, index) {
       return (
-        <View style={calendarStyles.monthContainer} key={index}><Text style={(self.state.currentIndex === index) && calendarStyles.selectedMonth}>{item.toISOString().slice(0, 7)}</Text></View>
+        <View style={calendarStyles.monthContainer} key={index}><Text style={(self.state.currentMonthIndex === index) && calendarStyles.selectedMonth}>{item.toISOString().slice(0, 7)}</Text></View>
       );
     });
 
@@ -74,15 +75,16 @@ export default class Calendar extends Component {
       this.setState({
         isLoading: true,
         hasError: false,
+        currentPostIndex: 3,
         posts: []
       });
-      this.state.currentIndex = state.index;
+      this.state.currentMonthIndex = state.index;
       this.requestData(false);
     }
 
     return (
       <View style={calendarStyles.monthSwiperContainer}>
-        <Swiper ref='monthSwiper' index={3} onMomentumScrollEnd={updateIndex.bind(this)} showsButtons={true} height={80} width={width*0.5} showsPagination={false} loop={false} bounces={true} style={calendarStyles.monthSwiper}
+        <Swiper ref='monthSwiper' index={this.state.currentMonthIndex} onMomentumScrollEnd={updateIndex.bind(this)} showsButtons={true} height={80} width={width*0.5} showsPagination={false} loop={false} bounces={true} style={calendarStyles.monthSwiper}
           nextButton={<Icon name="chevron-right" style={calendarStyles.monthSwiperButton} />}
           prevButton={<Icon name="chevron-left" style={calendarStyles.monthSwiperButton} />}
         >
@@ -92,16 +94,28 @@ export default class Calendar extends Component {
     )
   }
 
+  updatePostIndex() {
+    if (this.isLoading) return null;
+    if (this.state.currentPostIndex >= this.state.posts.length) return null;
+    this.setState({currentPostIndex: this.state.currentPostIndex + 3});
+  }
+
 	render() {
     let monthSwiper = this.buildMonthSwiper();
     let content;
     if (this.state.isLoading) {
       content = (
-        <ActivityIndicator animating={true} size="large"/>
+        <View>
+          {monthSwiper}
+          <ActivityIndicator animating={true} size="large"/>
+        </View>
       );
     } else if (this.state.posts.length < 1) {
       content = (
-        <Text style={calendarStyles.noData}>No release this month</Text>
+        <View>
+          {monthSwiper}
+          <Text style={calendarStyles.noData}>No release this month</Text>
+        </View>
       );
     } else {
       if (this.state.hasError)
@@ -109,20 +123,18 @@ export default class Calendar extends Component {
       else {
         content = (
           <FlatList
-            data={this.state.posts}
+            data={this.state.posts.slice(0, this.state.currentPostIndex)}
             keyExtractor={item => item.id}
             extraData={this.state}
+            ListHeaderComponent={monthSwiper}
+            onEndReached={ () => this.updatePostIndex() }
+            onEndReachedThreshold={0}
             renderItem={ ({ item }) => <CalendarPostDetail metadata={item} /> }
           />
         )
       }
     }
 
-  	return (
-  		<ScrollView>
-  			{monthSwiper}
-        {content}
-    	</ScrollView>
-  	);
+  	return content;
 	}
 } 

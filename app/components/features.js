@@ -3,7 +3,7 @@ import { ActivityIndicator, Text, View, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
 import { container, loading, loadMore } from '../styles/features.styles';
 
-const BASE_REQUEST_URI = 'https://53a84007.ngrok.io/api/v0/featured_posts';
+const BASE_REQUEST_URI = 'https://2e3dbc06.ngrok.io/api/v0/featured_posts';
 
 export default class Index extends Component {
   static navigationOptions = {

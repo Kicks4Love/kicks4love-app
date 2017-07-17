@@ -6,7 +6,7 @@ import Swiper from 'react-native-swiper';
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
-const BASE_REQUEST_URI = 'https://53a84007.ngrok.io/api/v0/home_posts';
+const BASE_REQUEST_URI = 'https://2e3dbc06.ngrok.io/api/v0/home_posts';
 const width = Dimensions.get('window').width;
 
 export default class Index extends Component {
@@ -68,13 +68,13 @@ export default class Index extends Component {
 
 		return (
       <View>
-			<Swiper showsButtons={true} autoplay={true} height={300} activeDotColor={'#fff'} paginationStyle={indexStyles.sliderPagination}
-				nextButton={<Icon name="chevron-right" style={{color: '#fff', fontSize: 28}} />}
-				prevButton={<Icon name="chevron-left" style={{color: '#fff', fontSize: 28}} />}
-			>
-        {slider}
-      </Swiper>
-      <Text style={indexStyles.logan}><Icon name="check" /> Using Kicks4Love App, Better Experience</Text>
+  			<Swiper showsButtons={true} autoplay={true} height={300} activeDotColor={'#fff'} paginationStyle={indexStyles.sliderPagination}
+  				nextButton={<Icon name="chevron-right" style={{color: '#fff', fontSize: 28}} />}
+  				prevButton={<Icon name="chevron-left" style={{color: '#fff', fontSize: 28}} />}
+  			>
+          {slider}
+        </Swiper>
+        <Text style={indexStyles.logan}><Icon name="check" /> Using Kicks4Love App, Better Experience</Text>
       </View>
 		);
 	}
