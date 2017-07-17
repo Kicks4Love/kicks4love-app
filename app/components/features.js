@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text, View, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
-import { container, loading, loadMore } from '../styles/features.styles';
 
-const BASE_REQUEST_URI = 'https://2e3dbc06.ngrok.io/api/v0/featured_posts';
+import { container, loadMore } from '../styles/features.styles';
+
+const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/featured_posts';
 
 export default class Index extends Component {
   static navigationOptions = {
@@ -14,8 +15,8 @@ export default class Index extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      next_page: 0,
-      no_more: false,
+      nextPage: 0,
+      noMore: false,
       hasError: false,
       moreIsLoading: false,
       featuredPosts: []
@@ -23,17 +24,17 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    return this.requestData(true);
+    return this.requestData(false);
   }
 
   requestData(chinese) {
-    if (this.state.no_more || this.state.moreIsLoading) return null;
+    if (this.state.noMore || this.state.moreIsLoading) return null;
 
-    let new_next_page = this.state.next_page + 1;
-    if (new_next_page > 1)
+    let newNextPage = this.state.nextPage + 1;
+    if (newNextPage > 1)
       this.state.moreIsLoading = true;
     let lang = chinese ? 'cn' : 'en';
-    let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
+    let request_uri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
 
     return fetch(request_uri)
     .then(response => {
@@ -42,10 +43,10 @@ export default class Index extends Component {
     }).then(responseJson => {
       this.setState( (prevState) => ({
         featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
-        next_page: new_next_page,
+        nextPage: newNextPage,
         isLoading: false,
         moreIsLoading: false,
-        no_more: responseJson.no_more
+        noMore: responseJson.no_more
       }) );
     }).catch(error => {
       this.setState({isLoading: false, hasError: true});
@@ -53,7 +54,7 @@ export default class Index extends Component {
   }
 
   loadMoreIndicator = () => {
-    if (this.state.no_more) return null;
+    if (this.state.noMore) return null;
     return (
       <View style={loadMore}>
         <ActivityIndicator animating={true}/>
@@ -77,7 +78,7 @@ export default class Index extends Component {
             keyExtractor={item => item.post.id}
             extraData={this.state}
             renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
-            onEndReached={ () => this.requestData(true) }
+            onEndReached={ () => this.requestData(false) }
             onEndReachedThreshold={0}
             ListFooterComponent={this.loadMoreIndicator}/>
         )

@@ -91,7 +91,7 @@ const indexStyles = StyleSheet.create({
 		height: 15,
 		width: 20,
 		resizeMode: 'contain',
-		marginTop: 2
+		marginTop: 3
 	},
 	loadMore:{
 		marginBottom: 5

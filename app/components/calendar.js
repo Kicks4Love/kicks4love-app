@@ -4,10 +4,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarPostDetail from './post/calendarPostDetail';
 import Swiper from 'react-native-swiper';
 
-const BASE_REQUEST_URI = 'https://2e3dbc06.ngrok.io/api/v0/calendar_posts';
-const calendarStyles = require('../styles/calendar.styles');
-const width = Dimensions.get('window').width;
-const currentDate = new Date();
+import calendarStyles from '../styles/calendar.styles';
+
+const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/calendar_posts';
+const WIDTH = Dimensions.get('window').width;
+const CURRENT_DATE = new Date();
 
 export default class Calendar extends Component {  
   static navigationOptions = {
@@ -19,8 +20,8 @@ export default class Calendar extends Component {
 
     let allMonth = [];
     for (var i = -3; i <= 6; i++) {
-      var copyDate = new Date(currentDate.getTime());
-      copyDate.setMonth(currentDate.getMonth() + i);
+      var copyDate = new Date(CURRENT_DATE.getTime());
+      copyDate.setMonth(CURRENT_DATE.getMonth() + i);
       allMonth.push(new Date(copyDate));
     }
 
@@ -84,7 +85,7 @@ export default class Calendar extends Component {
 
     return (
       <View style={calendarStyles.monthSwiperContainer}>
-        <Swiper ref='monthSwiper' index={this.state.currentMonthIndex} onMomentumScrollEnd={updateIndex.bind(this)} showsButtons={true} height={80} width={width*0.5} showsPagination={false} loop={false} bounces={true} style={calendarStyles.monthSwiper}
+        <Swiper ref='monthSwiper' index={this.state.currentMonthIndex} onMomentumScrollEnd={updateIndex.bind(this)} showsButtons={true} height={80} width={WIDTH*0.5} showsPagination={false} loop={false} bounces={true} style={calendarStyles.monthSwiper}
           nextButton={<Icon name="chevron-right" style={calendarStyles.monthSwiperButton} />}
           prevButton={<Icon name="chevron-left" style={calendarStyles.monthSwiperButton} />}
         >

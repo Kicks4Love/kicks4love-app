@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert, View, Text, Image, ScrollView, FlatList,Dimensions } from 'react-native';
+import { ActivityIndicator, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native';
+import IndexPostDetail from './post/indexPostDetail';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
 
-const BASE_REQUEST_URI = 'https://2e3dbc06.ngrok.io/api/v0/home_posts';
-const width = Dimensions.get('window').width;
+const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/home_posts';
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -18,7 +18,7 @@ export default class Index extends Component {
     super(props);
     this.state = { 
       isLoading: true, 
-      no_more: false,
+      noMore: false,
       moreIsLoading: false,
       sliderRecord: [], 
       postRecord: [],
@@ -27,11 +27,11 @@ export default class Index extends Component {
   }
 
   makeRemoteRequest = (chinese) => {
-    let next_page = this.state.page + 1;
-    if (this.state.no_more || this.state.moreIsLoading) return null;
-    if (next_page > 1) this.state.moreIsLoading = true;
+    let nextPage = this.state.page + 1;
+    if (this.state.noMore || this.state.moreIsLoading) return null;
+    if (nextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'cn' : 'en';
-    let request_uri = `${BASE_REQUEST_URI}?next_page=${next_page}&l=${lang}`;
+    let request_uri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
 
     return fetch(request_uri)
       .then((response) => response.json())
@@ -39,19 +39,19 @@ export default class Index extends Component {
         this.setState((prevState) => ({ 
           isLoading: false,
           moreIsLoading: false,
-          postRecord: next_page == 1 ? responseJson.posts : [...this.state.postRecord, ...responseJson.posts],
-          page: next_page,
-          sliderRecord: next_page == 1 ? responseJson.slider_posts : prevState.sliderRecord,
-          no_more: responseJson.no_more
+          postRecord: nextPage == 1 ? responseJson.posts : [...this.state.postRecord, ...responseJson.posts],
+          page: nextPage,
+          sliderRecord: nextPage == 1 ? responseJson.slider_posts : prevState.sliderRecord,
+          noMore: responseJson.no_more
         }) );
       })
       .catch((error) => {
-        Alert.alert(error);
+        Alert.alert(error.message);
       });
   };
 
   componentDidMount() {
-    return this.makeRemoteRequest(true);
+    return this.makeRemoteRequest(false);
   }
 
 	buildPostSwiper() {
@@ -80,7 +80,7 @@ export default class Index extends Component {
 	}
 
   loadMoreIndicator = () => {
-    if (this.state.no_more) return null;
+    if (this.state.noMore) return null;
     return (
       <View style={indexStyles.loadMore}>
         <ActivityIndicator animating={true}/>
@@ -97,23 +97,14 @@ export default class Index extends Component {
       );
     }
 
-		let content = this.buildPostSwiper();
+		let postSwiper = this.buildPostSwiper();
 
 	  return (
       <FlatList
         data={this.state.postRecord}
-        renderItem={({item}) => (
-          <View style={indexStyles.box}>
-            <Image source={{uri: item.image_url, width: width * 0.4, height: 100}} style={indexStyles.coverImage} />
-            <View style={indexStyles.boxContent}>
-              <Text style={indexStyles.boxTitle}>{item.post.title} <Text style={indexStyles.boxDate}>{item.post.created_at.slice(0, 10)}</Text></Text>
-              <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{item.post_type}</Text></Text>
-              <Text style={indexStyles.boxRate}>{item.score}/5.0 <Image source={require('../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
-            </View>
-          </View>
-        )}
-        ListHeaderComponent={content}
-        onEndReached={ () => this.makeRemoteRequest(true) }
+        renderItem={ ({ item }) => <IndexPostDetail metadata={item} /> }
+        ListHeaderComponent={postSwiper}
+        onEndReached={ () => this.makeRemoteRequest(false) }
         onEndReachedThreshold={0}
         ListFooterComponent={this.loadMoreIndicator}
         keyExtractor={item => item.post_type + '/' + item.post.id}
