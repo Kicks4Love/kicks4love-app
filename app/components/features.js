@@ -3,7 +3,7 @@ import { ActivityIndicator, Text, View, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
 import { container, loading, loadMore } from '../styles/features.styles';
 
-const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/featured_posts';
+const BASE_REQUEST_URI = 'https://53a84007.ngrok.io/api/v0/featured_posts';
 
 export default class Index extends Component {
   static navigationOptions = {
@@ -31,7 +31,7 @@ export default class Index extends Component {
 
     let new_next_page = this.state.next_page + 1;
     if (new_next_page > 1)
-      this.setState({moreIsLoading: true});
+      this.state.moreIsLoading = true;
     let lang = chinese ? 'cn' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${new_next_page}&l=${lang}`;
 
@@ -48,14 +48,12 @@ export default class Index extends Component {
         no_more: responseJson.no_more
       }) );
     }).catch(error => {
-      console.log(error);
       this.setState({isLoading: false, hasError: true});
     });
   }
 
   loadMoreIndicator = () => {
-    let shouldShow = this.state.moreIsLoading && !this.state.no_more;
-    if (!shouldShow) return null;
+    if (this.state.no_more) return null;
     return (
       <View style={loadMore}>
         <ActivityIndicator animating={true}/>
@@ -80,7 +78,7 @@ export default class Index extends Component {
             extraData={this.state}
             renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
             onEndReached={ () => this.requestData(true) }
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={0}
             ListFooterComponent={this.loadMoreIndicator}/>
         )
       }

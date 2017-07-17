@@ -92,6 +92,9 @@ const indexStyles = StyleSheet.create({
 		width: 20,
 		resizeMode: 'contain',
 		marginTop: 2
+	},
+	loadMore:{
+		marginBottom: 5
 	}
 });
 

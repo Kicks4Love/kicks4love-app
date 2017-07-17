@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarPostDetail from './post/calendarPostDetail';
 import Swiper from 'react-native-swiper';
 
-const BASE_REQUEST_URI = 'https://cb406d91.ngrok.io/api/v0/calendar_posts';
+const BASE_REQUEST_URI = 'https://53a84007.ngrok.io/api/v0/calendar_posts';
 const calendarStyles = require('../styles/calendar.styles');
 const width = Dimensions.get('window').width;
 const currentDate = new Date();
