@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, View, FlatList } from 'react-native';
+import { ActivityIndicator, Alert,Text, View, FlatList } from 'react-native';
 import TrendPostDetail from './post/trendPostDetail';
-import { container, loading, loadMore } from '../styles/trend.styles';
+import IndexPostDetail from './post/indexPostDetail';
+import FeaturePostDetail from './post/featurePostDetail';
+import indexStyles from '../styles/index.styles';
 
-const BASE_REQUEST_URI = 'https://5b9ea66b.ngrok.io/api/v0/trend_posts?';
+const CONFIG = require('../config');
+const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/trend_posts`;
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -13,12 +16,11 @@ export default class Index extends Component {
 	constructor(props) {
      	super(props);
      	this.state = {
-	      	isLoading: true,
-	      	next_page: 0,
-	      	no_more: false,
-	      	hasError: false,
-	      	moreIsLoading: false,
-	      	TrendPosts: []
+	      isLoading: true,
+	      nextPage: 0,
+	      noMore: false,
+	      moreIsLoading: false,
+	      trendPosts: []
     	}
   	}
 
@@ -27,69 +29,57 @@ export default class Index extends Component {
   	}
 
   	requestData(chinese) {
-	    if (this.state.no_more || this.state.moreIsLoading) return null;
-
-	    let new_next_page = this.state.next_page + 1;
-	    if (new_next_page > 1)
-	      this.setState({moreIsLoading: true});
+	    let nextPage = this.state.nextPage + 1;
+	    if (this.state.noMore || this.state.moreIsLoading) return null;
+	    if (nextPage > 1) this.state.moreIsLoading = true;
 	    let lang = chinese ? 'cn' : 'en';
-	    let request_uri = `${BASE_REQUEST_URI}next_page=${new_next_page}&l=${lang}`;
+	    let request_uri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
 
 	    return fetch(request_uri)
-	    .then(response => {
-	      if (response.ok) return response.json()
-	      throw new Error(`Unsuccessful response with status: ${response.status}`);
-	    }).then(responseJson => {
-	      this.setState( (prevState) => ({
-	        TrendPosts: prevState.TrendPosts.concat(responseJson.posts),
-	        next_page: new_next_page,
-	        isLoading: false,
-	        moreIsLoading: false,
-	        no_more: responseJson.no_more
-	      }) );
-	    }).catch(error => {
-	      console.log(error);
-	      this.setState({isLoading: false, hasError: true});
-	    });
-  	}
+	      .then((response) => response.json())
+	      .then((responseJson) => {
+	      	console.log(responseJson.posts);
+	        this.setState(() => ({ 
+	          isLoading: false,
+	          moreIsLoading: false,
+	          trendPosts: nextPage == 1 ? responseJson.posts : [...this.state.trendPosts, ...responseJson.posts],
+	          nextPage: nextPage,
+	          noMore: responseJson.no_more
+	        }) );
+	      })
+	      .catch((error) => {
+	        Alert.alert(error.message);
+	      });
+	 }
+
 
   	loadMoreIndicator = () => {
-	    let shouldShow = this.state.moreIsLoading && !this.state.no_more;
-	    if (!shouldShow) return null;
+	    if (this.state.noMore) return null;
 	    return (
 	      <View style={loadMore}>
 	        <ActivityIndicator animating={true}/>
 	      </View>
 	    );
-  	}
+	}
 
   	render() {
-	    let content;
-	    if (this.state.isLoading) {
-	      content = (
-	        <ActivityIndicator animating={true} size="large" />
+	  if (this.state.isLoading) {
+	      return (
+	        <View style={indexStyles.container}>
+	          <ActivityIndicator animating={true} size="large" style={indexStyles.loader} />
+	        </View>
 	      );
-	    } else {
-	      if (this.state.hasError)
-	        content = <Text>An error occured</Text>
-	      else {
-	        content = (
-	          <FlatList
-	            data={this.state.TrendPosts}
-	            keyExtractor={item => item.post.id}
-	            extraData={this.state}
-	            renderItem={ ({ item }) => <TrendPostDetail metadata={item} /> }
-	            onEndReached={ () => this.requestData(true) }
-	            onEndReachedThreshold={0.5}
-	            ListFooterComponent={this.loadMoreIndicator}/>
-	        )
-	      }
-	    }
+	  }
 
-	    return (
-	      <View style={container}>
-	        { content }
-	      </View>
-	    );
+	  return (
+	      <FlatList
+	        data={this.state.trendPosts}
+	        renderItem={ ({ item }) => <TrendPostDetail metadata={item} /> }
+	        onEndReached={ () => this.requestData(false) }
+	        onEndReachedThreshold={0}
+	        ListFooterComponent={this.loadMoreIndicator}
+	        keyExtractor={item => item.post_type + '/' + item.post.id}
+	      />
+	  );
   }
 }
