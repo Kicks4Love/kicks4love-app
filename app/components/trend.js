@@ -50,7 +50,7 @@ export default class Index extends Component {
 	      	.catch((error) => {
 	        	Alert.alert(error.message);
 	      	});
-	 }
+	}
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
