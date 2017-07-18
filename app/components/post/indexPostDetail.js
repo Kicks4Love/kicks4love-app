@@ -9,6 +9,7 @@ const WIDTH = Dimensions.get('window').width;
 
 const IndexPostDetail = ( { metadata, navigation } ) => {
   let tag;
+  console.log(metadata.post_type);
   switch (metadata.post_type) {
     case 'features':
       tag = 'Features';

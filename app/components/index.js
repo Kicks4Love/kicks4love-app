@@ -109,6 +109,7 @@ export default class Index extends Component {
         onEndReachedThreshold={0}
         ListFooterComponent={this.loadMoreIndicator}
         keyExtractor={item => item.post_type + '/' + item.post.id}
+        style={indexStyles.list}
       />
 	  );
 	}

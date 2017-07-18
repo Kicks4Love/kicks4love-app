@@ -107,17 +107,17 @@ export default class Calendar extends Component {
     let content;
     if (this.state.isLoading) {
       content = (
-        <View>
+        <ScrollView style={[calendarStyles.fullBackground, calendarStyles.whiteBackground]}>
           {monthSwiper}
           <ActivityIndicator animating={true} size="large"/>
-        </View>
+        </ScrollView>
       );
     } else if (this.state.posts.length < 1) {
       content = (
-        <View>
+        <ScrollView style={[calendarStyles.fullBackground, calendarStyles.whiteBackground]}>
           {monthSwiper}
           <Text style={calendarStyles.noData}>No release this month</Text>
-        </View>
+        </ScrollView>
       );
     } else {
       if (this.state.hasError)
@@ -132,6 +132,7 @@ export default class Calendar extends Component {
             onEndReached={ () => this.updatePostIndex() }
             onEndReachedThreshold={0}
             renderItem={ ({ item }) => <CalendarPostDetail metadata={item} /> }
+            style={calendarStyles.whiteBackground}
           />
         )
       }

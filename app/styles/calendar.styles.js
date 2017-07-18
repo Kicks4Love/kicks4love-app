@@ -1,6 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 var styles = StyleSheet.create({
+	whiteBackground: {
+		backgroundColor: '#fff'
+	},
+	fullBackground: {
+		flex: 1
+	},
 	monthSwiperContainer: {
 		alignItems: 'center'
 	},
