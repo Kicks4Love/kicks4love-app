@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, WebView, Dimensions } from 'react-native';
+import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, Share, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -10,16 +10,18 @@ const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/`;
 const WIDTH = Dimensions.get('window').width;
 
+var getPostStr = require('../helpers/getPostStr');
+
 export default class Show extends Component {  
   	static navigationOptions = ({navigation}) => ({
-    	headerTitle: navigation.state.params.postType,
+    	headerTitle: getPostStr(navigation.state.params.postType, 'title'),
     	headerLeft: (
 		    <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())} >
 		      	<Icon name="chevron-left" style={headerLeft} />
 		    </TouchableOpacity>
 		),
 		headerRight: (
-		    <TouchableOpacity>
+		    <TouchableOpacity onPress={() => navigation.state.params.shareTo('fuck', 'https://kicks4love.com/rumors/12')} >
 		      <Icon name="share" style={headerRight} />
 		    </TouchableOpacity>
 		)
@@ -32,30 +34,22 @@ export default class Show extends Component {
 	}
 
 	componentDidMount() {
+		this.props.navigation.setParams({ shareTo: this.shareTo });
     	return this.requestData(false);
   	}
 
-  	requestData(chinese) {
-  		let postType;
-  		switch (this.props.navigation.state.params.postType.toLowerCase()) {
-		    case 'features':
-		      	postType = 'featured_posts';
-		      	break;
-		    case 'trend':
-		      	postType = 'trend_posts';
-		      	break;
-		    case 'on court':
-		      	postType = 'oncourt_posts';
-		      	break;
-		    case 'street snap':
-		      	postType = 'streetsnap_posts';
-		      	break;
-		    case 'rumors':
-		      	postType = 'rumor_posts';
-		      	break;
-		}
+  	shareTo(url, title) {
+	  	Share.share({
+		    message: 'The destination for all sneaker fans and trend enthusiasts 所有球鞋热爱家和潮流脑残粉的终极平台',
+		    url: url,
+		    title: title
+	  	}, {
+	    	dialogTitle: 'Share Kicks4Love',
+	  	});
+	}
 
-	    let requestUri = `${BASE_REQUEST_URI}/${postType}/${this.props.navigation.state.params.id}`;
+  	requestData(chinese) {
+	    let requestUri = `${BASE_REQUEST_URI}/${getPostStr(this.props.navigation.state.params.postType, 'api')}/${this.props.navigation.state.params.id}`;
 	    return fetch(requestUri)
 	      	.then(response => response.json())
 	      	.then(responseJson => {
@@ -70,7 +64,7 @@ export default class Show extends Component {
   	builderHeader() {
   		return (
 	      	<View style={showStyles.header}>
-	  			<Text style={showStyles.postType}><Icon name="tags" style={{fontSize: 16}} /> {this.props.navigation.state.params.postType}</Text>
+	  			<Text style={showStyles.postType}><Icon name="tags" style={{fontSize: 16}} /> {getPostStr(this.props.navigation.state.params.postType, false)}</Text>
 	  			<View style={showStyles.currentRate}>
 	  				<Image source={this.article.score >= 1 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
 	  				<Image source={this.article.score >= 2 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />

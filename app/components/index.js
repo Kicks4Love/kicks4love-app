@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native';
 import IndexPostDetail from './post/indexPostDetail';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
@@ -56,14 +56,15 @@ export default class Index extends Component {
   }
 
 	buildPostSwiper() {
+    let self = this;
     let slider = this.state.sliderRecord.map(function (item) {
       return (
-        <View key={item.post_type + '/' + item.post.id} style={indexStyles.slide}>
-          <Image source={{uri: item.image_url}} style={indexStyles.slideImage}>
-            <View style={indexStyles.slideImageInnerFrame}/>
-          </Image>
-          <Text style={indexStyles.slideText}>{item.post.title}</Text>
-        </View>
+        <TouchableOpacity key={item.post.pointer_type + '/' + item.post.pointer_id} style={indexStyles.slide} onPress={() => self.props.navigation.navigate('Show', {postType: item.post.pointer_type, id: item.post.pointer_id})}>
+            <Image source={{uri: item.image_url}} style={indexStyles.slideImage}>
+              <View style={indexStyles.slideImageInnerFrame}/>
+            </Image>
+            <Text style={indexStyles.slideText}>{item.post.title}</Text>
+        </TouchableOpacity>
       );
     });
 

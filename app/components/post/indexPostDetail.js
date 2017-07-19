@@ -29,7 +29,7 @@ const IndexPostDetail = ( { metadata, navigation } ) => {
   }
 
   return (
-    <TouchableOpacity style={indexStyles.box} onPress={() => navigation.navigate('Show', {postType: tag, id: metadata.post.id})}>
+    <TouchableOpacity style={indexStyles.box} onPress={() => navigation.navigate('Show', {postType: metadata.post_type, id: metadata.post.id})}>
       <Image source={{uri: metadata.image_url, width: WIDTH * 0.4, height: 100}} style={indexStyles.coverImage} />
       <View style={indexStyles.boxContent}>
         <Text style={indexStyles.boxTitle}>{metadata.post.title} <Text style={indexStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
