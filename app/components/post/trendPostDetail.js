@@ -1,25 +1,22 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
-import { postContainer, coverImage, contentContainer, subInfoContainer, titleText, date, rate, rateImage, divider, contentText, more } from '../../styles/features.styles';
+import { Text, View, Image, StyleSheet, Dimensions } from 'react-native';
 
-const TrendPostDetail = ( { metadata } ) => {
-  const coverImgSrc = { uri: metadata.image_url };
+import { postContainer, postContent, postBackgroundImage, postInnerFrame, colorWhite, postContentTitle } from '../../styles/trend.styles';
+
+const WIDTH = Dimensions.get('window').width;
+
+const TrendPostDetail = ( { metadata, navigation } ) => {
   return (
-    <View style={postContainer}>
-      <View>
-        <Image source={coverImgSrc} style={coverImage}/>
-      </View>
-      <View style={contentContainer}>
-        <Text style={titleText}>{metadata.post.title}</Text>
-        <View style={subInfoContainer}>
-          <Text style={date}>{metadata.post.created_at.substring(0, 10)}</Text>
-          <Text style={rate}>{metadata.score}/5.0 <Image source={require('../../images/sneakerblack.png')} style={rateImage} /></Text>
-          <View style={divider}></View>
+    <View style={[{width: WIDTH - 30}, postContainer]}>
+      <Image source={{uri: metadata.image_url}} style={postBackgroundImage} >
+        <View style={postInnerFrame}>
+          <View style={postContent}>
+            <Text style={[colorWhite, postContentTitle]}>{metadata.post.title}</Text>
+          </View>
         </View>
-        <Text style={more}>more</Text>
-      </View>
+      </Image>
     </View>
-  )
+  );
 };
 
 export default TrendPostDetail;

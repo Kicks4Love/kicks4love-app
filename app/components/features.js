@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Text, View, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
 
-import { container, loadMore } from '../styles/features.styles';
+import { container, loadMore, flatList } from '../styles/features.styles';
 
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/featured_posts`;
@@ -66,11 +66,13 @@ export default class Index extends Component {
     let content;
     if (this.state.isLoading) {
       content = (
-        <ActivityIndicator animating={true} size="large" />
+        <View style={container}>
+          <ActivityIndicator animating={true} size="large" />
+        </View>
       );
     } else {
       if (this.state.hasError)
-        content = <Text>An error occured</Text>
+        content = <View style={container}><Text>An error occured</Text></View>
       else {
         content = (
           <FlatList
@@ -80,15 +82,12 @@ export default class Index extends Component {
             renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
             onEndReached={ () => this.requestData(false) }
             onEndReachedThreshold={0}
-            ListFooterComponent={this.loadMoreIndicator}/>
+            ListFooterComponent={this.loadMoreIndicator}
+            style={flatList}/>
         )
       }
     }
 
-    return (
-      <View style={container}>
-        { content }
-      </View>
-    );
+    return content;
   }
 }

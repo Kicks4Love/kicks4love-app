@@ -24,8 +24,7 @@ const indexStyles = StyleSheet.create({
 		position: 'absolute',
 		top: 0,
 		left: 0,
-		right: 0,
-		height: 250
+		right: 0
 	},
 	slideImageInnerFrame: {
 		backgroundColor: 'rgba(0, 0, 0, .2)',
