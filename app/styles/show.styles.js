@@ -2,12 +2,12 @@ import { StyleSheet } from 'react-native';
 
 const showStyles = StyleSheet.create({
 	container: {
-		paddingTop: 20,
 		paddingLeft: 10, 
 		paddingRight: 10,
 		backgroundColor: '#fff'
 	},
 	header: {
+		marginTop: 20,
 		marginBottom: 10
 	},
 	postType: {
@@ -57,6 +57,22 @@ const showStyles = StyleSheet.create({
 	marginContent: {
 		marginTop: 10,
 		marginBottom: 10
+	},
+	ratingContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		marginTop: 10,
+		marginBottom: 20
+	},
+	newRateImage: {
+		height: 30,
+		width: 43,
+		resizeMode: 'contain'
+	},
+	newRateText: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: '#7b8994'
 	}
 });
 
