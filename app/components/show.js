@@ -59,6 +59,7 @@ export default class Show extends Component {
 
   	requestData(chinese) {
 	    let requestUri = `${BASE_REQUEST_URI}/${getPostStr(this.props.navigation.state.params.postType, 'api')}/${this.props.navigation.state.params.id}`;
+	    
 	    return fetch(requestUri)
 	      	.then(response => response.json())
 	      	.then(responseJson => {
