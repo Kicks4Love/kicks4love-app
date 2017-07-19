@@ -4,7 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions } from 'react-navigation';
 import { headerLeft, headerRight } from '../styles/application.styles';
 import SearchPostDetail from './post/searchPostDetail';
+
 import searchStyles from '../styles/search.styles';
+
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/search`;
 
@@ -116,11 +118,8 @@ export default class Index extends Component {
 		        value={this.state.query}
 		        onSubmitEditing = {() => this.requestData(false, this.state.query)}
 		     />
-
 		     {content}
 		  </View>
-
-		 
 	    );
 	}
 }
