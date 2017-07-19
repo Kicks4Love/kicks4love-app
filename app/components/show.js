@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, Share, Dimensions } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { headerLeft, headerRight } from '../styles/application.styles';

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -49,7 +50,11 @@ export default class Drawer extends Component {
     if (this.state.currentPage == currentPage)
       this.props.navigation.navigate('DrawerClose');
     else {
-      this.props.navigation.navigate(currentPage);
+      this.props.navigation.dispatch(NavigationActions.reset(
+        {
+          index: 0,
+          actions: [ NavigationActions.navigate({routeName: currentPage}) ]
+        }));
       this.state.currentPage = currentPage;
     }
   }
