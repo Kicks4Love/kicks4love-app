@@ -13,7 +13,7 @@ const FeaturePostDetail = ( { metadata } ) => {
         <Text style={titleText}>{metadata.post.title}</Text>
         <View style={subInfoContainer}>
           <Text style={date}>{metadata.post.created_at.substring(0, 10)}</Text>
-          <Text style={rate}>{metadata.score}/5.0 <Image source={require('../../images/sneakerblack.png')} style={rateImage} /></Text>
+          <Text style={rate}>{metadata.score.toFixed(1)}/5.0 <Image source={require('../../images/sneakerblack.png')} style={rateImage} /></Text>
           <View style={divider}></View>
         </View>
         <Text style={contentText}>{`${metadata.post.content[0].substring(0, 80)}...`}</Text>

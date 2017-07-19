@@ -21,7 +21,7 @@ export default class Show extends Component {
 		    </TouchableOpacity>
 		),
 		headerRight: (
-		    <TouchableOpacity onPress={() => navigation.state.params.shareTo('fuck', 'https://kicks4love.com/rumors/12')} >
+		    <TouchableOpacity onPress={() => navigation.state.params.shareTo(navigation.state.params.title, `${CONFIG.HOST}/${getPostStr(navigation.state.params.postType, 'share')}/${navigation.state.params.id}`)} >
 		      <Icon name="share" style={headerRight} />
 		    </TouchableOpacity>
 		)
@@ -71,7 +71,7 @@ export default class Show extends Component {
 	  				<Image source={this.article.score >= 3 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
 	  				<Image source={this.article.score >= 4 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
 	  				<Image source={this.article.score == 5 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
-		  			<Text style={showStyles.currentRateVotes}>(3 votes)</Text>
+		  			<Text style={showStyles.currentRateVotes}>({this.article.vote_count} votes)</Text>
 	  			</View>
 	  			<Text style={[showStyles.marginContent, showStyles.title]}>{this.article.post.title_en}</Text>
 	  			<Text style={showStyles.author}>By <Text style={showStyles.authorName}>{this.article.author_name}</Text></Text>

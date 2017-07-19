@@ -59,7 +59,7 @@ export default class Index extends Component {
     let self = this;
     let slider = this.state.sliderRecord.map(function (item) {
       return (
-        <TouchableOpacity key={item.post.pointer_type + '/' + item.post.pointer_id} style={indexStyles.slide} onPress={() => self.props.navigation.navigate('Show', {postType: item.post.pointer_type, id: item.post.pointer_id})}>
+        <TouchableOpacity key={item.post.pointer_type + '/' + item.post.pointer_id} style={indexStyles.slide} onPress={() => self.props.navigation.navigate('Show', {postType: item.post.pointer_type, id: item.post.pointer_id, title: item.post.title})}>
             <Image source={{uri: item.image_url}} style={indexStyles.slideImage}>
               <View style={indexStyles.slideImageInnerFrame}/>
             </Image>

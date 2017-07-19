@@ -29,12 +29,12 @@ const IndexPostDetail = ( { metadata, navigation } ) => {
   }
 
   return (
-    <TouchableOpacity style={indexStyles.box} onPress={() => navigation.navigate('Show', {postType: metadata.post_type, id: metadata.post.id})}>
+    <TouchableOpacity style={indexStyles.box} onPress={() => navigation.navigate('Show', {postType: metadata.post_type, id: metadata.post.id, title: metadata.post.title})}>
       <Image source={{uri: metadata.image_url, width: WIDTH * 0.4, height: 100}} style={indexStyles.coverImage} />
       <View style={indexStyles.boxContent}>
         <Text style={indexStyles.boxTitle}>{metadata.post.title} <Text style={indexStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
         <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{tag}</Text></Text>
-        <Text style={indexStyles.boxRate}>{metadata.score}/5.0 <Image source={require('../../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
+        <Text style={indexStyles.boxRate}>{metadata.score.toFixed(1)}/5.0 <Image source={require('../../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
       </View>
     </TouchableOpacity>
   )
