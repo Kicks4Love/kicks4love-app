@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions } from 'react-navigation';
 import { headerLeft, headerRight } from '../styles/application.styles';
 import SearchPostDetail from './post/searchPostDetail';
-
 import searchStyles from '../styles/search.styles';
 
 const CONFIG = require('../config');
