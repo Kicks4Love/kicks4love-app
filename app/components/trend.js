@@ -64,10 +64,10 @@ export default class Index extends Component {
   	render() {
 	  	let content;
 		if (this.state.isLoading) {
-  			content = <ActivityIndicator animating={true} size="large" />;
+  			content = <View style={container}><ActivityIndicator animating={true} size="large" /></View>;
 		} else {
   			if (this.state.hasError)
-    			content = <Text>An error occured</Text>;
+    			content = <View style={container}><Text>An error occured</Text></View>;
   			else {
     			content = (
       				<FlatList
@@ -83,10 +83,6 @@ export default class Index extends Component {
   			}
 		}
 
-	  	return (
-	      	<View style={container}>
-        		{ content }
-      		</View>
-	  	);
+	  	return content;
   	}
 }

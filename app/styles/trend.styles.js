@@ -8,7 +8,9 @@ var styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	flatList: {
-		backgroundColor: '#fff'
+		backgroundColor: '#fff',
+		paddingLeft: 15,
+		paddingRight: 15
 	},
 	loadMore: {
 		marginTop: 5,
@@ -47,6 +49,16 @@ var styles = StyleSheet.create({
 	},
 	colorWhite: {
 		color: '#fff'
+	},
+	ratingContainer: {
+		flexDirection: 'row',
+		position: 'absolute',
+		top: 20,
+		left: 15
+	},
+	ratingImage: {
+		height: 18,
+		width: 26
 	}
 });
 
