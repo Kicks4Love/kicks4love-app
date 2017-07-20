@@ -1,10 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 const searchStyles = StyleSheet.create({
+	list: {
+		backgroundColor: '#fff',
+		height: 500
+	},
 	searchBar:{
 		height: 30,
 		borderWidth: 1,
-		borderColor: '#fff',
+		borderColor: '#f44242',
 		marginBottom: 1,
 	},
 	list: {
