@@ -24,7 +24,7 @@ export default class Index extends Component {
   	}
 
   	componentDidMount() {
-    	return this.requestData(true);
+    	return this.requestData(false);
   	}
 
   	requestData(chinese) {

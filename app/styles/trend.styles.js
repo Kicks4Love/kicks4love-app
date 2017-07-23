@@ -35,7 +35,7 @@ var styles = StyleSheet.create({
 		height: 444
 	},
 	postInnerFrame: {
-		backgroundColor: 'rgba(0, 0, 0, .2)',
+		backgroundColor: 'rgba(0, 0, 0, .3)',
 		flex: 1
 	},
 	postContent: {
@@ -45,7 +45,13 @@ var styles = StyleSheet.create({
 	},
 	postContentTitle: {
 		fontSize: 30,
-		fontWeight: '500'
+		fontWeight: '500',
+		lineHeight: 28
+	},
+	postContentDate: {
+		marginTop: 10,
+		fontSize: 22,
+		fontWeight: '300'
 	},
 	colorWhite: {
 		color: '#fff'
@@ -58,7 +64,8 @@ var styles = StyleSheet.create({
 	},
 	ratingImage: {
 		height: 18,
-		width: 26
+		width: 26,
+		marginRight: 3
 	}
 });
 
