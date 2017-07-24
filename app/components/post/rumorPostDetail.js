@@ -16,7 +16,7 @@ const RumorPostDetail = ( { metadata, navigation } ) => {
         <View style= {[postContainer]}>
               <Text style={[postContentTitle]}>{metadata.post.title.toUpperCase()}</Text>
               <Text style={[postContentDate]}>{metadata.post.created_at.slice(0, 10)} ~ {metadata.score.toFixed(1)}/5.0</Text>
-              <Text style={[titleText]}>{`${metadata.post.content[0].substring(0, 80)}...`}</Text>
+              <Text style={[titleText]}>{`${metadata.post.content[0].substring(0, 120)}...`}</Text>
               <Image source={coverImgSrc} style={coverImage}/>
         </View>
       </TouchableOpacity>
