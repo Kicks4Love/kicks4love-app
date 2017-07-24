@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, TouchableOpacity, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native';
-import IndexPostDetail from './post/indexPostDetail';
+import { TouchableOpacity, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
+import IndexPostDetail from './post/indexPostDetail';
+import Loader from './loader';
 
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
@@ -83,21 +84,12 @@ export default class Index extends Component {
 
   loadMoreIndicator = () => {
     if (this.state.noMore) return null;
-    return (
-      <View style={indexStyles.loadMore}>
-        <ActivityIndicator animating={true}/>
-      </View>
-    );
+    return <Loader type='more' text='Loading more latest posts...' />;
   }
 
 	render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={indexStyles.container}>
-          <ActivityIndicator animating={true} size="large" style={indexStyles.loader} />
-        </View>
-      );
-    }
+    if (this.state.isLoading)
+      return <Loader type='initial' />;
 
 		let postSwiper = this.buildPostSwiper();
 

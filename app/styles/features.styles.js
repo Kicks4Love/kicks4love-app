@@ -7,9 +7,6 @@ var styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: '#fff'
 	},
-	loadMore:{
-		marginBottom: 5
-	},
 	flatList: {
 		backgroundColor: '#fff'
 	},

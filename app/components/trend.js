@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Text, View, FlatList } from 'react-native';
 import TrendPostDetail from './post/trendPostDetail';
+import Loader from './loader';
 
-import { container, loadMore, loadMoreText, flatList } from '../styles/trend.styles';
+import { container, flatList } from '../styles/trend.styles';
 
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/trend_posts`;
@@ -53,19 +54,14 @@ export default class Index extends Component {
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    return (
-	      <View style={loadMore}>
-	        <ActivityIndicator animating={true}/>
-	        <Text style={loadMoreText}>Loading more Trend posts...</Text>
-	      </View>
-	    );
+	    return <Loader type='more' text='Loading more Trend posts...' />;
 	}
 
   	render() {
 	  	let content;
-		if (this.state.isLoading) {
-  			content = <View style={container}><ActivityIndicator animating={true} size="large" /></View>;
-		} else {
+		if (this.state.isLoading)
+  			content = <Loader type='initial' />;
+		else {
   			if (this.state.hasError)
     			content = <View style={container}><Text>An error occured</Text></View>;
   			else {

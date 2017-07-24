@@ -12,15 +12,6 @@ var styles = StyleSheet.create({
 		paddingLeft: 15,
 		paddingRight: 15
 	},
-	loadMore: {
-		marginTop: 5,
-		marginBottom: 5
-	},
-	loadMoreText: {
-		marginTop: 5,
-		textAlign: 'center',
-		fontSize: 12
-	},
 	postContainer: {
 		borderWidth: 3,
 		height: 450

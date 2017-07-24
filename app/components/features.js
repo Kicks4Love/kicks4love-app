@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
+import Loader from './loader';
 
 import { container, loadMore, flatList } from '../styles/features.styles';
 
@@ -55,22 +56,14 @@ export default class Index extends Component {
 
   loadMoreIndicator = () => {
     if (this.state.noMore) return null;
-    return (
-      <View style={loadMore}>
-        <ActivityIndicator animating={true}/>
-      </View>
-    );
+    return <Loader type='more' text='Loading more Features posts...' />;
   }
 
   render() {
     let content;
-    if (this.state.isLoading) {
-      content = (
-        <View style={container}>
-          <ActivityIndicator animating={true} size="large" />
-        </View>
-      );
-    } else {
+    if (this.state.isLoading)
+      content = <Loader type='initial' />;
+    else {
       if (this.state.hasError)
         content = <View style={container}><Text>An error occured</Text></View>
       else {

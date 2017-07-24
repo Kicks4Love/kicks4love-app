@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList, Dimensions, ActivityIndicator } from 'react-native';
+import { Text, View, ScrollView, FlatList, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CalendarPostDetail from './post/calendarPostDetail';
 import Swiper from 'react-native-swiper';
+import CalendarPostDetail from './post/calendarPostDetail';
+import Loader from './loader';
 
 import calendarStyles from '../styles/calendar.styles';
 
@@ -109,7 +110,7 @@ export default class Calendar extends Component {
       content = (
         <ScrollView style={[calendarStyles.fullBackground, calendarStyles.whiteBackground]}>
           {monthSwiper}
-          <ActivityIndicator animating={true} size="large"/>
+          <Loader type='initial' />
         </ScrollView>
       );
     } else if (this.state.posts.length < 1) {
