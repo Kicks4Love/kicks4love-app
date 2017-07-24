@@ -70,7 +70,7 @@ export default class Drawer extends Component {
           <TouchableOpacity><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Trend')}><Text style={styles.menuItem}>Trend</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate('Rumor')}><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
           <View style={styles.menuItemMoreContainer}>
             <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="cog" style={{fontSize: 16}} /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
             <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="envelope" style={{fontSize: 14}} /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
