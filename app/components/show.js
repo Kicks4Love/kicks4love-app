@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, Share, Dimensions } from 'react-native';
+import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, Share, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Loader from './loader';
 
 import { headerLeft, headerRight } from '../styles/application.styles';
 import showStyles from '../styles/show.styles';
@@ -100,13 +101,8 @@ export default class Show extends Component {
   	}
 
 	render() {
-		if (this.state.isLoading) {
-	      	return (
-	        	<View>
-	          		<ActivityIndicator animating={true} size="large" />
-	        	</View>
-	      	);
-	    }
+		if (this.state.isLoading) 
+			return <Loader type='initial' />
 
 	    let header = this.builderHeader();
 	    let content = [];
