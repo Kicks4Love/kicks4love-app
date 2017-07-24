@@ -7,6 +7,7 @@ import Drawer from './components/drawer';
 import Index from './components/index'
 import Features from './components/features';
 import Calendar from './components/calendar';
+import Trend from './components/trend';
 import Show from './components/show';
 
 const appStyles = require('./styles/application.styles');
@@ -30,6 +31,7 @@ const stack = StackNavigator({
   Home: { screen: Index },
   Features: { screen: Features },
   Calendar: { screen: Calendar },
+  Trend: { screen: Trend },
   Show: { screen: Show }
 }, {
   navigationOptions: navigationOptions,
@@ -38,7 +40,8 @@ const stack = StackNavigator({
 const app = DrawerNavigator({
   Home: { screen: stack },
   Features: { screen: Features },
-  Calendar: { screen: Calendar }
+  Calendar: { screen: Calendar },
+  Trend: {screen: Trend},
 }, {
   contentComponent: Drawer
 });

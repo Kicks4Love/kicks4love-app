@@ -10,6 +10,9 @@ var styles = StyleSheet.create({
 	loadMore:{
 		marginBottom: 5
 	},
+	flatList: {
+		backgroundColor: '#fff'
+	},
 	postContainer: {
 	    backgroundColor: 'white',
 	    margin: 5,

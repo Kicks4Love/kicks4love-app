@@ -49,7 +49,7 @@ export default class Index extends Component {
       .catch((error) => {
         Alert.alert(error.message);
       });
-  };
+  }
 
   componentDidMount() {
     return this.makeRemoteRequest(false);

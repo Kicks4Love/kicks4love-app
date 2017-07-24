@@ -116,7 +116,7 @@ export default class Show extends Component {
 	    	var imageIndex = paragraphIndex = 0;
 	    	for (var key in this.article.post.post_composition) {
 	    		if (this.article.post.post_composition[key].type == 'image') {
-	    			content.push(<Image key={'image' + key} source={{uri: this.article.main_images[imageIndex].url, width: WIDTH - 20, height: 0.75 * (WIDTH - 20)}} style={[showStyles.marginContent, showStyles.image]} />);
+	    			content.push(<Image key={'image' + key} source={{uri: this.article.main_images[imageIndex].url, width: WIDTH - 30, height: 0.75 * (WIDTH - 30)}} style={[showStyles.marginContent, showStyles.image]} />);
 	    			imageIndex++;
 	    		} else {
 	    			content.push(<Text key={'content' + key} style={[showStyles.marginContent, showStyles.paragraph]}>{this.article.post.content[paragraphIndex].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
@@ -129,7 +129,7 @@ export default class Show extends Component {
 	    		if (this.article.post.content[i])
 	    			content.push(<Text key={'content' + i} style={[showStyles.marginContent, showStyles.paragraph]}>{this.article.post.content[i].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
 	    		if (this.article.main_images[i])
-	    			content.push(<Image key={'image' + i} source={{uri: this.article.main_images[i].url, width: WIDTH - 20, height: 0.75 * (WIDTH - 20)}} style={[showStyles.marginContent, showStyles.image]} />);
+	    			content.push(<Image key={'image' + i} source={{uri: this.article.main_images[i].url, width: WIDTH - 30, height: 0.75 * (WIDTH - 30)}} style={[showStyles.marginContent, showStyles.image]} />);
 	    	}
 	    }
 
