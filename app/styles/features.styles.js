@@ -21,7 +21,6 @@ var styles = StyleSheet.create({
 		shadowOpacity: 0.8
 	},
 	coverImage: {
-	    resizeMode: 'cover',
 	    flex: 1,
 	    height: 200,
 	    width: null

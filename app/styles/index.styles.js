@@ -14,7 +14,6 @@ const indexStyles = StyleSheet.create({
 		flexDirection: 'column'
 	},
 	slideImage: {
-		resizeMode: 'cover',
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -57,11 +56,11 @@ const indexStyles = StyleSheet.create({
 		marginBottom: 10
 	},
 	coverImage: {
-		resizeMode: 'cover'
 	},
 	boxContent: {
 		flex: 1,
-		marginLeft: 10
+		marginLeft: 10,
+		alignItems: 'flex-end'
 	},
 	boxTitle: {
 		fontWeight: 'bold',
