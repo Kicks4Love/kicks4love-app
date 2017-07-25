@@ -15,7 +15,7 @@ const appStyles = require('./styles/application.styles');
 
 const navigationOptions = ({navigation}) => ({
   title: 'Kicks4love',
-  headerStyle: { backgroundColor: '#fff' },
+  headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' },
   headerLeft: (
     <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')} >
       <Icon name="bars" style={appStyles.headerLeft} />
