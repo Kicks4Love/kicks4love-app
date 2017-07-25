@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native'; 
+import { TouchableOpacity, Alert, Image, View, Text, ScrollView, FlatList } from 'react-native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageProgress from 'react-native-image-progress';
 import Swiper from 'react-native-swiper';
 import IndexPostDetail from './post/indexPostDetail';
 import Loader from './loader';
-import ImageP from 'react-native-image-progress';
 
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
@@ -80,13 +80,12 @@ export default class Index extends Component {
     let slider = this.state.sliderRecord.map(function (item) {
       return (
         <TouchableOpacity key={item.post.pointer_type + '/' + item.post.pointer_id} style={indexStyles.slide} onPress={() => self.props.navigation.navigate('Show', {postType: item.post.pointer_type, id: item.post.pointer_id, title: item.post.title})}>
-            <ImageP 
+            <ImageProgress 
               source={{uri: item.image_url}} 
               style={indexStyles.slideImage}
-              indicator={<Loader type='initial' />}
             >
               <View style={indexStyles.slideImageInnerFrame}/>
-            </ImageP>
+            </ImageProgress>
             <Text style={indexStyles.slideText}>{item.post.title}</Text>
         </TouchableOpacity>
       );

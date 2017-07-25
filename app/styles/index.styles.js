@@ -56,11 +56,12 @@ const indexStyles = StyleSheet.create({
 		marginBottom: 10
 	},
 	coverImage: {
+		alignItems: 'center', 
+		justifyContent: 'center'
 	},
 	boxContent: {
 		flex: 1,
-		marginLeft: 10,
-		alignItems: 'flex-end'
+		marginLeft: 10
 	},
 	boxTitle: {
 		fontWeight: 'bold',
