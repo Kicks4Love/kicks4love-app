@@ -31,7 +31,14 @@ export default class Show extends Component {
 	constructor(props) {
 	    super(props);
 	    this.article = null;
-	    this.state = { isLoading: true, newRate: 0, ratePosted: false, currentRate: 0, voteCount: 0 };
+	    this.key = this.props.navigation.state.params.postType + this.props.navigation.state.params.id;
+	    this.state = { isLoading: true, newRate: 0, hideRate: true, ratePosted: false, currentRate: 0, voteCount: 0 };
+
+	    storage.load({
+			key: this.key
+		}).catch(error => {
+			this.setState({hideRate: false});
+		});
 	}
 
 	componentDidMount() {
@@ -57,6 +64,7 @@ export default class Show extends Component {
 	        	this.article = responseJson;
 	        	this.article.post.content = chinese ? responseJson.post.content_cn : responseJson.post.content_en;
 	        	this.setState({ isLoading: false, currentRate: this.article.score, voteCount: this.article.vote_count });
+	        	storage.save({ key: this.key, data: { rated: true } });
 	      	});
   	}
 
@@ -102,9 +110,11 @@ export default class Show extends Component {
   	}
 
   	buildRating() {
+  		if (this.state.hideRate) return null;
+
   		let rateButtonText;
   		if (this.state.newRate > 0 && !this.state.ratePosted)
-  			rateButtonText = <Text style={showStyles.newRateText}>Confirm<Icon name="hand-pointer-o" style={{fontSize: 17}} /></Text>;
+  			rateButtonText = <Text style={showStyles.newRateText}>Confirm<Icon name="hand-pointer-o" size={17} /></Text>;
   		else if (this.state.ratePosted)
   			rateButtonText = <Text style={showStyles.newRateText}>Thank You~</Text>;
   		else
