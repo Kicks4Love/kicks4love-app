@@ -27,9 +27,18 @@ export default class Calendar extends Component {
       allMonth.push(new Date(copyDate));
     }
 
+    let currentIndex;
+    if (this.props.navigation.state.params && this.props.navigation.state.params.date) {
+      var date = this.props.navigation.state.params.date;
+      currentIndex = allMonth.findIndex(function(d) {
+        return (d.getFullYear() + '_' + d.getMonth()) == (date.getFullYear() + '_' + date.getMonth());
+      });
+      if (currentIndex < 0) currentIndex = 3;
+    }
+
     this.state = {
       isLoading: true,
-      currentMonthIndex: 3,
+      currentMonthIndex: currentIndex || 3,
       currentPostIndex: 3,
       hasError: false,
       months: allMonth,
@@ -59,10 +68,7 @@ export default class Calendar extends Component {
           });
         });
         newPosts.sort(function(a,b) { return a.date - b.date; });
-        this.setState({
-          posts: newPosts,
-          isLoading: false
-        });
+        this.setState({ posts: newPosts, isLoading: false });
       });
   }
 

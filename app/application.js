@@ -8,20 +8,21 @@ import Index from './components/index'
 import Features from './components/features';
 import Calendar from './components/calendar';
 import Trend from './components/trend';
+import Search from './components/search';
 import Show from './components/show';
 
 const appStyles = require('./styles/application.styles');
 
 const navigationOptions = ({navigation}) => ({
   title: 'Kicks4love',
-  headerStyle: { backgroundColor: '#fff' },
+  headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' },
   headerLeft: (
     <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')} >
       <Icon name="bars" style={appStyles.headerLeft} />
     </TouchableOpacity>
   ),
   headerRight: (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
       <Icon name="search" style={appStyles.headerRight} />
     </TouchableOpacity>
   )
@@ -32,7 +33,8 @@ const stack = StackNavigator({
   Features: { screen: Features },
   Calendar: { screen: Calendar },
   Trend: { screen: Trend },
-  Show: { screen: Show }
+  Show: { screen: Show },
+  Search: {screen: Search }
 }, {
   navigationOptions: navigationOptions,
 });

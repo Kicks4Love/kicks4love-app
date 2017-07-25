@@ -85,7 +85,7 @@ export default class Show extends Component {
   	builderHeader() {
   		return (
 	      	<View style={showStyles.header}>
-	  			<Text style={showStyles.postType}><Icon name="tags" size={16} /> {getPostStr(this.props.navigation.state.params.postType, false)}</Text>
+	  			<Text style={showStyles.postType}><Icon name="tags" size={16} /> {getPostStr(this.props.navigation.state.params.postType, 'title')}</Text>
 	  			<View style={showStyles.currentRate}>
 	  				<Image source={this.state.currentRate >= 1 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
 	  				<Image source={this.state.currentRate >= 2 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />

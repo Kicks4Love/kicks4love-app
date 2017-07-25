@@ -43,7 +43,7 @@ module.exports = function(postType, requestType) {
 	    	else
 	    		postStr = 'Street Snap';
 	      	break;
-	    default:
+	    case 'rumors':
 	      	if (requestType == 'share')
 	    		postStr = 'rumors';
 	    	else if (requestType == 'api')
@@ -53,6 +53,14 @@ module.exports = function(postType, requestType) {
 	    	else
 	    		postStr = 'Rumors';
 	      	break;
+	    default: 
+	    	if (requestType == 'share')
+	    		postStr = 'calendar';
+	    	else if (requestType == 'api')
+	    		postStr = 'calendar_posts';
+	    	else
+	    		postStr = 'Calendar';
+	    	break;
 	}
 	return postStr;
 }

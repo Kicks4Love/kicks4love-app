@@ -52,6 +52,24 @@ export default class Index extends Component {
       });
   }
 
+  loadMoreIndicator = () => {
+    let shouldShow = this.state.moreIsLoading && !this.state.no_more;
+    if (shouldShow) {
+      return (
+        <View 
+          style={{
+            paddingVertical: 20,
+            borderTopWidth: 1,
+            borderColor: "#CED0CE"
+          }}
+        >
+          <ActivityIndicator animating={true}/>
+        </View>
+      );
+    }
+    else return null;
+  }
+
   componentDidMount() {
     return this.makeRemoteRequest(false);
   }
