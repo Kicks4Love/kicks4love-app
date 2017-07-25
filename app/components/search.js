@@ -110,6 +110,7 @@ export default class Index extends Component {
 				        onChangeText={(text) => this.state.query = text}
 				        onSubmitEditing={() => this.requestData(false, true)}
 				        placeholder='What are you looking for ?'
+								underlineColorAndroid='transparent'
 				    />
 				</View>
 		     	{content}
