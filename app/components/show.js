@@ -23,7 +23,7 @@ export default class Show extends Component {
 		),
 		headerRight: (
 		    <TouchableOpacity onPress={() => navigation.state.params.shareTo(navigation.state.params.title, `${CONFIG.HOST}/${getPostStr(navigation.state.params.postType, 'share')}/${navigation.state.params.id}`)} >
-		      <Icon name="share" style={headerRight} />
+		      	<Icon name="share" style={headerRight} />
 		    </TouchableOpacity>
 		)
   	});
@@ -31,7 +31,7 @@ export default class Show extends Component {
 	constructor(props) {
 	    super(props);
 	    this.article = null;
-	    this.state = { isLoading: true, newRate: 0 };
+	    this.state = { isLoading: true, newRate: 0, ratePosted: false, currentRate: 0, voteCount: 0 };
 	}
 
 	componentDidMount() {
@@ -56,23 +56,43 @@ export default class Show extends Component {
 	      	.then(responseJson => {
 	        	this.article = responseJson;
 	        	this.article.post.content = chinese ? responseJson.post.content_cn : responseJson.post.content_en;
-	        	this.setState({
-	        		isLoading: false
-	        	});
+	        	this.setState({ isLoading: false, currentRate: this.article.score, voteCount: this.article.vote_count });
 	      	});
+  	}
+
+  	postRate() {
+  		if (this.state.ratePosted) return null;
+  		this.setState({ratePosted: true});
+
+  		fetch(`${BASE_REQUEST_URI}/rate`, {
+		  	method: 'POST',
+		  	headers: {
+		    	'Accept': 'application/json',
+		    	'Content-Type': 'application/json',
+		  	},
+		  	body: JSON.stringify({
+		    	score: this.state.newRate,
+		    	post_type: getPostStr(this.props.navigation.state.params.postType, 'class'),
+		    	id: this.props.navigation.state.params.id
+		  	})
+		})
+		.then((response) => response.json())
+		.then((responseJson) => {
+  			this.setState({currentRate: responseJson.score, voteCount: responseJson.count});
+		});
   	}
 
   	builderHeader() {
   		return (
 	      	<View style={showStyles.header}>
-	  			<Text style={showStyles.postType}><Icon name="tags" style={{fontSize: 16}} /> {getPostStr(this.props.navigation.state.params.postType, false)}</Text>
+	  			<Text style={showStyles.postType}><Icon name="tags" size={16} /> {getPostStr(this.props.navigation.state.params.postType, false)}</Text>
 	  			<View style={showStyles.currentRate}>
-	  				<Image source={this.article.score >= 1 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
-	  				<Image source={this.article.score >= 2 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
-	  				<Image source={this.article.score >= 3 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
-	  				<Image source={this.article.score >= 4 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
-	  				<Image source={this.article.score == 5 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
-		  			<Text style={showStyles.currentRateVotes}>({this.article.vote_count} votes)</Text>
+	  				<Image source={this.state.currentRate >= 1 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
+	  				<Image source={this.state.currentRate >= 2 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
+	  				<Image source={this.state.currentRate >= 3 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
+	  				<Image source={this.state.currentRate >= 4 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
+	  				<Image source={this.state.currentRate == 5 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
+		  			<Text style={showStyles.currentRateVotes}>({this.state.voteCount} votes)</Text>
 	  			</View>
 	  			<Text style={[showStyles.marginContent, showStyles.title]}>{this.article.post.title_en}</Text>
 	  			<Text style={showStyles.author}>By <Text style={showStyles.authorName}>{this.article.author_name}</Text></Text>
@@ -83,19 +103,21 @@ export default class Show extends Component {
 
   	buildRating() {
   		let rateButtonText;
-  		if (this.state.newRate > 0)
-  			rateButtonText = <Text style={showStyles.newRateText}>Confirm<Icon name="hand-pointer-o" style={{fontSize: 17}} /></Text>
+  		if (this.state.newRate > 0 && !this.state.ratePosted)
+  			rateButtonText = <Text style={showStyles.newRateText}>Confirm<Icon name="hand-pointer-o" style={{fontSize: 17}} /></Text>;
+  		else if (this.state.ratePosted)
+  			rateButtonText = <Text style={showStyles.newRateText}>Thank You~</Text>;
   		else
-  			rateButtonText = <Text style={showStyles.newRateText}>Rate it!</Text>
+  			rateButtonText = <Text style={showStyles.newRateText}>Rate it!</Text>;
 
   		return (
   			<View style={showStyles.ratingContainer}>
-  				<TouchableWithoutFeedback onPress={() => this.setState({newRate: 1})}><Image source={this.state.newRate >= 1 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
-  				<TouchableWithoutFeedback onPress={() => this.setState({newRate: 2})}><Image source={this.state.newRate >= 2 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
-  				<TouchableWithoutFeedback onPress={() => this.setState({newRate: 3})}><Image source={this.state.newRate >= 3 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
-  				<TouchableWithoutFeedback onPress={() => this.setState({newRate: 4})}><Image source={this.state.newRate >= 4 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
-	  			<TouchableWithoutFeedback onPress={() => this.setState({newRate: 5})}><Image source={this.state.newRate == 5 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
-		  		<TouchableOpacity>{rateButtonText}</TouchableOpacity>
+  				<TouchableWithoutFeedback onPress={() => this.state.ratePosted ? null : this.setState({newRate: 1})}><Image source={this.state.newRate >= 1 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
+  				<TouchableWithoutFeedback onPress={() => this.state.ratePosted ? null : this.setState({newRate: 2})}><Image source={this.state.newRate >= 2 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
+  				<TouchableWithoutFeedback onPress={() => this.state.ratePosted ? null : this.setState({newRate: 3})}><Image source={this.state.newRate >= 3 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
+  				<TouchableWithoutFeedback onPress={() => this.state.ratePosted ? null : this.setState({newRate: 4})}><Image source={this.state.newRate >= 4 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
+	  			<TouchableWithoutFeedback onPress={() => this.state.ratePosted ? null : this.setState({newRate: 5})}><Image source={this.state.newRate == 5 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.newRateImage} /></TouchableWithoutFeedback>
+		  		<TouchableOpacity onPress={() => this.postRate()}>{rateButtonText}</TouchableOpacity>
   			</View>
   		);
   	}

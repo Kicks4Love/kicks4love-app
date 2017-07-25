@@ -6,6 +6,8 @@ module.exports = function(postType, requestType) {
 	    		postStr = 'features';
 	    	else if (requestType == 'api')
 	    		postStr = 'featured_posts';
+	    	else if (requestType == 'class')
+	    		postStr = 'FeaturePost';
 	    	else
 	    		postStr = 'Features';
 	      	break;
@@ -14,6 +16,8 @@ module.exports = function(postType, requestType) {
 	    		postStr = 'trend';
 	    	else if (requestType == 'api')
 	    		postStr = 'trend_posts';
+	    	else if (requestType == 'class')
+	    		postStr = 'TrendPost';
 	    	else
 	    		postStr = 'Trend';
 	      	break;
@@ -23,6 +27,8 @@ module.exports = function(postType, requestType) {
 	    		postStr = 'oncourt';
 	    	else if (requestType == 'api')
 	    		postStr = 'oncourt_posts';
+	    	else if (requestType == 'class')
+	    		postStr = 'OnCourtPost';
 	    	else
 	    		postStr = 'On Court';
 	      	break;
@@ -32,6 +38,8 @@ module.exports = function(postType, requestType) {
 	    		postStr = 'streetsnap';
 	    	else if (requestType == 'api')
 	    		postStr = 'streetsnap_posts';
+	    	else if (requestType == 'class')
+	    		postStr = 'StreetSnapPost';
 	    	else
 	    		postStr = 'Street Snap';
 	      	break;
@@ -40,6 +48,8 @@ module.exports = function(postType, requestType) {
 	    		postStr = 'rumors';
 	    	else if (requestType == 'api')
 	    		postStr = 'rumor_posts';
+	    	else if (requestType == 'class')
+	    		postStr = 'RumorPost';
 	    	else
 	    		postStr = 'Rumors';
 	      	break;
