@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import Storage from 'react-native-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Drawer from './components/drawer';
@@ -12,6 +13,13 @@ import Search from './components/search';
 import Show from './components/show';
 
 const appStyles = require('./styles/application.styles');
+
+var storage = new Storage({
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true
+});
+global.storage = storage;
 
 const navigationOptions = ({navigation}) => ({
   title: 'Kicks4love',
