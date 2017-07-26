@@ -62,21 +62,17 @@ export default class Index extends Component {
 		if (this.state.isLoading)
   			content = <Loader type='initial' />;
 		else {
-  			if (this.state.hasError)
-    			content = <View style={container}><Text>An error occured</Text></View>;
-  			else {
-    			content = (
-      				<FlatList
-			            data={this.state.trendPosts}
-			            keyExtractor={item => item.post.id}
-			            extraData={this.state}
-			            renderItem={ ({ item }) => <TrendPostDetail metadata={item} /> }
-			            onEndReached={ () => this.requestData(false) }
-			            onEndReachedThreshold={0}
-			            ListFooterComponent={this.loadMoreIndicator}
-			            style={flatList}/>
-    			);
-  			}
+			content = (
+  				<FlatList
+		            data={this.state.trendPosts}
+		            keyExtractor={item => item.post.id}
+		            extraData={this.state}
+		            renderItem={ ({ item }) => <TrendPostDetail metadata={item} /> }
+		            onEndReached={ () => this.requestData(false) }
+		            onEndReachedThreshold={0}
+		            ListFooterComponent={this.loadMoreIndicator}
+		            style={flatList}/>
+			);
 		}
 
 	  	return content;

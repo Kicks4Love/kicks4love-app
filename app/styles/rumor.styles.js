@@ -1,48 +1,65 @@
 import { StyleSheet } from 'react-native';
 
 var styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#fff',
+	whiteBackground: {
+		backgroundColor: '#fff'
 	},
-	flatList: {
-		backgroundColor: '#fff',
+	fullBackground: {
+		flex: 1
+	},
+	header: {
+		paddingTop: 12,
+		paddingBottom: 12,
+		borderColor: '#2f2f2f',
+		borderTopWidth: 2,
+		borderBottomWidth: 2
+	},
+	marginContent: {
+		marginTop: 10,
+		marginBottom: 10
+	},
+	headerTitle: {
+		textAlign: 'center',
 	},
 	postContainer: {
-		borderWidth: 3,
-		height: 450
+		margin: 10
 	},
 	postContentTitle: {
-		textAlign:'center',
-		textDecorationColor: '#000000',
-		fontSize: 30,
-		fontWeight: '500',
-		lineHeight: 28
+		fontWeight: 'bold',
+		textAlign: 'center',
+		paddingTop: 10,
+		paddingBottom: 10,
+		fontSize: 22,
+		color: '#333'
 	},
-	postContentDate: {
-		borderRadius: 4,
-		borderWidth: 4,
-		textAlign:'center',
-		marginTop: 15,
-		fontSize: 18,
-		fontWeight: '500'
+	subtitleContainer: {
+		alignItems: 'center',
+		marginTop: 5,
+		marginBottom: 5
 	},
-	titleText:{
-	    fontSize: 26,
-	    textAlign: 'left',
-	    marginBottom: 10
+	postContentSubtitle: {
+		width: 200,
+		borderColor: '#2f2f2f',
+		borderTopWidth: 1,
+		borderBottomWidth: 1,
+		paddingTop: 6,
+		paddingBottom: 6,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
-	coverImage:{
-		top: 8,
-		height: 200,
-	    width: null
+	date: {
+		fontWeight: 'bold',
+		fontSize: 12,
+		color: '#333'
 	},
-	ratingImage: {
-		height: 18,
-		width: 26,
-		marginRight: 3
+	rateImage: {
+		height: 15,
+		width: 20,
+		resizeMode: 'contain',
+	},
+	postContentPreview: {
+		color: '#333'
 	}
 });
 
