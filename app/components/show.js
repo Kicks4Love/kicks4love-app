@@ -65,7 +65,6 @@ export default class Show extends Component {
 	        	this.article = responseJson;
 	        	this.article.post.content = chinese ? responseJson.post.content_cn : responseJson.post.content_en;
 	        	this.setState({ isLoading: false, currentRate: this.article.score, voteCount: this.article.vote_count, mainImagesRatio: new Array(this.article.main_images.length).fill(0.75) });
-	        	storage.save({ key: this.key, data: { rated: true } });
 
 		        let self = this;
 		        this.article.main_images.forEach(function(item, index) {
@@ -97,6 +96,7 @@ export default class Show extends Component {
 		.then((response) => response.json())
 		.then((responseJson) => {
   			this.setState({currentRate: responseJson.score, voteCount: responseJson.count});
+  			storage.save({ key: this.key, data: { rated: true } });
 		});
   	}
 
