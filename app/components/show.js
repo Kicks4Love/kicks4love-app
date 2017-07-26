@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, Share, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageProgress from 'react-native-image-progress';
 import Loader from './loader';
 
 import { headerLeft, headerRight } from '../styles/application.styles';
@@ -32,7 +33,7 @@ export default class Show extends Component {
 	    super(props);
 	    this.article = null;
 	    this.key = this.props.navigation.state.params.postType + this.props.navigation.state.params.id;
-	    this.state = { isLoading: true, newRate: 0, hideRate: true, ratePosted: false, currentRate: 0, voteCount: 0 };
+	    this.state = { isLoading: true, newRate: 0, hideRate: true, ratePosted: false, currentRate: 0, voteCount: 0, mainImagesRatio: [] };
 
 	    storage.load({
 			key: this.key
@@ -63,8 +64,17 @@ export default class Show extends Component {
 	      	.then(responseJson => {
 	        	this.article = responseJson;
 	        	this.article.post.content = chinese ? responseJson.post.content_cn : responseJson.post.content_en;
-	        	this.setState({ isLoading: false, currentRate: this.article.score, voteCount: this.article.vote_count });
+	        	this.setState({ isLoading: false, currentRate: this.article.score, voteCount: this.article.vote_count, mainImagesRatio: new Array(this.article.main_images.length).fill(0.75) });
 	        	storage.save({ key: this.key, data: { rated: true } });
+
+		        let self = this;
+		        this.article.main_images.forEach(function(item, index) {
+		        	Image.getSize(item.url, (srcWidth, srcHeight) => {
+	    				var mainImagesRatioCopy = self.state.mainImagesRatio;
+	    				mainImagesRatioCopy[index] = srcHeight/srcWidth;
+				    	self.setState({mainImagesRatio: mainImagesRatioCopy});
+					});
+		        });
 	      	});
   	}
 
@@ -144,7 +154,11 @@ export default class Show extends Component {
 	    	var imageIndex = paragraphIndex = 0;
 	    	for (var key in this.article.post.post_composition) {
 	    		if (this.article.post.post_composition[key].type == 'image') {
-	    			content.push(<Image key={'image' + key} source={{uri: this.article.main_images[imageIndex].url, width: WIDTH - 30, height: 0.75 * (WIDTH - 30)}} style={[showStyles.marginContent, showStyles.image]} />);
+	    			content.push(
+	    				<View key={'image' + key} style={[{width: WIDTH - 30, height: this.state.mainImagesRatio[imageIndex] * (WIDTH - 30)}, showStyles.image, showStyles.marginContent]}>
+	    					<ImageProgress source={{uri: this.article.main_images[imageIndex].url}} style={{width: WIDTH - 30, height: this.state.mainImagesRatio[imageIndex] * (WIDTH - 30)}} />
+	    				</View>
+	    			);
 	    			imageIndex++;
 	    		} else {
 	    			content.push(<Text key={'content' + key} style={[showStyles.marginContent, showStyles.paragraph]}>{this.article.post.content[paragraphIndex].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
@@ -154,10 +168,15 @@ export default class Show extends Component {
 	    } else {
 	    	var max = Math.max(this.article.post.content.length, this.article.main_images.length);
 	    	for (var i = 0; i < max; i++) {
-	    		if (this.article.post.content[i])
+	    		if (this.article.post.content[i]) 
 	    			content.push(<Text key={'content' + i} style={[showStyles.marginContent, showStyles.paragraph]}>{this.article.post.content[i].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
-	    		if (this.article.main_images[i])
-	    			content.push(<Image key={'image' + i} source={{uri: this.article.main_images[i].url, width: WIDTH - 30, height: 0.75 * (WIDTH - 30)}} style={[showStyles.marginContent, showStyles.image]} />);
+	    		if (this.article.main_images[i]) {
+	    			content.push(
+	    				<View key={'image' + i} style={[{width: WIDTH - 30, height: this.state.mainImagesRatio[i] * (WIDTH - 30)}, showStyles.image, showStyles.marginContent]}>
+	    					<ImageProgress source={{uri: this.article.main_images[i].url}} style={{width: WIDTH - 30, height: this.state.mainImagesRatio[i] * (WIDTH - 30)}} />
+	    				</View>
+	    			);
+	    		}
 	    	}
 	    }
 

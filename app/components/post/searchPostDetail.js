@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { withNavigation, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageProgress from 'react-native-image-progress';
 
 import searchStyles from '../../styles/search.styles';
 
@@ -27,7 +28,9 @@ const SearchPostDetail = ( { metadata, navigation } ) => {
 
   return (
   	<TouchableOpacity style={searchStyles.box} onPress={() => navigate(metadata, navigation)}>
-      <Image source={{uri: metadata.image_url, width: WIDTH * 0.4, height: 100}} style={searchStyles.coverImage} />
+      <View style={[{width: WIDTH * 0.4, height: 100}, searchStyles.coverImage]}>
+        <ImageProgress source={{uri: metadata.image_url}} style={{width: WIDTH * 0.4, height: 100}} />
+      </View>
       <View style={searchStyles.boxContent}>
         <Text style={searchStyles.boxTitle}>{metadata.post.title_en} <Text style={searchStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
         <Text style={searchStyles.boxPostType}><Icon name="tags" /><Text style={searchStyles.boxPostTypeText}>{getPostStr(metadata.post_type, 'title')}</Text></Text>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
+import ImageProgress from 'react-native-image-progress';
 
 import calendarStyles from '../../styles/calendar.styles';
 
@@ -26,12 +27,12 @@ class CalendarPostDetail extends Component {
     return (
       <View style={calendarStyles.container}>
         <TouchableHighlight onPress={this.toggleCover.bind(this)}>
-          <Image source={{uri: this.props.metadata.image}} style={calendarStyles.coverImage}>
+          <ImageProgress source={{uri: this.props.metadata.image}} style={calendarStyles.coverImage}>
             <View style={[calendarStyles.cover, !this.state.pressed && calendarStyles.coverRemoved]}>
               <Text style={[calendarStyles.coverTitle, !this.state.pressed && calendarStyles.coverRemoved]}>{this.props.metadata.title}</Text>
               <Text style={[calendarStyles.coverPrice, !this.state.pressed && calendarStyles.coverRemoved]}>$ {priceStr}</Text>
             </View>
-          </Image>
+          </ImageProgress>
         </TouchableHighlight>
         <Text style={calendarStyles.date}>{this.formatNumber(this.props.metadata.date.getMonth() + 1) + '/' + this.formatNumber(this.props.metadata.date.getDate())}</Text>
       </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Alert, View, Text, Image, ScrollView, FlatList } from 'react-native'; 
+import { TouchableOpacity, Alert, Image, View, Text, ScrollView, FlatList } from 'react-native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import IndexPostDetail from './post/indexPostDetail';

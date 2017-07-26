@@ -33,6 +33,10 @@ const showStyles = StyleSheet.create({
 		right: 0,
 		bottom: -15
 	},
+	image: {
+		alignItems: 'center', 
+		justifyContent: 'center'
+	},
 	title: {
 		fontSize: 25,
 		fontWeight: 'bold'
@@ -50,9 +54,6 @@ const showStyles = StyleSheet.create({
 	},
 	paragraph: {
 		fontSize: 16
-	},
-	image: {
-		resizeMode: 'cover',
 	},
 	marginContent: {
 		marginTop: 10,

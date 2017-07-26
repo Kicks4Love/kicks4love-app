@@ -34,7 +34,6 @@ var styles = StyleSheet.create({
 	    marginBottom: 10
 	},
 	coverImage: {
-	    resizeMode: 'cover',
 	    flex: 1,
 	    height: 220,
 	    width: null

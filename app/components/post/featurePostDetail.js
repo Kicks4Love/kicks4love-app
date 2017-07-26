@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import ImageProgress from 'react-native-image-progress';
+
 import { postContainer, coverImage, contentContainer, subInfoContainer, titleText, date, rate, rateImage, divider, contentText, more } from '../../styles/features.styles';
 
 const FeaturePostDetail = ( { metadata, navigation } ) => {
@@ -8,7 +10,7 @@ const FeaturePostDetail = ( { metadata, navigation } ) => {
   return (
     <View style={postContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}>
-        <Image source={coverImgSrc} style={coverImage}/>
+        <ImageProgress source={coverImgSrc} style={coverImage} />
       </TouchableOpacity>
       <View style={contentContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={titleText}>{metadata.post.title}</Text></TouchableOpacity>

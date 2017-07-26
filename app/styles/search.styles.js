@@ -43,7 +43,8 @@ const searchStyles = StyleSheet.create({
 		marginBottom: 10
 	},
 	coverImage: {
-		resizeMode: 'cover'
+		alignItems: 'center', 
+		justifyContent: 'center'
 	},
 	boxContent: {
 		flex: 1,
