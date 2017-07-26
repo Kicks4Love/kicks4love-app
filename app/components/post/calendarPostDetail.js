@@ -27,7 +27,7 @@ class CalendarPostDetail extends Component {
     return (
       <View style={calendarStyles.container}>
         <TouchableHighlight onPress={this.toggleCover.bind(this)}>
-          <ImageProgress source={{uri: 'https://newsneakernews-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/nike-flyknit-trainer-white-black-global-release-date.jpg'}} style={calendarStyles.coverImage}>
+          <ImageProgress source={{uri: this.props.metadata.image}} style={calendarStyles.coverImage}>
             <View style={[calendarStyles.cover, !this.state.pressed && calendarStyles.coverRemoved]}>
               <Text style={[calendarStyles.coverTitle, !this.state.pressed && calendarStyles.coverRemoved]}>{this.props.metadata.title}</Text>
               <Text style={[calendarStyles.coverPrice, !this.state.pressed && calendarStyles.coverRemoved]}>$ {priceStr}</Text>
