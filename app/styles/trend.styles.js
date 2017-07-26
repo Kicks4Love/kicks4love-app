@@ -17,6 +17,7 @@ var styles = StyleSheet.create({
 		height: 450
 	},
 	postBackgroundImage: {
+		resizeMode: 'cover',
 		position: 'absolute',
 		top: 0,
 		left: 0,

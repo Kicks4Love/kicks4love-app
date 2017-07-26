@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import ImageProgress from 'react-native-image-progress';
 import Loader from '../loader';
 import { withNavigation } from 'react-navigation';
 import { postContainer, postContent, postBackgroundImage, postInnerFrame, colorWhite, postContentTitle, ratingContainer, ratingImage, postContentDate } from '../../styles/trend.styles';
@@ -14,7 +13,7 @@ const TrendPostDetail = ( { metadata, navigation } ) => {
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'trend', id: metadata.post.id, title: metadata.post.title})} style={[{width: WIDTH - 30}, postContainer]}>
-      <ImageProgress source={{uri: metadata.image_url}} style={postBackgroundImage}>
+      <Image source={{uri: metadata.image_url}} style={postBackgroundImage}>
         <View style={postInnerFrame}>
           <View style={ratingContainer}>
             {rating}
@@ -24,7 +23,7 @@ const TrendPostDetail = ( { metadata, navigation } ) => {
             <Text style={[colorWhite, postContentDate]}>{metadata.post.created_at.slice(0, 10)}</Text>
           </View>
         </View>
-      </ImageProgress>
+      </Image>
     </TouchableOpacity>
   );
 };
