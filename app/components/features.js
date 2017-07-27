@@ -3,7 +3,7 @@ import { Text, View, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
 import Loader from './loader';
 
-import { container, loadMore, flatList } from '../styles/features.styles';
+import { flatList } from '../styles/features.styles';
 
 const CONFIG = require('../config');
 const API_KEY = CONFIG.KEY;
@@ -20,7 +20,6 @@ export default class Features extends Component {
       isLoading: true,
       nextPage: 0,
       noMore: false,
-      hasError: false,
       moreIsLoading: false,
       featuredPosts: []
     }
@@ -55,7 +54,7 @@ export default class Features extends Component {
         noMore: responseJson.no_more
       }) );
     }).catch(error => {
-      this.setState({isLoading: false, hasError: true});
+      Alert.alert(error.message);
     });
   }
 
@@ -69,21 +68,17 @@ export default class Features extends Component {
     if (this.state.isLoading)
       content = <Loader type='initial' />;
     else {
-      if (this.state.hasError)
-        content = <View style={container}><Text>An error occured</Text></View>
-      else {
-        content = (
-          <FlatList
-            data={this.state.featuredPosts}
-            keyExtractor={item => item.post.id}
-            extraData={this.state}
-            renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
-            onEndReached={ () => this.requestData(false) }
-            onEndReachedThreshold={0}
-            ListFooterComponent={this.loadMoreIndicator}
-            style={flatList}/>
-        )
-      }
+      content = (
+        <FlatList
+          data={this.state.featuredPosts}
+          keyExtractor={item => item.post.id}
+          extraData={this.state}
+          renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
+          onEndReached={ () => this.requestData(false) }
+          onEndReachedThreshold={0}
+          ListFooterComponent={this.loadMoreIndicator}
+          style={flatList}/>
+      );
     }
 
     return content;

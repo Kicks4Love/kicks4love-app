@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, View, FlatList } from 'react-native';
-import OncourtPostDetail from './post/oncourtPostDetail';
+import { TouchableOpacity, Alert, Text, View, FlatList } from 'react-native';
+import OnCourtPostDetail from './post/oncourtPostDetail';
+import Loader from './loader';
+
+import { flatList } from '../styles/oncourt.styles';
 
 import { HOST } from '../config';
 const BASE_REQUEST_URI = `${HOST}/api/v0/oncourt_posts`;
@@ -16,7 +19,6 @@ export default class OnCourt extends Component {
       isLoading: true,
       nextPage: 0,
       noMore: false,
-      hasError: false,
       moreIsLoading: false,
       oncourtPosts: []
     }
@@ -33,62 +35,47 @@ export default class OnCourt extends Component {
     if (newNextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'cn' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
-    console.log(`requesting with ${request_uri}`);
+    
     return fetch(request_uri)
-    .then(response => {
-      if (response.ok) return response.json()
-      throw new Error(`Unsuccessful response with status: ${response.status}`);
-    }).then(responseJson => {
-      this.setState( (prevState) => ({
-        oncourtPosts: prevState.oncourtPosts.concat(responseJson.posts),
-        nextPage: newNextPage,
-        isLoading: false,
-        moreIsLoading: false,
-        noMore: responseJson.no_more
-      }) );
-    }).catch(error => {
-      this.setState({isLoading: false, hasError: true});
-    });
+      .then(response => {
+        if (response.ok) return response.json()
+        throw new Error(`Unsuccessful response with status: ${response.status}`);
+      }).then(responseJson => {
+        this.setState( (prevState) => ({
+          oncourtPosts: prevState.oncourtPosts.concat(responseJson.posts),
+          nextPage: newNextPage,
+          isLoading: false,
+          moreIsLoading: false,
+          noMore: responseJson.no_more
+        }) );
+      }).catch((error) => {
+        Alert.alert(error.message);
+      });
   }
 
   loadMoreIndicator = () => {
     if (this.state.noMore) return null;
-    return (
-      <View>
-        <ActivityIndicator animating={true} color={'#a3a3c2'}/>
-      </View>
-    );
+    return <Loader type='more' text='Loading more On Court posts...' />;
   }
 
   render() {
     let content;
-    if (this.state.isLoading) {
+    if (this.state.isLoading)
+      content = <Loader type='initial' />;
+    else {
       content = (
-        <ActivityIndicator animating={true} size="large" color={'#a3a3c2'}/>
+        <FlatList
+          data={this.state.oncourtPosts}
+          keyExtractor={item => item.post.id}
+          extraData={this.state}
+          renderItem={ ({ item }) => <OnCourtPostDetail metadata={item} /> }
+          onEndReached={ () => this.requestData(false) }
+          onEndReachedThreshold={0}
+          ListFooterComponent={this.loadMoreIndicator}
+          style={flatList}/>
       );
-    } else {
-      if (this.state.hasError)
-        content = <Text>An error occured</Text>
-      else {
-        console.log("loaded");
-        content = (
-          <FlatList
-            data={this.state.oncourtPosts}
-            keyExtractor={item => item.post.id}
-            extraData={this.state}
-            renderItem={ ({ item }) => <OncourtPostDetail metadata={item} /> }
-            onEndReached={ () => this.requestData(false) }
-            onEndReachedThreshold={0}
-            ListFooterComponent={this.loadMoreIndicator}/>
-        )
-      }
     }
 
-    return (
-      <View>
-        { content }
-      </View>
-    );
+    return content;
   }
-
 }

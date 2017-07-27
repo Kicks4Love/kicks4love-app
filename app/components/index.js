@@ -30,8 +30,9 @@ export default class Index extends Component {
   }
 
   makeRemoteRequest = (chinese) => {
-    let nextPage = this.state.page + 1;
     if (this.state.noMore || this.state.moreIsLoading) return null;
+
+    let nextPage = this.state.page + 1;
     if (nextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'zh' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;

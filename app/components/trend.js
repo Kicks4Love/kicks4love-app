@@ -3,7 +3,7 @@ import { ActivityIndicator, Alert, Text, View, FlatList } from 'react-native';
 import TrendPostDetail from './post/trendPostDetail';
 import Loader from './loader';
 
-import { container, flatList } from '../styles/trend.styles';
+import { flatList } from '../styles/trend.styles';
 
 const CONFIG = require('../config');
 const API_KEY = CONFIG.KEY;
