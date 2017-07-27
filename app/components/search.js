@@ -73,7 +73,7 @@ export default class Index extends Component {
 		        	moreIsLoading: false,
 		      		noMore: responseJson.no_more
 	      		}));
-	    	})
+	    	});
   	}
 
 	render() {	

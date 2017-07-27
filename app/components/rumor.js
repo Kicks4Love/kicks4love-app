@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert, Text, View, FlatList } from 'react-native';
-import TrendPostDetail from './post/trendPostDetail';
+import { ActivityIndicator, Alert, Text, View, ScrollView, FlatList } from 'react-native';
+import RumorPostDetail from './post/rumorPostDetail';
 import Loader from './loader';
 
-import { container, flatList } from '../styles/trend.styles';
+import rumorStyles from '../styles/rumor.styles';
 
 const CONFIG = require('../config');
-const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/trend_posts`;
+const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/rumor_posts`;
 
 export default class Index extends Component {
 	static navigationOptions = {
-    	headerTitle: 'Trend'
+    	headerTitle: 'Rumors'
   	}
 
 	constructor(props) {
@@ -20,7 +20,7 @@ export default class Index extends Component {
 	      nextPage: 0,
 	      noMore: false,
 	      moreIsLoading: false,
-	      trendPosts: []
+	      rumorPosts: []
     	}
   	}
 
@@ -39,10 +39,11 @@ export default class Index extends Component {
 	    return fetch(requestUri)
 	      	.then((response) => response.json())
 	      	.then((responseJson) => {
+	      		console.log(responseJson.posts);
 	        	this.setState(() => ({ 
 		          	isLoading: false,
 		          	moreIsLoading: false,
-		          	trendPosts: nextPage == 1 ? responseJson.posts : [...this.state.trendPosts, ...responseJson.posts],
+		          	rumorPosts: nextPage == 1 ? responseJson.posts : [...this.state.rumorPosts, ...responseJson.posts],
 		          	nextPage: nextPage,
 		          	noMore: responseJson.no_more
 	        	}));
@@ -52,26 +53,42 @@ export default class Index extends Component {
 	      	});
 	}
 
+	buildHeader() {
+	    return (
+	    	<View style={[rumorStyles.marginContent, rumorStyles.header]}>
+	    		<Text style={rumorStyles.headerTitle}>COMPREHENSIVE RUMOR, ALL IN ONE VIEW</Text>
+	    	</View>
+	    );
+	}
+
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    return <Loader type='more' text='Loading more Trend posts...' />;
+	    return <Loader type='more' text='Loading more Rumor posts...' />;
 	}
 
   	render() {
+	  	let header = this.buildHeader();
 	  	let content;
-		if (this.state.isLoading)
-  			content = <Loader type='initial' />;
-		else {
+
+		if (this.state.isLoading) {
+  			content = (
+  				<ScrollView style={[rumorStyles.fullBackground, rumorStyles.whiteBackground]}>
+          			{header}
+          			<Loader type='initial' />
+        		</ScrollView>
+        	);
+		} else {
 			content = (
   				<FlatList
-		            data={this.state.trendPosts}
+		            data={this.state.rumorPosts}
 		            keyExtractor={item => item.post.id}
 		            extraData={this.state}
-		            renderItem={ ({ item }) => <TrendPostDetail metadata={item} /> }
+		            ListHeaderComponent={header}
+		            renderItem={ ({ item }) => <RumorPostDetail metadata={item} /> }
 		            onEndReached={ () => this.requestData(false) }
 		            onEndReachedThreshold={0}
 		            ListFooterComponent={this.loadMoreIndicator}
-		            style={flatList}/>
+		            style={rumorStyles.whiteBackground}/>
 			);
 		}
 
