@@ -30,6 +30,7 @@ var styles = StyleSheet.create({
 	},
 	titleText:{
 	    fontSize: 26,
+	    color: '#333',
 	    textAlign: 'left',
 	    marginBottom: 10
 	},
@@ -60,6 +61,7 @@ var styles = StyleSheet.create({
 		marginTop: 10
 	},
 	contentText: {
+		color: '#333',
 	    marginBottom: 10
 	},
 	more: {

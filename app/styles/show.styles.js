@@ -10,6 +10,9 @@ const showStyles = StyleSheet.create({
 		marginTop: 20,
 		marginBottom: 10
 	},
+	textColor: {
+		color: '#333'
+	},
 	postType: {
 		color: '#7b8994',
 		fontSize: 18

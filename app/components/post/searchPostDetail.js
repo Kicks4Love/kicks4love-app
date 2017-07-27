@@ -32,8 +32,8 @@ const SearchPostDetail = ( { metadata, navigation } ) => {
         <ImageProgress source={{uri: metadata.image_url}} style={{width: WIDTH * 0.4, height: 100}} />
       </View>
       <View style={searchStyles.boxContent}>
-        <Text style={searchStyles.boxTitle}>{metadata.post.title_en} <Text style={searchStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
-        <Text style={searchStyles.boxPostType}><Icon name="tags" /><Text style={searchStyles.boxPostTypeText}>{getPostStr(metadata.post_type, 'title')}</Text></Text>
+        <Text style={[searchStyles.textColor, searchStyles.boxTitle]}>{metadata.post.title_en} <Text style={searchStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
+        <Text style={[searchStyles.textColor, searchStyles.boxPostType]}><Icon name="tags" /><Text style={searchStyles.boxPostTypeText}>{getPostStr(metadata.post_type, 'title')}</Text></Text>
         {rating}
       </View>
     </TouchableOpacity>

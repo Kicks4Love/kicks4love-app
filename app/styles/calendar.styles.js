@@ -7,6 +7,9 @@ var styles = StyleSheet.create({
 	fullBackground: {
 		flex: 1
 	},
+	textColor: {
+		color: '#333'
+	},
 	monthSwiperContainer: {
 		alignItems: 'center'
 	},

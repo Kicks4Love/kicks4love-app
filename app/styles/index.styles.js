@@ -30,6 +30,7 @@ const indexStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		position: 'absolute',
 		backgroundColor: '#fff',
+		color: '#333',
 		bottom: 0,
 		left: 0,
 		right: 0,
@@ -64,6 +65,7 @@ const indexStyles = StyleSheet.create({
 		marginLeft: 10
 	},
 	boxTitle: {
+		color: '#333',
 		fontWeight: 'bold',
 		fontSize: 16
 	},
@@ -73,6 +75,7 @@ const indexStyles = StyleSheet.create({
 		fontSize: 12
 	},
 	boxPostType: {
+		color: '#333',
 		position: 'absolute',
 		bottom: 0,
 		left: 0
@@ -82,6 +85,7 @@ const indexStyles = StyleSheet.create({
 		textDecorationStyle: 'dotted'
 	},
 	boxRate: {
+		color: '#9b9b9b',
 		position: 'absolute',
 		bottom: 0,
 		right: 0

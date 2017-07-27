@@ -113,8 +113,8 @@ export default class Show extends Component {
 	  				<Image source={this.state.currentRate == 5 ? require('../images/sneakerblack.png') : require('../images/sneakergray.png')} style={showStyles.currentRateImage} />
 		  			<Text style={showStyles.currentRateVotes}>({this.state.voteCount} votes)</Text>
 	  			</View>
-	  			<Text style={[showStyles.marginContent, showStyles.title]}>{this.article.post.title_en}</Text>
-	  			<Text style={showStyles.author}>By <Text style={showStyles.authorName}>{this.article.author_name}</Text></Text>
+	  			<Text style={[showStyles.marginContent, showStyles.textColor, showStyles.title]}>{this.article.post.title_en}</Text>
+	  			<Text style={[showStyles.textColor, showStyles.author]}>By <Text style={showStyles.authorName}>{this.article.author_name}</Text></Text>
 	  			<Text style={showStyles.postDate}>POSTED {this.article.post.created_at.slice(0, 10)}</Text>
 	      	</View>
 		);
@@ -162,7 +162,7 @@ export default class Show extends Component {
 	    			);
 	    			imageIndex++;
 	    		} else {
-	    			content.push(<Text key={'content' + key} style={[showStyles.marginContent, showStyles.paragraph]}>{this.article.post.content[paragraphIndex].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
+	    			content.push(<Text key={'content' + key} style={[showStyles.marginContent, showStyles.textColor, showStyles.paragraph]}>{this.article.post.content[paragraphIndex].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
 	    			paragraphIndex++;
 	    		}
 	    	}
@@ -170,7 +170,7 @@ export default class Show extends Component {
 	    	var max = Math.max(this.article.post.content.length, this.article.main_images.length);
 	    	for (var i = 0; i < max; i++) {
 	    		if (this.article.post.content[i]) 
-	    			content.push(<Text key={'content' + i} style={[showStyles.marginContent, showStyles.paragraph]}>{this.article.post.content[i].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
+	    			content.push(<Text key={'content' + i} style={[showStyles.marginContent, showStyles.textColor, showStyles.paragraph]}>{this.article.post.content[i].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
 	    		if (this.article.main_images[i]) {
 	    			content.push(
 	    				<View key={'image' + i} style={[{width: WIDTH - 30, height: this.state.mainImagesRatio[i] * (WIDTH - 30)}, showStyles.image, showStyles.marginContent]}>

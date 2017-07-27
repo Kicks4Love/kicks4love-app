@@ -9,6 +9,9 @@ const searchStyles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 12
 	},
+	textColor: {
+		color: '#333'
+	},
 	searchBar: {
 		height: 35,
 		borderBottomWidth: 1,
@@ -69,6 +72,7 @@ const searchStyles = StyleSheet.create({
 		textDecorationStyle: 'dotted'
 	},
 	boxRate: {
+		color: '#9b9b9b',
 		position: 'absolute',
 		bottom: 0,
 		right: 0

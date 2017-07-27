@@ -76,7 +76,7 @@ export default class Calendar extends Component {
     let self = this;
     let months = this.state.months.map(function (item, index) {
       return (
-        <View style={calendarStyles.monthContainer} key={index}><Text style={(self.state.currentMonthIndex === index) && calendarStyles.selectedMonth}>{item.toISOString().slice(0, 7)}</Text></View>
+        <View style={calendarStyles.monthContainer} key={index}><Text style={[calendarStyles.textColor, (self.state.currentMonthIndex === index) && calendarStyles.selectedMonth]}>{item.toISOString().slice(0, 7)}</Text></View>
       );
     });
 
@@ -123,7 +123,7 @@ export default class Calendar extends Component {
       content = (
         <ScrollView style={[calendarStyles.fullBackground, calendarStyles.whiteBackground]}>
           {monthSwiper}
-          <Text style={calendarStyles.noData}>No release this month</Text>
+          <Text style={[calendarStyles.textColor, calendarStyles.noData]}>No release this month</Text>
         </ScrollView>
       );
     } else {

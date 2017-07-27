@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, FlatList, View, TouchableOpacity, TextInput } from 'react-native';
+import { ActivityIndicator, Alert, Text, FlatList, View, TouchableOpacity, TextInput } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loader from './loader';
@@ -29,7 +29,6 @@ export default class Index extends Component {
 		    isLoading: false,
 		    nextPage: 0,
 		    noMore: false,
-		    hasError: false,
 		    query: null,
 		    prevQuery: null,
 		    moreIsLoading: false,
@@ -73,14 +72,15 @@ export default class Index extends Component {
 		        	moreIsLoading: false,
 		      		noMore: responseJson.no_more
 	      		}));
-	    	});
+	    	})
+	    	.catch((error) => {
+        		Alert.alert(error.message);
+      		});
   	}
 
 	render() {	
 		let content;
-		if (this.state.hasError) 
-			content = <Text style={searchStyles.text}>An error has occured</Text>;
-		else if (this.state.isLoading) 
+		if (this.state.isLoading) 
 			content = <Loader type='initial' />;
 		else if (this.state.searchResult.length > 0) {
 			content = (
@@ -94,7 +94,7 @@ export default class Index extends Component {
 			    />
 			);
 		} else 
-			content = <Text style={searchStyles.text}>Search result is empty</Text>;
+			content = <Text style={[searchStyles.textColor, searchStyles.text]}>Search result is empty</Text>;
 
 		return (
 	      	<View style={searchStyles.container}>

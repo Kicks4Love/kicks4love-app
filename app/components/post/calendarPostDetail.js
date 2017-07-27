@@ -34,7 +34,7 @@ class CalendarPostDetail extends Component {
             </View>
           </ImageProgress>
         </TouchableHighlight>
-        <Text style={calendarStyles.date}>{this.formatNumber(this.props.metadata.date.getMonth() + 1) + '/' + this.formatNumber(this.props.metadata.date.getDate())}</Text>
+        <Text style={[calendarStyles.textColor, calendarStyles.date]}>{this.formatNumber(this.props.metadata.date.getMonth() + 1) + '/' + this.formatNumber(this.props.metadata.date.getDate())}</Text>
       </View>
     )
   }
