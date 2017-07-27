@@ -22,7 +22,9 @@ var styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	postContainer: {
-		margin: 10
+		margin: 10,
+		borderBottomWidth: 1,
+		borderColor: '#2f2f2f'
 	},
 	postContentTitle: {
 		fontWeight: 'bold',
@@ -60,6 +62,15 @@ var styles = StyleSheet.create({
 	},
 	postContentPreview: {
 		color: '#333'
+	},
+	moreLink: {
+		color: '#337ab7'
+	},
+	coverImage: {
+	    flex: 1,
+	    height: 180,
+	    width: null,
+	    marginBottom: 1
 	}
 });
 

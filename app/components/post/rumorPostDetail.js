@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { postContainer, postContentTitle, subtitleContainer, postContentSubtitle, date, rateImage, postContentPreview, marginContent } from '../../styles/rumor.styles';
+import ImageProgress from 'react-native-image-progress';
+
+import { postContainer, postContentTitle, subtitleContainer, postContentSubtitle, date, rateImage, postContentPreview, marginContent, moreLink, coverImage } from '../../styles/rumor.styles';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -23,8 +25,11 @@ const RumorPostDetail = ( { metadata, navigation } ) => {
       </View>
       <Text style={[marginContent, postContentPreview]}>
         <Text>{metadata.post.content[0].substring(0, 120)}... </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'rumors', id: metadata.post.id, title: metadata.post.title})}><Text>more</Text></TouchableOpacity>
+        <Text style={moreLink} onPress={() => navigation.navigate('Show', {postType: 'rumors', id: metadata.post.id, title: metadata.post.title})}>(more)</Text>
       </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'rumors', id: metadata.post.id, title: metadata.post.title})}>
+        <ImageProgress source={{uri: metadata.image_url}} style={coverImage} />
+      </TouchableOpacity>
     </View>
   );
 };
