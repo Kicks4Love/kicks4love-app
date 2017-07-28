@@ -35,7 +35,7 @@ export default class Index extends Component {
 
     let newNextPage = this.state.nextPage + 1;
     if (newNextPage > 1) this.state.moreIsLoading = true;
-    let lang = chinese ? 'cn' : 'en';
+    let lang = chinese ? 'zh' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
     let auth_config = {
       headers: {

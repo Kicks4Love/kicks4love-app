@@ -52,7 +52,7 @@ export default class Calendar extends Component {
   }
 
   requestData(chinese) {
-    let lang = chinese ? 'cn' : 'en';
+    let lang = chinese ? 'zh' : 'en';
     let selectedMonth = this.state.months[this.state.currentMonthIndex];
     let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.getFullYear()}&month=${selectedMonth.getMonth() + 1}&l=${lang}`;
     let auth_config = {
