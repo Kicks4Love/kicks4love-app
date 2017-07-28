@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Alert, Image, View, Text, ScrollView, FlatList } from 'react-native'; 
+import { TouchableOpacity, Alert, Image, View, Text, ScrollView, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import IndexPostDetail from './post/indexPostDetail';
@@ -10,6 +10,7 @@ import { logo } from '../styles/application.styles'
 
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/home_posts`;
+const API_KEY = CONFIG.KEY;
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -18,11 +19,11 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
-      isLoading: true, 
+    this.state = {
+      isLoading: true,
       noMore: false,
       moreIsLoading: false,
-      sliderRecord: [], 
+      sliderRecord: [],
       postRecord: [],
       page: 0
     }
@@ -32,13 +33,21 @@ export default class Index extends Component {
     let nextPage = this.state.page + 1;
     if (this.state.noMore || this.state.moreIsLoading) return null;
     if (nextPage > 1) this.state.moreIsLoading = true;
-    let lang = chinese ? 'cn' : 'en';
+    let lang = chinese ? 'zh' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
+		let auth_config = {
+			headers: {
+				"Authorization": `Token token=${API_KEY}`
+			}
+		}
 
-    return fetch(request_uri)
-      .then((response) => response.json())
+    return fetch(request_uri, auth_config)
+      .then((response) => {
+				if (response.ok) return response.json()
+	      throw new Error(`Unsuccessful response with status: ${response.status}`);
+			})
       .then((responseJson) => {
-        this.setState((prevState) => ({ 
+        this.setState((prevState) => ({
           isLoading: false,
           moreIsLoading: false,
           postRecord: nextPage == 1 ? responseJson.posts : [...this.state.postRecord, ...responseJson.posts],

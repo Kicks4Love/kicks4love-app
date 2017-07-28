@@ -9,12 +9,13 @@ import { headerLeft, headerRight } from '../styles/application.styles';
 import showStyles from '../styles/show.styles';
 
 const CONFIG = require('../config');
+const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/`;
 const WIDTH = Dimensions.get('window').width;
 
 var getPostStr = require('../helpers/getPostStr');
 
-export default class Show extends Component {  
+export default class Show extends Component {
   	static navigationOptions = ({navigation}) => ({
     	headerTitle: getPostStr(navigation.state.params.postType, 'title'),
     	headerLeft: (
@@ -59,46 +60,64 @@ export default class Show extends Component {
 
   	requestData(chinese) {
 	    let requestUri = `${BASE_REQUEST_URI}/${getPostStr(this.props.navigation.state.params.postType, 'api')}/${this.props.navigation.state.params.id}`;
-	    
-	    return fetch(requestUri)
-	      	.then(response => response.json())
+      let auth_config = {
+        headers: {
+          "Authorization": `Token token=${API_KEY}`
+        }
+      }
+	    return fetch(requestUri, auth_config)
+	      	.then(response => {
+            if (response.ok) return response.json()
+            throw new Error(`Unsuccessful response with status: ${response.status}`);
+          })
 	      	.then(responseJson => {
 	        	this.article = responseJson;
 	        	this.article.post.content = chinese ? responseJson.post.content_cn : responseJson.post.content_en;
 	        	this.setState({ isLoading: false, currentRate: this.article.score, voteCount: this.article.vote_count, mainImagesRatio: new Array(this.article.main_images.length).fill(0.75) });
 
 		        let self = this;
-		        this.article.main_images.forEach(function(item, index) {
-		        	Image.getSize(item.url, (srcWidth, srcHeight) => {
-	    				var mainImagesRatioCopy = self.state.mainImagesRatio;
-	    				mainImagesRatioCopy[index] = srcHeight/srcWidth;
-				    	self.setState({mainImagesRatio: mainImagesRatioCopy});
-					});
-		        });
+            this.article.main_images.forEach(function(item, index) {
+              Image.getSize(item.url, (srcWidth, srcHeight) => {
+                var mainImagesRatioCopy = self.state.mainImagesRatio;
+                mainImagesRatioCopy[index] = srcHeight/srcWidth;
+                self.setState({mainImagesRatio: mainImagesRatioCopy});
+              });
+            });
+	      	})
+          .catch((error) => {
+	        	Alert.alert(error.message);
 	      	});
   	}
 
   	postRate() {
   		if (this.state.ratePosted) return null;
   		this.setState({ratePosted: true});
+      let headers = {
+        "Authorization": `Token token=${API_KEY}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
 
   		fetch(`${BASE_REQUEST_URI}/rate`, {
 		  	method: 'POST',
-		  	headers: {
-		    	'Accept': 'application/json',
-		    	'Content-Type': 'application/json',
-		  	},
+		  	headers: headers,
 		  	body: JSON.stringify({
 		    	score: this.state.newRate,
 		    	post_type: getPostStr(this.props.navigation.state.params.postType, 'class'),
 		    	id: this.props.navigation.state.params.id
 		  	})
 		})
-		.then((response) => response.json())
+		.then((response) => {
+      if (response.ok) return response.json()
+      throw new Error(`Unsuccessful response with status: ${response.status}`);
+    })
 		.then((responseJson) => {
   			this.setState({currentRate: responseJson.score, voteCount: responseJson.count});
   			storage.save({ key: this.key, data: { rated: true } });
-		});
+		})
+    .catch((error) => {
+        Alert.alert(error.message);
+    });
   	}
 
   	builderHeader() {
@@ -144,7 +163,7 @@ export default class Show extends Component {
   	}
 
 	render() {
-		if (this.state.isLoading) 
+		if (this.state.isLoading)
 			return <Loader type='initial' />
 
 	    let header = this.builderHeader();
@@ -169,7 +188,7 @@ export default class Show extends Component {
 	    } else {
 	    	var max = Math.max(this.article.post.content.length, this.article.main_images.length);
 	    	for (var i = 0; i < max; i++) {
-	    		if (this.article.post.content[i]) 
+	    		if (this.article.post.content[i])
 	    			content.push(<Text key={'content' + i} style={[showStyles.marginContent, showStyles.textColor, showStyles.paragraph]}>{this.article.post.content[i].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
 	    		if (this.article.main_images[i]) {
 	    			content.push(
@@ -189,4 +208,4 @@ export default class Show extends Component {
 	    	</ScrollView>
 	    );
 	}
-} 
+}

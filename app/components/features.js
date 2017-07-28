@@ -6,6 +6,7 @@ import Loader from './loader';
 import { container, loadMore, flatList } from '../styles/features.styles';
 
 const CONFIG = require('../config');
+const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/featured_posts`;
 
 export default class Index extends Component {
@@ -36,8 +37,12 @@ export default class Index extends Component {
     if (newNextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'cn' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
-
-    return fetch(request_uri)
+    let auth_config = {
+      headers: {
+        "Authorization": `Token token=${API_KEY}`
+      }
+    }
+    return fetch(request_uri, auth_config)
     .then(response => {
       if (response.ok) return response.json()
       throw new Error(`Unsuccessful response with status: ${response.status}`);
