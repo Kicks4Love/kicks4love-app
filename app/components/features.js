@@ -6,7 +6,6 @@ import Loader from './loader';
 import { flatList } from '../styles/features.styles';
 
 const CONFIG = require('../config');
-const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/featured_posts`;
 
 export default class Features extends Component {
@@ -35,27 +34,23 @@ export default class Features extends Component {
     let newNextPage = this.state.nextPage + 1;
     if (newNextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'zh' : 'en';
-    let request_uri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
-    let auth_config = {
-      headers: {
-        "Authorization": `Token token=${API_KEY}`
-      }
-    }
-    return fetch(request_uri, auth_config)
-    .then(response => {
-      if (response.ok) return response.json()
-      throw new Error(`Unsuccessful response with status: ${response.status}`);
-    }).then(responseJson => {
-      this.setState( (prevState) => ({
-        featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
-        nextPage: newNextPage,
-        isLoading: false,
-        moreIsLoading: false,
-        noMore: responseJson.no_more
-      }) );
-    }).catch(error => {
-      Alert.alert(error.message);
-    });
+    let requestUri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
+    let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+    return fetch(requestUri, authConfig)
+      .then(response => {
+        if (response.ok) return response.json()
+        throw new Error(`Unsuccessful response with status: ${response.status}`);
+      }).then(responseJson => {
+        this.setState( (prevState) => ({
+          featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
+          nextPage: newNextPage,
+          isLoading: false,
+          moreIsLoading: false,
+          noMore: responseJson.no_more
+        }) );
+      }).catch(error => {
+        Alert.alert(error.message);
+      });
   }
 
   loadMoreIndicator = () => {

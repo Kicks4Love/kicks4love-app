@@ -5,7 +5,7 @@ import Loader from './loader';
 
 import { flatList } from '../styles/oncourt.styles';
 
-import { HOST } from '../config';
+import { HOST, KEY } from '../config';
 const BASE_REQUEST_URI = `${HOST}/api/v0/oncourt_posts`;
 
 export default class OnCourt extends Component {
@@ -34,9 +34,10 @@ export default class OnCourt extends Component {
     let newNextPage = this.state.nextPage + 1;
     if (newNextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'cn' : 'en';
-    let request_uri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
+    let requestUri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
+    let authConfig = { headers: { Authorization: `Token token=${KEY}` } };
     
-    return fetch(request_uri)
+    return fetch(requestUri, authConfig)
       .then(response => {
         if (response.ok) return response.json()
         throw new Error(`Unsuccessful response with status: ${response.status}`);

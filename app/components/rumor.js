@@ -6,7 +6,6 @@ import Loader from './loader';
 import rumorStyles from '../styles/rumor.styles';
 
 const CONFIG = require('../config');
-const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/rumor_posts`;
 
 export default class Index extends Component {
@@ -36,12 +35,8 @@ export default class Index extends Component {
 	    if (nextPage > 1) this.state.moreIsLoading = true;
 	    let lang = chinese ? 'zh' : 'en';
 	    let requestUri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
-			let auth_config = {
-				headers: {
-					"Authorization": `Token token=${API_KEY}`
-				}
-			}
-	    return fetch(requestUri, auth_config)
+		let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+	    return fetch(requestUri, authConfig)
 	      	.then((response) => {
 						if (response.ok) return response.json()
 			      throw new Error(`Unsuccessful response with status: ${response.status}`);

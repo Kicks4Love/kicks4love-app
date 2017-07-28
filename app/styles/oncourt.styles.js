@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
 	},
 	topInfo: {
 		flexDirection: 'row',
-		padding: 10
+		padding: 10,
 	},
 	date: {
 		color: '#fff',
@@ -36,9 +36,9 @@ var styles = StyleSheet.create({
 		marginRight: 20
 	},
 	ratingImage: {
-		height: 12,
-		width: 17,
-		marginTop: 3,
+		height: 13,
+		width: 18,
+		marginTop: 2,
 		marginRight: 2
 	},
 	moreLink: {
@@ -47,6 +47,32 @@ var styles = StyleSheet.create({
 		position: 'absolute',
 		right: 10,
 		top: 8
+	},
+	postContent: {
+		position: 'absolute',
+		left: 40,
+		right: 40,
+		bottom: 25
+	},
+	playerName: {
+		color: '#fff',
+		marginBottom: 20,
+		fontSize: 45,
+		lineHeight: 45
+	},
+	playerFirstName: {
+		fontWeight: '300'
+	},
+	playerLastName: {
+		fontWeight: 'bold'
+	},
+	postTitle: {
+		borderColor: '#fff',
+		borderTopWidth: 2,
+		paddingTop: 15
+	},
+	postTitleText: {
+		color: '#fff'
 	}
 });
 
