@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList, Dimensions } from 'react-native';
+import { Text, View, ScrollView, FlatList, Dimensions, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import CalendarPostDetail from './post/calendarPostDetail';
@@ -8,11 +8,12 @@ import Loader from './loader';
 import calendarStyles from '../styles/calendar.styles';
 
 const CONFIG = require('../config');
+const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/calendar_posts`;
 const WIDTH = Dimensions.get('window').width;
 const CURRENT_DATE = new Date();
 
-export default class Calendar extends Component {  
+export default class Calendar extends Component {
   static navigationOptions = {
     headerTitle: 'Calendar'
   }
@@ -51,11 +52,19 @@ export default class Calendar extends Component {
   }
 
   requestData(chinese) {
-    let lang = chinese ? 'cn' : 'en';
+    let lang = chinese ? 'zh' : 'en';
     let selectedMonth = this.state.months[this.state.currentMonthIndex];
     let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.getFullYear()}&month=${selectedMonth.getMonth() + 1}&l=${lang}`;
-    return fetch(request_uri)
-      .then(response => response.json())
+    let auth_config = {
+			headers: {
+				"Authorization": `Token token=${API_KEY}`
+			}
+		}
+    return fetch(request_uri, auth_config)
+      .then(response => {
+        if (response.ok) return response.json()
+        throw new Error(`Unsuccessful response with status: ${response.status}`);
+      })
       .then(responseJson => {
         let newPosts = [];
         responseJson.posts.forEach(function(data) {
@@ -69,6 +78,8 @@ export default class Calendar extends Component {
         });
         newPosts.sort(function(a,b) { return a.date - b.date; });
         this.setState({ posts: newPosts, isLoading: false });
+      }).catch((error) => {
+        Alert.alert(error.message);
       });
   }
 
@@ -147,4 +158,4 @@ export default class Calendar extends Component {
 
   	return content;
 	}
-} 
+}

@@ -10,6 +10,7 @@ import searchStyles from '../styles/search.styles';
 import { headerLeft } from '../styles/application.styles';
 
 const CONFIG = require('../config');
+const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/search`;
 
 export default class Index extends Component {
@@ -58,8 +59,12 @@ export default class Index extends Component {
 
   		if (newNextPage > 1) this.state.moreIsLoading = true;
       	let requestUri = `${BASE_REQUEST_URI}?q=${encodeURIComponent(inputQuery)}&page=${newNextPage}`;
-
-      	return fetch(requestUri)
+				let auth_config = {
+					headers: {
+						"Authorization": `Token token=${API_KEY}`
+					}
+				}
+      	return fetch(requestUri, auth_config)
 	    	.then(response => {
 	      		if (response.ok) return response.json()
 	      		throw new Error(`Unsuccessful response with status: ${response.status}`);
@@ -78,9 +83,9 @@ export default class Index extends Component {
       		});
   	}
 
-	render() {	
+	render() {
 		let content;
-		if (this.state.isLoading) 
+		if (this.state.isLoading)
 			content = <Loader type='initial' />;
 		else if (this.state.searchResult.length > 0) {
 			content = (
@@ -93,12 +98,12 @@ export default class Index extends Component {
 			        ListFooterComponent={this.loadMoreIndicator}
 			    />
 			);
-		} else 
+		} else
 			content = <Text style={[searchStyles.textColor, searchStyles.text]}>Search result is empty</Text>;
 
 		return (
 	      	<View style={searchStyles.container}>
-	      		<View style={searchStyles.searchBar}> 
+	      		<View style={searchStyles.searchBar}>
 	      			<Icon style={searchStyles.searchIcon} name="search" size={20} color="#777" />
 		      	 	<TextInput
 				        style={searchStyles.searchInput}
