@@ -4,6 +4,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Storage from 'react-native-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import './i18n/I18n';
 import Drawer from './components/other/drawer';
 import Index from './components/index'
 import Features from './components/features';
