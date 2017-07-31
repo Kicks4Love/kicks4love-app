@@ -11,6 +11,7 @@ import Calendar from './components/calendar';
 import Trend from './components/trend';
 import OnCourt from './components/oncourt';
 import Rumor from './components/rumor';
+import StreetSnap from './components/streetsnap'
 import Search from './components/search';
 import Show from './components/show';
 import Setting from './components/setting';
@@ -48,6 +49,7 @@ const mainStack = StackNavigator({
   Search: {screen: Search },
   OnCourt: { screen: OnCourt },
   Rumor: { screen: Rumor },
+  StreetSnap: {screen: StreetSnap},
   Show: { screen: Show }
 }, {
   navigationOptions: navigationOptions,
@@ -68,6 +70,7 @@ const app = DrawerNavigator({
   Calendar: { screen: Calendar },
   Trend: {screen: Trend},
   OnCourt: { screen: OnCourt },
+  StreetSnap: {screen: StreetSnap},
   Rumor: { screen: Rumor }
 }, {
   contentComponent: Drawer
