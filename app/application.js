@@ -9,9 +9,10 @@ import Index from './components/index'
 import Features from './components/features';
 import Calendar from './components/calendar';
 import Trend from './components/trend';
+import OnCourt from './components/oncourt';
+import Rumor from './components/rumor';
 import Search from './components/search';
 import Show from './components/show';
-import Rumor from './components/rumor';
 
 const appStyles = require('./styles/application.styles');
 
@@ -42,9 +43,10 @@ const stack = StackNavigator({
   Features: { screen: Features },
   Calendar: { screen: Calendar },
   Trend: { screen: Trend },
-  Show: { screen: Show },
   Search: {screen: Search },
-  Rumor: {screen: Rumor }
+  OnCourt: { screen: OnCourt },
+  Rumor: { screen: Rumor },
+  Show: { screen: Show }
 }, {
   navigationOptions: navigationOptions,
 });
@@ -54,7 +56,8 @@ const app = DrawerNavigator({
   Features: { screen: Features },
   Calendar: { screen: Calendar },
   Trend: {screen: Trend},
-  Rumor: {screen: Rumor}
+  OnCourt: { screen: OnCourt },
+  Rumor: { screen: Rumor }
 }, {
   contentComponent: Drawer
 });

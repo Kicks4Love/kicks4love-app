@@ -59,12 +59,9 @@ export default class Index extends Component {
 
   		if (newNextPage > 1) this.state.moreIsLoading = true;
       	let requestUri = `${BASE_REQUEST_URI}?q=${encodeURIComponent(inputQuery)}&page=${newNextPage}`;
-				let auth_config = {
-					headers: {
-						"Authorization": `Token token=${API_KEY}`
-					}
-				}
-      	return fetch(requestUri, auth_config)
+		let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+
+      	return fetch(requestUri, authConfig)
 	    	.then(response => {
 	      		if (response.ok) return response.json()
 	      		throw new Error(`Unsuccessful response with status: ${response.status}`);
@@ -110,6 +107,7 @@ export default class Index extends Component {
 				        onChangeText={(text) => this.state.query = text}
 				        onSubmitEditing={() => this.requestData(false, true)}
 				        placeholder='What are you looking for ?'
+								underlineColorAndroid='transparent'
 				    />
 				</View>
 		     	{content}

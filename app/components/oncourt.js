@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
-import FeaturePostDetail from './post/featurePostDetail';
+import { TouchableOpacity, Alert, Text, View, FlatList } from 'react-native';
+import OnCourtPostDetail from './post/oncourtPostDetail';
 import Loader from './loader';
 
-import { flatList } from '../styles/features.styles';
+import { flatList } from '../styles/oncourt.styles';
 
-const CONFIG = require('../config');
-const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/featured_posts`;
+import { HOST, KEY } from '../config';
+const BASE_REQUEST_URI = `${HOST}/api/v0/oncourt_posts`;
 
-export default class Features extends Component {
+export default class OnCourt extends Component {
   static navigationOptions = {
-    headerTitle: 'Features'
+    headerTitle: 'On Court'
   }
 
   constructor(props) {
@@ -20,7 +20,7 @@ export default class Features extends Component {
       nextPage: 0,
       noMore: false,
       moreIsLoading: false,
-      featuredPosts: []
+      oncourtPosts: []
     }
   }
 
@@ -33,29 +33,30 @@ export default class Features extends Component {
 
     let newNextPage = this.state.nextPage + 1;
     if (newNextPage > 1) this.state.moreIsLoading = true;
-    let lang = chinese ? 'zh' : 'en';
+    let lang = chinese ? 'cn' : 'en';
     let requestUri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
-    let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+    let authConfig = { headers: { Authorization: `Token token=${KEY}` } };
+    
     return fetch(requestUri, authConfig)
       .then(response => {
         if (response.ok) return response.json()
         throw new Error(`Unsuccessful response with status: ${response.status}`);
       }).then(responseJson => {
         this.setState( (prevState) => ({
-          featuredPosts: prevState.featuredPosts.concat(responseJson.posts),
+          oncourtPosts: prevState.oncourtPosts.concat(responseJson.posts),
           nextPage: newNextPage,
           isLoading: false,
           moreIsLoading: false,
           noMore: responseJson.no_more
         }) );
-      }).catch(error => {
+      }).catch((error) => {
         Alert.alert(error.message);
       });
   }
 
   loadMoreIndicator = () => {
     if (this.state.noMore) return null;
-    return <Loader type='more' text='Loading more Features posts...' />;
+    return <Loader type='more' text='Loading more On Court posts...' />;
   }
 
   render() {
@@ -65,10 +66,10 @@ export default class Features extends Component {
     else {
       content = (
         <FlatList
-          data={this.state.featuredPosts}
+          data={this.state.oncourtPosts}
           keyExtractor={item => item.post.id}
           extraData={this.state}
-          renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
+          renderItem={ ({ item }) => <OnCourtPostDetail metadata={item} /> }
           onEndReached={ () => this.requestData(false) }
           onEndReachedThreshold={0}
           ListFooterComponent={this.loadMoreIndicator}

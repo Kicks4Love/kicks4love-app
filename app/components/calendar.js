@@ -8,7 +8,6 @@ import Loader from './loader';
 import calendarStyles from '../styles/calendar.styles';
 
 const CONFIG = require('../config');
-const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/calendar_posts`;
 const WIDTH = Dimensions.get('window').width;
 const CURRENT_DATE = new Date();
@@ -55,12 +54,9 @@ export default class Calendar extends Component {
     let lang = chinese ? 'zh' : 'en';
     let selectedMonth = this.state.months[this.state.currentMonthIndex];
     let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.getFullYear()}&month=${selectedMonth.getMonth() + 1}&l=${lang}`;
-    let auth_config = {
-			headers: {
-				"Authorization": `Token token=${API_KEY}`
-			}
-		}
-    return fetch(request_uri, auth_config)
+    let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+
+    return fetch(request_uri, authConfig)
       .then(response => {
         if (response.ok) return response.json()
         throw new Error(`Unsuccessful response with status: ${response.status}`);

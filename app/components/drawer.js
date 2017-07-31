@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   menuItemMoreContainer: {
     padding: 5,
-    borderTopWidth: 0.5, 
+    borderTopWidth: 0.5,
     borderStyle: 'solid',
     marginTop: 10
   },
@@ -67,8 +67,8 @@ export default class Drawer extends Component {
           <TouchableOpacity onPress={() => this.navigate('Home')}><Text style={styles.menuItem}>Home</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Features')}><Text style={styles.menuItem}>Features</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Calendar')}><Text style={styles.menuItem}>Calendar</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Trend')}><Text style={styles.menuItem}>Trend</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate('OnCourt')}><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Rumor')}><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
           <View style={styles.menuItemMoreContainer}>

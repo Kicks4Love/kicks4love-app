@@ -10,7 +10,6 @@ import { logo } from '../styles/application.styles'
 
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/home_posts`;
-const API_KEY = CONFIG.KEY;
 
 export default class Index extends Component {
 	static navigationOptions = {
@@ -30,16 +29,13 @@ export default class Index extends Component {
   }
 
   makeRemoteRequest = (chinese) => {
-    let nextPage = this.state.page + 1;
     if (this.state.noMore || this.state.moreIsLoading) return null;
+
+    let nextPage = this.state.page + 1;
     if (nextPage > 1) this.state.moreIsLoading = true;
     let lang = chinese ? 'zh' : 'en';
     let request_uri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
-		let auth_config = {
-			headers: {
-				"Authorization": `Token token=${API_KEY}`
-			}
-		}
+		let auth_config = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
 
     return fetch(request_uri, auth_config)
       .then((response) => {

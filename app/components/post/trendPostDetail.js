@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import Loader from '../loader';
 import { withNavigation } from 'react-navigation';
 import { postContainer, postContent, postBackgroundImage, postInnerFrame, colorWhite, postContentTitle, ratingContainer, ratingImage, postContentDate } from '../../styles/trend.styles';
 
