@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, TouchableWithoutFeedback, Share, Dimensions } from 'react-native';
+import { Text, View, Image, ScrollView, Modal, TouchableOpacity, TouchableWithoutFeedback, Share, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageProgress from 'react-native-image-progress';
+import ImageViewer from 'react-native-image-zoom-viewer';
 import Loader from './loader';
 
 import { headerLeft, headerRight } from '../styles/application.styles';
@@ -33,12 +34,12 @@ export default class Show extends Component {
 	    super(props);
 	    this.article = null;
 	    this.key = this.props.navigation.state.params.postType + this.props.navigation.state.params.id;
-	    this.state = { isLoading: true, newRate: 0, hideRate: true, ratePosted: false, currentRate: 0, voteCount: 0, mainImagesRatio: [] };
+	    this.state = { isLoading: true, newRate: 0, hideRate: true, ratePosted: false, currentRate: 0, voteCount: 0, imageModalShow: false, imageModalIndex: 0, mainImagesRatio: [] };
 
 	    storage.load({
 			key: this.key
 		}).catch(error => {
-			this.setState({hideRate: false});
+			this.setState({hideRate: false});	// no recent rating found -> show the rating container
 		});
 	}
 
@@ -171,11 +172,16 @@ export default class Show extends Component {
 	    	var imageIndex = paragraphIndex = 0;
 	    	for (var key in this.article.post.post_composition) {
 	    		if (this.article.post.post_composition[key].type == 'image') {
-	    			content.push(
-	    				<View key={'image' + key} style={[{width: WIDTH - 30, height: this.state.mainImagesRatio[imageIndex] * (WIDTH - 30)}, showStyles.image, showStyles.marginContent]}>
-	    					<ImageProgress source={{uri: this.article.main_images[imageIndex].url}} style={{width: WIDTH - 30, height: this.state.mainImagesRatio[imageIndex] * (WIDTH - 30)}} />
-	    				</View>
-	    			);
+	    			var self = this;
+	    			(function(index) {
+        				content.push(
+	    					<View key={'image' + key} style={[{width: WIDTH - 30, height: self.state.mainImagesRatio[index] * (WIDTH - 30)}, showStyles.image, showStyles.marginContent]}>
+	    						<TouchableOpacity onPress={() => self.setState(prevState => ({imageModalShow: !prevState.imageModalShow, imageModalIndex: index}))}>
+	    							<ImageProgress source={{uri: self.article.main_images[index].url}} style={{width: WIDTH - 30, height: self.state.mainImagesRatio[index] * (WIDTH - 30)}} />
+	    						</TouchableOpacity>
+	    					</View>
+	    				);
+    				})(imageIndex);
 	    			imageIndex++;
 	    		} else {
 	    			content.push(<Text key={'content' + key} style={[showStyles.marginContent, showStyles.textColor, showStyles.paragraph]}>{this.article.post.content[paragraphIndex].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
@@ -184,13 +190,15 @@ export default class Show extends Component {
 	    	}
 	    } else {
 	    	var max = Math.max(this.article.post.content.length, this.article.main_images.length);
-	    	for (var i = 0; i < max; i++) {
+	    	for (let i = 0; i < max; i++) {
 	    		if (this.article.post.content[i])
 	    			content.push(<Text key={'content' + i} style={[showStyles.marginContent, showStyles.textColor, showStyles.paragraph]}>{this.article.post.content[i].replace(/<br\s*[\/]?>/gi, '\n').replace(/<(?:.|\n)*?>/gm, '')}</Text>);
 	    		if (this.article.main_images[i]) {
 	    			content.push(
 	    				<View key={'image' + i} style={[{width: WIDTH - 30, height: this.state.mainImagesRatio[i] * (WIDTH - 30)}, showStyles.image, showStyles.marginContent]}>
-	    					<ImageProgress source={{uri: this.article.main_images[i].url}} style={{width: WIDTH - 30, height: this.state.mainImagesRatio[i] * (WIDTH - 30)}} />
+	    					<TouchableOpacity onPress={() => this.setState(prevState => ({imageModalShow: !prevState.imageModalShow, imageModalIndex: i}))}>
+	    						<ImageProgress source={{uri: this.article.main_images[i].url}} style={{width: WIDTH - 30, height: this.state.mainImagesRatio[i] * (WIDTH - 30)}} />
+	    					</TouchableOpacity>
 	    				</View>
 	    			);
 	    		}
@@ -202,6 +210,9 @@ export default class Show extends Component {
 	    		{header}
 	    		{content}
 	    		{rating}
+	    		<Modal visible={this.state.imageModalShow} transparent={true}>
+                	<ImageViewer imageUrls={this.article.main_images} index={this.state.imageModalIndex} />
+            	</Modal>
 	    	</ScrollView>
 	    );
 	}
