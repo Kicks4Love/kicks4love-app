@@ -13,7 +13,7 @@ export default class Setting extends Component {
 		      	<Icon name="chevron-left" style={headerLeft} />
 		    </TouchableOpacity>
 		),
-		style: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' }
+		headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' }
 	});
 
   	render() {
