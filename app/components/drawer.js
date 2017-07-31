@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   menuItem: {
+    color: '#333',
     fontSize: 25,
     fontWeight: '200',
     marginTop: 5,
@@ -35,8 +36,19 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   menuItemMoreItemText: {
+    color: '#333',
     fontWeight: '200',
     fontSize: 17
+  },
+  menuItemSocialContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15
+  },
+  menuItemSocialIcon: {
+    marginLeft: 6,
+    marginRight: 6
   }
 });
 
@@ -72,8 +84,13 @@ export default class Drawer extends Component {
           <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Rumor')}><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
           <View style={styles.menuItemMoreContainer}>
-            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="cog" style={{fontSize: 16}} /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="envelope" style={{fontSize: 14}} /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
+          </View>
+          <View style={styles.menuItemSocialContainer}>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/kicks4love')} style={styles.menuItemSocialIcon}><Icon name="facebook" size={23} color='#333' /></TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL('http://weibo.com/u/5704994024')} style={styles.menuItemSocialIcon}><Icon name="weibo" size={23} color='#333' /></TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/kicks4love')} style={styles.menuItemSocialIcon}><Icon name="instagram" size={23} color='#333' /></TouchableOpacity>
           </View>
         </ScrollView>
       </View>
