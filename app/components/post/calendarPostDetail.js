@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
 import ImageProgress from 'react-native-image-progress';
 
+import moment from 'moment';
+
 import calendarStyles from '../../styles/calendar.styles';
 
 class CalendarPostDetail extends Component {
@@ -34,7 +36,7 @@ class CalendarPostDetail extends Component {
             </View>
           </ImageProgress>
         </TouchableHighlight>
-        <Text style={[calendarStyles.textColor, calendarStyles.date]}>{this.formatNumber(this.props.metadata.date.getMonth() + 1) + '/' + this.formatNumber(this.props.metadata.date.getDate())}</Text>
+        <Text style={[calendarStyles.textColor, calendarStyles.date]}>{new moment(this.props.metadata.date).format('MM/DD')}</Text>
       </View>
     )
   }

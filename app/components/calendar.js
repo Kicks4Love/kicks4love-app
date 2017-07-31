@@ -5,12 +5,14 @@ import Swiper from 'react-native-swiper';
 import CalendarPostDetail from './post/calendarPostDetail';
 import Loader from './loader';
 
+import moment from 'moment';
+
 import calendarStyles from '../styles/calendar.styles';
 
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/calendar_posts`;
 const WIDTH = Dimensions.get('window').width;
-const CURRENT_DATE = new Date();
+const CURRENT_DATE = new moment();
 
 export default class Calendar extends Component {
   static navigationOptions = {
@@ -22,16 +24,15 @@ export default class Calendar extends Component {
 
     let allMonth = [];
     for (var i = -3; i <= 6; i++) {
-      var copyDate = new Date(CURRENT_DATE.getTime());
-      copyDate.setMonth(CURRENT_DATE.getMonth() + i);
-      allMonth.push(new Date(copyDate));
+      var copyDate = CURRENT_DATE.clone().add(i, 'months');
+      allMonth.push(copyDate);
     }
 
     let currentIndex;
     if (this.props.navigation.state.params && this.props.navigation.state.params.date) {
-      var date = this.props.navigation.state.params.date;
+      var date = new moment(this.props.navigation.state.params.date);
       currentIndex = allMonth.findIndex(function(d) {
-        return (d.getFullYear() + '_' + d.getMonth()) == (date.getFullYear() + '_' + date.getMonth());
+        return (d.year() + '_' + d.month()) == (date.year() + '_' + date.month());
       });
       if (currentIndex < 0) currentIndex = 3;
     }
@@ -53,7 +54,7 @@ export default class Calendar extends Component {
   requestData(chinese) {
     let lang = chinese ? 'zh' : 'en';
     let selectedMonth = this.state.months[this.state.currentMonthIndex];
-    let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.getFullYear()}&month=${selectedMonth.getMonth() + 1}&l=${lang}`;
+    let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.year()}&month=${selectedMonth.month() + 1}&l=${lang}`;
     let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
 
     return fetch(request_uri, authConfig)
@@ -83,7 +84,7 @@ export default class Calendar extends Component {
     let self = this;
     let months = this.state.months.map(function (item, index) {
       return (
-        <View style={calendarStyles.monthContainer} key={index}><Text style={[calendarStyles.textColor, (self.state.currentMonthIndex === index) && calendarStyles.selectedMonth]}>{item.toISOString().slice(0, 7)}</Text></View>
+        <View style={calendarStyles.monthContainer} key={index}><Text style={[calendarStyles.textColor, (self.state.currentMonthIndex === index) && calendarStyles.selectedMonth]}>{item.format('YYYY-MM')}</Text></View>
       );
     });
 
