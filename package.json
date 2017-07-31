@@ -11,6 +11,7 @@
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",
     "react-native-google-analytics-bridge": "^5.2.2",
+    "react-native-i18n": "^2.0.2",
     "react-native-image-progress": "^1.0.1",
     "react-native-image-zoom-viewer": "^2.0.9",
     "react-native-storage": "^0.2.2",

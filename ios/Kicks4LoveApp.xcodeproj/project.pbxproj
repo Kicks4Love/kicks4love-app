@@ -49,6 +49,7 @@
 		67A34E57745D494997A99FF9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7385954A15B42D3ADD67C39 /* SystemConfiguration.framework */; };
 		54F6AA1FF4B74A36AC2FE6CB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D1882B175A994BC2ACC73090 /* libz.tbd */; };
 		3E8716F5251C4E2C9A09E9D9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 814CD43369454F0988243E7E /* libsqlite3.0.tbd */; };
+		DD3CF3BB77A64212A49249F8 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EFE888EB514C07B53E36AC /* libRNI18n.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,12 +292,17 @@
 		F565409E1F112127001CE2CE /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		F565409F1F112127001CE2CE /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		F56540A01F112127001CE2CE /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		59A8590CAF034727A4BFACE6 /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; name = "RCTGoogleAnalyticsBridge.xcodeproj"; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		907CA905F3E8468792BA5FD1 /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; name = "libRCTGoogleAnalyticsBridge.a"; path = "libRCTGoogleAnalyticsBridge.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D29C68DC56794C9896616244 /* CoreData.framework */ = {isa = PBXFileReference; name = "CoreData.framework"; path = "System/Library/Frameworks/CoreData.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		B7385954A15B42D3ADD67C39 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		D1882B175A994BC2ACC73090 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 		814CD43369454F0988243E7E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; name = "libsqlite3.0.tbd"; path = "usr/lib/libsqlite3.0.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+=======
+		12F4E8AD3A7B4365B18DC10A /* RNI18n.xcodeproj */ = {isa = PBXFileReference; name = "RNI18n.xcodeproj"; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		58EFE888EB514C07B53E36AC /* libRNI18n.a */ = {isa = PBXFileReference; name = "libRNI18n.a"; path = "libRNI18n.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> installed and set up i18n package
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,11 +329,15 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+<<<<<<< HEAD
 				96A22DDA1B514A9F90970675 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
 				CE877F687D53430899506A81 /* CoreData.framework in Frameworks */,
 				67A34E57745D494997A99FF9 /* SystemConfiguration.framework in Frameworks */,
 				54F6AA1FF4B74A36AC2FE6CB /* libz.tbd in Frameworks */,
 				3E8716F5251C4E2C9A09E9D9 /* libsqlite3.0.tbd in Frameworks */,
+=======
+				DD3CF3BB77A64212A49249F8 /* libRNI18n.a in Frameworks */,
+>>>>>>> installed and set up i18n package
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +505,11 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+<<<<<<< HEAD
 				59A8590CAF034727A4BFACE6 /* RCTGoogleAnalyticsBridge.xcodeproj */,
+=======
+				12F4E8AD3A7B4365B18DC10A /* RNI18n.xcodeproj */,
+>>>>>>> installed and set up i18n package
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1073,7 +1087,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+>>>>>>> installed and set up i18n package
 				);
 			};
 			name = Debug;
@@ -1098,7 +1116,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+>>>>>>> installed and set up i18n package
 				);
 			};
 			name = Release;
@@ -1122,7 +1144,11 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+>>>>>>> installed and set up i18n package
 				);
 			};
 			name = Debug;
@@ -1145,7 +1171,11 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+>>>>>>> installed and set up i18n package
 				);
 			};
 			name = Release;
@@ -1179,7 +1209,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+>>>>>>> installed and set up i18n package
 				);
 			};
 			name = Debug;
@@ -1213,7 +1247,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+>>>>>>> installed and set up i18n package
 				);
 			};
 			name = Release;
