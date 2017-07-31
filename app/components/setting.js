@@ -10,7 +10,7 @@ export default class Setting extends Component {
   		title: 'Setting',
   		headerLeft: (
 		    <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())} >
-		      	<Icon name="chevron-left" style={headerLeft} />
+		      	<Icon name="times" style={headerLeft} />
 		    </TouchableOpacity>
 		),
 		headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' }
