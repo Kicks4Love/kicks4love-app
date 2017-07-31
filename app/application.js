@@ -13,6 +13,8 @@ import OnCourt from './components/oncourt';
 import Rumor from './components/rumor';
 import Search from './components/search';
 import Show from './components/show';
+import Setting from './components/setting';
+import Contact from './components/contact';
 
 const appStyles = require('./styles/application.styles');
 
@@ -38,7 +40,7 @@ const navigationOptions = ({navigation}) => ({
   )
 });
 
-const stack = StackNavigator({
+const mainStack = StackNavigator({
   Home: { screen: Index },
   Features: { screen: Features },
   Calendar: { screen: Calendar },
@@ -49,10 +51,19 @@ const stack = StackNavigator({
   Show: { screen: Show }
 }, {
   navigationOptions: navigationOptions,
+  headerMode: 'none'
+});
+
+const appStack = StackNavigator({
+  Main: { screen: mainStack },
+  Setting: { screen: Setting },
+  Contact: { screen: Contact }
+}, {
+  mode: 'modal'
 });
 
 const app = DrawerNavigator({
-  Home: { screen: stack },
+  Home: { screen: appStack },
   Features: { screen: Features },
   Calendar: { screen: Calendar },
   Trend: {screen: Trend},

@@ -6,7 +6,6 @@ import Loader from './loader';
 
 import SearchPostDetail from './post/searchPostDetail';
 import searchStyles from '../styles/search.styles';
-
 import { headerLeft } from '../styles/application.styles';
 
 const CONFIG = require('../config');

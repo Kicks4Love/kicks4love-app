@@ -84,8 +84,8 @@ export default class Drawer extends Component {
           <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Rumor')}><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
           <View style={styles.menuItemMoreContainer}>
-            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Contact')} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
           </View>
           <View style={styles.menuItemSocialContainer}>
             <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/kicks4love')} style={styles.menuItemSocialIcon}><Icon name="facebook" size={23} color='#333' /></TouchableOpacity>
