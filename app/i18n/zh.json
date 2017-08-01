@@ -1,0 +1,9 @@
+{
+    "id": "Chinese",
+    "drawer": {
+        "features": "专题"
+    },
+    "en": "英文(美国)",
+    "zh": "中文(简体)",
+    "settings": "设置"
+}

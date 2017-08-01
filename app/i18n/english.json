@@ -1,0 +1,9 @@
+{
+    "id": "English",
+    "drawer": {
+        "features": "Features"
+    },
+    "zh": "Chinese (Simplified)",
+    "en": "English (US)",
+    "settings": "Settings"
+}
