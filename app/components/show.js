@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageProgress from 'react-native-image-progress';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import { headerLeft, headerRight } from '../styles/application.styles';
 import showStyles from '../styles/show.styles';

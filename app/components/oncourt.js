@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Alert, Text, View, FlatList } from 'react-native';
 import OnCourtPostDetail from './post/oncourtPostDetail';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import { flatList } from '../styles/oncourt.styles';
 

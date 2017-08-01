@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, Alert, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import { flatList } from '../styles/features.styles';
 

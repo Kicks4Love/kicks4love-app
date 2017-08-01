@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Text, FlatList, View, TouchableOpacity, TextInput } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import SearchPostDetail from './post/searchPostDetail';
 import searchStyles from '../styles/search.styles';

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default class Index extends Component {
+export default class Loader extends Component {
 
 	render() {
 		if (this.props.type == 'initial') {

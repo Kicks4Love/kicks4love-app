@@ -74,7 +74,7 @@ export default class Drawer extends Component {
   render() {
     return(
       <View style={styles.drawerContainer}>
-        <Image source={require('../images/main_logo.png')} style={styles.drawerImage} />
+        <Image source={require('../../images/main_logo.png')} style={styles.drawerImage} />
         <ScrollView scrollsToTop={false} style={styles.menu}>
           <TouchableOpacity onPress={() => this.navigate('Home')}><Text style={styles.menuItem}>Home</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Features')}><Text style={styles.menuItem}>Features</Text></TouchableOpacity>

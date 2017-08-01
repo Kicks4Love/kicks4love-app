@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Text, View, ScrollView, FlatList } from 'react-native';
 import RumorPostDetail from './post/rumorPostDetail';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import rumorStyles from '../styles/rumor.styles';
 

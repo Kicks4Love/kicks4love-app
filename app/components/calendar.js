@@ -3,7 +3,7 @@ import { Text, View, ScrollView, FlatList, Dimensions, Alert } from 'react-nativ
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import CalendarPostDetail from './post/calendarPostDetail';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import moment from 'moment';
 

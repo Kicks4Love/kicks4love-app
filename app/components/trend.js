@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Text, View, FlatList } from 'react-native';
 import TrendPostDetail from './post/trendPostDetail';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import { flatList } from '../styles/trend.styles';
 

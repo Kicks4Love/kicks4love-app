@@ -3,7 +3,7 @@ import { TouchableOpacity, Alert, Image, View, Text, ScrollView, FlatList } from
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import IndexPostDetail from './post/indexPostDetail';
-import Loader from './loader';
+import Loader from './other/loader';
 
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
