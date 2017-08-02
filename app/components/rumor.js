@@ -4,14 +4,14 @@ import RumorPostDetail from './post/rumorPostDetail';
 import Loader from './other/loader';
 
 import rumorStyles from '../styles/rumor.styles';
-
+import I18n from '../i18n/I18n';
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/rumor_posts`;
 
 export default class Index extends Component {
-	static navigationOptions = {
-    	headerTitle: 'Rumors'
-  	}
+	static navigationOptions = ({navigation}) => ({
+    headerTitle: navigation.state.params.title
+  })
 
 	constructor(props) {
      	super(props);
@@ -29,12 +29,12 @@ export default class Index extends Component {
     	return this.requestData(false);
   	}
 
-  	requestData(chinese) {
+  	requestData() {
   		if (this.state.noMore || this.state.moreIsLoading) return null;
 
 	    let nextPage = this.state.nextPage + 1;
 	    if (nextPage > 1) this.state.moreIsLoading = true;
-	    let lang = chinese ? 'zh' : 'en';
+	    let lang = this.props.navigation.state.params.lang;
 	    let requestUri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
 		let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
 		
@@ -61,7 +61,7 @@ export default class Index extends Component {
 	buildHeader() {
 	    return (
 	    	<View style={[rumorStyles.marginContent, rumorStyles.header]}>
-	    		<Text style={rumorStyles.headerTitle}>COMPREHENSIVE RUMOR, ALL IN ONE VIEW</Text>
+	    		<Text style={rumorStyles.headerTitle}>{I18n.t("rumorsBanner")}</Text>
 	    	</View>
 	    );
 	}
@@ -90,7 +90,7 @@ export default class Index extends Component {
 		            extraData={this.state}
 		            ListHeaderComponent={header}
 		            renderItem={ ({ item }) => <RumorPostDetail metadata={item} /> }
-		            onEndReached={ () => this.requestData(false) }
+		            onEndReached={ () => this.requestData() }
 		            onEndReachedThreshold={0}
 		            ListFooterComponent={this.loadMoreIndicator}
 		            style={rumorStyles.whiteBackground}/>

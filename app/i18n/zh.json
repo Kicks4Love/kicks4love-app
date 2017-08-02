@@ -1,9 +1,24 @@
 {
     "id": "Chinese",
-    "drawer": {
-        "features": "专题"
-    },
+    "sillyBanner": "使用 Kicks4Love App, 更加爽快的体验",
+    "rumorsBanner": "八方流言，尽收眼底",
+    "loadMoreIndicatorText": "加载中...",
+    "features": "专题",
+    "home": "主页",
+    "calendar": "发售日历",
+    "trend": "潮流趋势",
+    "oncourt": "球场时装",
+    "streetsnap": "街拍",
+    "rumors": "流言蜚语",
+    "settings": "设置",
+    "contact": "联系我们",
+    "votes": "票",
+    "posted": "发表于",
+    "confirm": "确认",
+    "rateIt": "评分!",
+    "thankYou": "谢谢~",
+    "noRelease": "本月暂无新品上市",
+    "more": "更多",
     "en": "英文(美国)",
-    "zh": "中文(简体)",
-    "settings": "设置"
+    "zh": "中文(简体)"
 }

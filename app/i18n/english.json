@@ -1,9 +1,24 @@
 {
     "id": "English",
-    "drawer": {
-        "features": "Features"
-    },
+    "sillyBanner": "Using Kicks4Love App, Better Experience",
+    "rumorsBanner": "COMPREHENSIVE RUMOR, ALL IN ONE VIEW",
+    "loadMoreIndicatorText": "Loading more latest posts...",
+    "features": "Features",
+    "home": "Home",
+    "calendar": "Calendar",
+    "trend": "Trend",
+    "oncourt": "On Court",
+    "streetsnap": "Street Snaps",
+    "rumors": "Rumors",
+    "settings": "Settings",
+    "contact": "Contact Us",
+    "votes": "votes",
+    "posted": "POSTED",
+    "confirm": "Confirm",
+    "rateIt": "Rate it!",
+    "thankYou": "Thank You~",
+    "noRelease": "No release this month",
+    "more": "more",
     "zh": "Chinese (Simplified)",
-    "en": "English (US)",
-    "settings": "Settings"
+    "en": "English (US)"
 }

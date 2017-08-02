@@ -3,6 +3,8 @@ import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ImageProgress from 'react-native-image-progress';
 
+import I18n from '../../i18n/I18n';
+
 import { postContainer, coverImage, contentContainer, subInfoContainer, titleText, date, rate, rateImage, divider, contentText, more } from '../../styles/features.styles';
 
 const FeaturePostDetail = ( { metadata, navigation } ) => {
@@ -20,7 +22,7 @@ const FeaturePostDetail = ( { metadata, navigation } ) => {
           <View style={divider}></View>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={contentText}>{`${metadata.post.content[0].replace(/<(?:.|\n)*?>/gm, '').substring(0, 80)}...`}</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={more}>more</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={more}>{I18n.t("more")}</Text></TouchableOpacity>
       </View>
     </View>
   )

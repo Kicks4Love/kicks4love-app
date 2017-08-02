@@ -9,9 +9,9 @@ const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/featured_posts`;
 
 export default class Features extends Component {
-  static navigationOptions = {
-    headerTitle: 'Features'
-  }
+  static navigationOptions = ({navigation}) => ({
+    headerTitle: navigation.state.params.title
+  })
 
   constructor(props) {
     super(props);
@@ -26,18 +26,18 @@ export default class Features extends Component {
   }
 
   componentDidMount() {
-    return this.requestData(false);
+    return this.requestData();
   }
 
-  requestData(chinese) {
+  requestData() {
     if (this.state.noMore || this.state.moreIsLoading) return null;
 
     let newNextPage = this.state.nextPage + 1;
     if (newNextPage > 1) this.state.moreIsLoading = true;
-    let lang = chinese ? 'zh' : 'en';
+    let lang = this.props.navigation.state.params.lang
     let requestUri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
     let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
-    
+
     return fetch(requestUri, authConfig)
       .then(response => {
         if (response.ok) return response.json()
@@ -71,7 +71,7 @@ export default class Features extends Component {
           keyExtractor={item => item.post.id}
           extraData={this.state}
           renderItem={ ({ item }) => <FeaturePostDetail metadata={item} /> }
-          onEndReached={ () => this.requestData(false) }
+          onEndReached={ () => this.requestData() }
           onEndReachedThreshold={0}
           ListFooterComponent={this.loadMoreIndicator}
           style={flatList}/>

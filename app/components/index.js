@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import IndexPostDetail from './post/indexPostDetail';
 import Loader from './other/loader';
+import I18n from '../i18n/I18n';
 
 import indexStyles from '../styles/index.styles';
 import { logo } from '../styles/application.styles'
@@ -29,12 +30,12 @@ export default class Index extends Component {
     gaTracker.trackScreenView('Home');
   }
 
-  makeRemoteRequest = (chinese) => {
+  makeRemoteRequest = () => {
     if (this.state.noMore || this.state.moreIsLoading) return null;
 
     let nextPage = this.state.page + 1;
     if (nextPage > 1) this.state.moreIsLoading = true;
-    let lang = chinese ? 'zh' : 'en';
+    let lang = I18n.locale.substr(0, 2);
     let request_uri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
 		let auth_config = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
 
@@ -59,7 +60,7 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    return this.makeRemoteRequest(false);
+    return this.makeRemoteRequest();
   }
 
 	buildPostSwiper() {
@@ -83,14 +84,14 @@ export default class Index extends Component {
   			>
           {slider}
         </Swiper>
-        <Text style={indexStyles.logan}><Icon name="check" /> Using Kicks4Love App, Better Experience</Text>
+        <Text style={indexStyles.logan}><Icon name="check" />{I18n.t('sillyBanner')}</Text>
       </View>
 		);
 	}
 
   loadMoreIndicator = () => {
     if (this.state.noMore) return null;
-    return <Loader type='more' text='Loading more latest posts...' />;
+    return <Loader type='more' text={I18n.t('loadMoreIndicatorText')} />;
   }
 
 	render() {
@@ -104,7 +105,7 @@ export default class Index extends Component {
         data={this.state.postRecord}
         renderItem={ ({ item }) => <IndexPostDetail metadata={item} /> }
         ListHeaderComponent={postSwiper}
-        onEndReached={ () => this.makeRemoteRequest(false) }
+        onEndReached={ () => this.makeRemoteRequest() }
         onEndReachedThreshold={0}
         ListFooterComponent={this.loadMoreIndicator}
         keyExtractor={item => item.post_type + '/' + item.post.id}
