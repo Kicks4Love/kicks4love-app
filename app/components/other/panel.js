@@ -32,12 +32,14 @@ export default class Panel extends Component {
             up: <Icon name='caret-up' size={30} color='#333' />,
             down: <Icon name='caret-down' size={30} color='#333' />
         };
+        console.log(props.content);
         this.state = {
             title: props.title,
-            expanded: true,
+            expanded: props.shouldExpand,
             animation: new Animated.Value()
         };
     }
+
 
     setMaxHeight(event) {
         this.setState({ maxHeight: event.nativeEvent.layout.height });
@@ -45,6 +47,7 @@ export default class Panel extends Component {
 
     setMinHeight(event) {
         this.setState({ minHeight: event.nativeEvent.layout.height });
+        if(!this.state.expanded) this.state.animation.setValue(event.nativeEvent.layout.height);
     }
 
     toggle() {
@@ -60,7 +63,6 @@ export default class Panel extends Component {
     render() {
         let icon = this.icons.down;
         if(this.state.expanded) icon = this.icons.up;
-
         return ( 
             <Animated.View style={[styles.container, { height: this.state.animation }]} >
                 <View style={styles.titleContainer} onLayout={this.setMinHeight.bind(this)}>
