@@ -216,9 +216,12 @@ export default class Show extends Component {
 	    		{header}
 	    		{content}
 	    		{rating}
-	    		<Modal visible={this.state.imageModalShow} transparent={true}>
-                	<ImageViewer imageUrls={this.article.main_images} index={this.state.imageModalIndex} onCancel={() => this.setState({imageModalShow: false})} />
-            	</Modal>
+	    		<Modal
+            visible={this.state.imageModalShow}
+            transparent={true}
+            onRequestClose={() => this.setState({imageModalShow: false})}>
+            <ImageViewer imageUrls={this.article.main_images} index={this.state.imageModalIndex} onCancel={() => this.setState({imageModalShow: false})} />
+          </Modal>
 	    	</ScrollView>
 	    );
 	}
