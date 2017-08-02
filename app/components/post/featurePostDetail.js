@@ -19,7 +19,7 @@ const FeaturePostDetail = ( { metadata, navigation } ) => {
           <Text style={rate}>{metadata.score.toFixed(1)}/5.0 <Image source={require('../../images/sneakerblack.png')} style={rateImage} /></Text>
           <View style={divider}></View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={contentText}>{`${metadata.post.content[0].substring(0, 80)}...`}</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={contentText}>{`${metadata.post.content[0].replace(/<(?:.|\n)*?>/gm, '').substring(0, 80)}...`}</Text></TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'features', id: metadata.post.id, title: metadata.post.title})}><Text style={more}>more</Text></TouchableOpacity>
       </View>
     </View>

@@ -81,7 +81,7 @@ export default class Drawer extends Component {
           <TouchableOpacity onPress={() => this.navigate('Calendar')}><Text style={styles.menuItem}>Calendar</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Trend')}><Text style={styles.menuItem}>Trend</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('OnCourt')}><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate('StreetSnap')}><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => this.navigate('Rumor')}><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
           <View style={styles.menuItemMoreContainer}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>

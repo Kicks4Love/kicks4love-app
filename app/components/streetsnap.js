@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert, Text, View, ScrollView, FlatList } from 'react-native';
-import RumorPostDetail from './post/rumorPostDetail';
+import { Alert, Text, View, FlatList, ScrollView } from 'react-native';
+import StreetSnapPostDetail from './post/streetsnapPostDetail';
 import Loader from './other/loader';
 
-import rumorStyles from '../styles/rumor.styles';
+import streetsnapStyles from '../styles/streetsnap.styles';
 
 const CONFIG = require('../config');
-const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/rumor_posts`;
+const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/streetsnap_posts`;
 
 export default class Index extends Component {
 	static navigationOptions = {
-    	headerTitle: 'Rumors'
+    	headerTitle: 'Street Snap'
   	}
 
 	constructor(props) {
      	super(props);
      	this.state = {
-	      isLoading: true,
-	      nextPage: 0,
-	      noMore: false,
-	      moreIsLoading: false,
-	      rumorPosts: []
+	      	isLoading: true,
+	      	nextPage: 0,
+	      	noMore: false,
+	      	moreIsLoading: false,
+	      	streetsnapPosts: []
     	}
   	}
 
@@ -35,19 +35,15 @@ export default class Index extends Component {
 	    if (nextPage > 1) this.state.moreIsLoading = true;
 	    let lang = chinese ? 'zh' : 'en';
 	    let requestUri = `${BASE_REQUEST_URI}?next_page=${nextPage}&l=${lang}`;
-		let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
-		
+	    let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+
 	    return fetch(requestUri, authConfig)
-	      	.then((response) => {
-						if (response.ok) return response.json()
-			      throw new Error(`Unsuccessful response with status: ${response.status}`);
-					})
+	      	.then((response) => response.json())
 	      	.then((responseJson) => {
-	      		console.log(responseJson.posts);
-	        	this.setState(() => ({
+	        	this.setState(() => ({ 
 		          	isLoading: false,
 		          	moreIsLoading: false,
-		          	rumorPosts: nextPage == 1 ? responseJson.posts : [...this.state.rumorPosts, ...responseJson.posts],
+		          	streetsnapPosts: nextPage == 1 ? responseJson.posts : [...this.state.streetsnapPosts, ...responseJson.posts],
 		          	nextPage: nextPage,
 		          	noMore: responseJson.no_more
 	        	}));
@@ -59,15 +55,15 @@ export default class Index extends Component {
 
 	buildHeader() {
 	    return (
-	    	<View style={[rumorStyles.marginContent, rumorStyles.header]}>
-	    		<Text style={rumorStyles.headerTitle}>COMPREHENSIVE RUMOR, ALL IN ONE VIEW</Text>
+	    	<View style={[streetsnapStyles.marginContent, streetsnapStyles.header]}>
+	    		<Text style={streetsnapStyles.headerTitle}>HOME FOR TRENDSETTER ALL AROUND THE WORLD</Text>
 	    	</View>
 	    );
 	}
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    return <Loader type='more' text='Loading more Rumor posts...' />;
+	    return <Loader type='more' text='Loading more streetsnap posts...' />;
 	}
 
   	render() {
@@ -76,25 +72,25 @@ export default class Index extends Component {
 
 		if (this.state.isLoading) {
   			content = (
-  				<ScrollView style={[rumorStyles.fullBackground, rumorStyles.whiteBackground]}>
+  				<ScrollView style={[streetsnapStyles.fullBackground, streetsnapStyles.whiteBackground]}>
           			{header}
           			<Loader type='initial' />
         		</ScrollView>
         	);
 		} else {
-			content = (
+    		content = (
   				<FlatList
-		            data={this.state.rumorPosts}
+		            data={this.state.streetsnapPosts}
 		            keyExtractor={item => item.post.id}
 		            extraData={this.state}
 		            ListHeaderComponent={header}
-		            renderItem={ ({ item }) => <RumorPostDetail metadata={item} /> }
+		            renderItem={ ({ item }) => <StreetSnapPostDetail metadata={item} /> }
 		            onEndReached={ () => this.requestData(false) }
 		            onEndReachedThreshold={0}
 		            ListFooterComponent={this.loadMoreIndicator}
-		            style={rumorStyles.whiteBackground}/>
+		            style={streetsnapStyles.whiteBackground}/>
 			);
-		}
+  		}
 
 	  	return content;
   	}

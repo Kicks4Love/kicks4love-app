@@ -36,6 +36,7 @@ export default class Features extends Component {
     let lang = chinese ? 'zh' : 'en';
     let requestUri = `${BASE_REQUEST_URI}?next_page=${newNextPage}&l=${lang}`;
     let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
+    
     return fetch(requestUri, authConfig)
       .then(response => {
         if (response.ok) return response.json()

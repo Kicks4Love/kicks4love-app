@@ -18,11 +18,6 @@ class CalendarPostDetail extends Component {
     });
   }
 
-  formatNumber(number) {
-    if (number < 10) return '0' + number;
-    return number;
-  }
-
   render() {
     let priceStr = this.props.metadata.price <= 0 ? 'N/A' : parseFloat(this.props.metadata.price).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '1,');
 
