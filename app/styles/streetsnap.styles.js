@@ -74,6 +74,9 @@ var styles = StyleSheet.create({
 		right: 0,
 		fontSize: 12,
 		color: 'gray'
+	},
+	arrowLink: {
+		marginTop: 8
 	}
 });
 
