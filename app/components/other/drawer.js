@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { ScrollView, View, Text, Image, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import I18n from '../i18n/I18n';
+import I18n from '../../i18n/I18n';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
