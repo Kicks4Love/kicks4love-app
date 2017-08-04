@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Platform, BackHandler } from 'react-native';
 import I18n from '../i18n/I18n';
 
 import { headerLeft } from '../styles/application.styles';
@@ -11,7 +11,11 @@ export default class Setting extends Component {
   	static navigationOptions = ({navigation}) => ({
   		title: I18n.t("settings"),
   		headerLeft: (
-		    <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())} >
+		    <TouchableOpacity onPress={ () => navigation.dispatch(NavigationActions.reset(
+          {
+            index: 0,
+            actions: [ NavigationActions.navigate({routeName: 'Main'}) ]
+          })) } >
 		      	<Icon name="times" style={headerLeft} />
 		    </TouchableOpacity>
 		),
@@ -31,6 +35,26 @@ export default class Setting extends Component {
       language: I18n.locale.substr(0, 2),
       languageList: langList
     }
+  }
+
+  componentWillMount() {
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener('hardwareBackPress', this._handleSettingsBack);
+    }
+  }
+  componentWillUnmount() {
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener('hardwareBackPress', this._handleSettingsBack);
+    }
+  }
+
+  _handleSettingsBack = () => {
+    const goHome = NavigationActions.reset({
+      index: 0,
+      actions: [ NavigationActions.navigate({routeName: 'Main'}) ]
+    });
+    this.props.navigation.dispatch(goHome);
+    return true;
   }
 
 	render() {
