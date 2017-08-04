@@ -16,6 +16,7 @@
     "streetsnap": "Street Snaps",
     "rumors": "Rumors",
     "settings": "Settings",
+    "language": "Language",
     "contact": "Contact Us",
     "votes": "votes",
     "posted": "POSTED",
@@ -26,6 +27,12 @@
     "more": "more",
     "zh": "Chinese (Simplified)",
     "en": "English (US)",
+    "search": {
+      "title": "Search",
+      "searchEmptyText": "Search result is empty",
+      "searchPrompt": "What are you looking for?",
+      "loadMoreSearch": "Loading more search results..."
+    },
     "contact": {
       "title": "Contact Us",
       "emailPrompt": "Send your concern to this email address",

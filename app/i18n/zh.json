@@ -17,6 +17,7 @@
     "rumors": "流言蜚语",
     "settings": "设置",
     "contact": "联系我们",
+    "language": "多语言",
     "votes": "票",
     "posted": "发表于",
     "confirm": "确认",
@@ -26,6 +27,12 @@
     "more": "更多",
     "en": "英文(美国)",
     "zh": "中文(简体)",
+    "search": {
+      "title": "搜索",
+      "searchEmptyText": "暂无结果",
+      "searchPrompt": "你想搜寻什么？",
+      "loadMoreSearch": "正在加载更多搜索结果..."
+    },
     "contact": {
       "title": "联系我们",
       "emailPrompt": "将您的想法发送至此邮箱",

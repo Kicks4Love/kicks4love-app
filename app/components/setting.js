@@ -36,7 +36,7 @@ export default class Setting extends Component {
 	render() {
 		return (
       <View>
-        <Text>Language</Text>
+        <Text>{I18n.t('language')}</Text>
         <FlatList
           data={this.state.languageList}
           extraData={this.state}
