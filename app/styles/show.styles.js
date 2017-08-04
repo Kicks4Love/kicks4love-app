@@ -56,7 +56,8 @@ const showStyles = StyleSheet.create({
 		marginTop: 5
 	},
 	paragraph: {
-		fontSize: 16
+		fontSize: 16,
+		lineHeight: 25
 	},
 	marginContent: {
 		marginTop: 10,

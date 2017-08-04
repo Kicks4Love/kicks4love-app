@@ -57,7 +57,7 @@ var styles = StyleSheet.create({
 	},
 	infoContainer: {
 		height: 21,
-		marginBottom: 10,
+		marginBottom: 15,
 	},
 	rating: {
 		position: 'absolute',
