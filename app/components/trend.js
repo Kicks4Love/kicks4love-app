@@ -6,7 +6,6 @@ import Loader from './other/loader';
 import { flatList } from '../styles/trend.styles';
 
 const CONFIG = require('../config');
-const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/trend_posts`;
 
 export default class Index extends Component {
@@ -22,7 +21,8 @@ export default class Index extends Component {
 	      noMore: false,
 	      moreIsLoading: false,
 	      trendPosts: []
-    	}
+    	};
+    	gaTracker.trackScreenView('Trend');
   	}
 
   	componentDidMount() {

@@ -21,7 +21,8 @@ export default class Features extends Component {
       noMore: false,
       moreIsLoading: false,
       featuredPosts: []
-    }
+    };
+    gaTracker.trackScreenView('Features');
   }
 
   componentDidMount() {

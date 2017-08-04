@@ -25,7 +25,8 @@ export default class Index extends Component {
       sliderRecord: [],
       postRecord: [],
       page: 0
-    }
+    };
+    gaTracker.trackScreenView('Home');
   }
 
   makeRemoteRequest = (chinese) => {

@@ -9,7 +9,6 @@ import searchStyles from '../styles/search.styles';
 import { headerLeft } from '../styles/application.styles';
 
 const CONFIG = require('../config');
-const API_KEY = CONFIG.KEY;
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/search`;
 
 export default class Index extends Component {
@@ -34,6 +33,7 @@ export default class Index extends Component {
 		    moreIsLoading: false,
 		    searchResult: []
 	    };
+	    gaTracker.trackScreenView('Search');
   	}
 
   	loadMoreIndicator = () => {

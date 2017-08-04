@@ -26,6 +26,8 @@ var storage = new Storage({
 });
 global.storage = storage;
 
+global.gaTracker = require('./helpers/gaTracker');
+
 const navigationOptions = ({navigation}) => ({
   title: 'Kicks4love',
   headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' },
