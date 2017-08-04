@@ -16,6 +16,11 @@ export default class Setting extends Component {
 		headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' }
 	});
 
+	constructor(props) {
+		super(props);
+	    gaTracker.trackScreenView('Setting');
+	}
+
   	render() {
   		return <Text>Placeholder</Text>;
   	}

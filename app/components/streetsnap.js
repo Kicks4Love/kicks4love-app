@@ -21,7 +21,8 @@ export default class Index extends Component {
 	      	noMore: false,
 	      	moreIsLoading: false,
 	      	streetsnapPosts: []
-    	}
+    	};
+    	gaTracker.trackScreenView('StreetSnap');
   	}
 
   	componentDidMount() {

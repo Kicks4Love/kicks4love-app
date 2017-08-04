@@ -5,7 +5,7 @@ import Loader from './other/loader';
 
 import { flatList } from '../styles/oncourt.styles';
 
-import { HOST, KEY } from '../config';
+import { HOST, KEY, ENV } from '../config';
 const BASE_REQUEST_URI = `${HOST}/api/v0/oncourt_posts`;
 
 export default class OnCourt extends Component {
@@ -21,7 +21,8 @@ export default class OnCourt extends Component {
       noMore: false,
       moreIsLoading: false,
       oncourtPosts: []
-    }
+    };
+    gaTracker.trackScreenView('OnCourt');
   }
 
   componentDidMount() {
