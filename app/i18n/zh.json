@@ -1,7 +1,12 @@
 {
     "id": "Chinese",
+    "appName": " Kicks4Love鞋侣 ",
+    "facebook": "Facebook脸书",
+    "weibo": "新浪微博",
+    "and": "和",
     "sillyBanner": "使用 Kicks4Love App, 更加爽快的体验",
     "rumorsBanner": "八方流言，尽收眼底",
+    "streetsnapBanner": "四海潮人，汇聚一方",
     "loadMoreIndicatorText": "加载中...",
     "features": "专题",
     "home": "主页",
@@ -20,5 +25,18 @@
     "noRelease": "本月暂无新品上市",
     "more": "更多",
     "en": "英文(美国)",
-    "zh": "中文(简体)"
+    "zh": "中文(简体)",
+    "contact": {
+      "title": "联系我们",
+      "emailPrompt": "将您的想法发送至此邮箱",
+      "aboutUsTitle": "关于我们",
+      "aboutUsContent_1": "我们",
+      "aboutUsContent_2": "团队是一群旨在为用户提供最新发售信息以及潮流信息的球鞋爱好者。现在我们仍然处于开发阶段，如遇漏洞和故障，属于正常现象，敬请见谅。为了您的操作体验，一旦发现任何故障，请告知我们的开发团队。同时我们也欢迎您的反馈及意见 : )",
+      "ourPlanTitle": "我们的企划",
+      "ourPlanContent_1": "除了既存的页面之外，我们将会在不久的为您将来提供更多更好的功能。我们将会为每个用户提供个人账户，您也可以使用",
+      "ourPlanContent_2":  "账户来登陆我们的网站，并在我们的文章最后留下宝贵的意见，我们的专业团队会及时为您答疑解惑。您也可以使用我们的网站与来自世界各地的球鞋爱好者共同讨论和分享意见。",
+      "currentServicesTitle": "目前提供的服务",
+      "currentServicesContent_1": "目前我们的网站包括六种不同的专区",
+      "currentServicesContent_2": "，在每个专区我们都竭诚为您提供最新最in的球鞋(潮流)资讯。"
+    }
 }

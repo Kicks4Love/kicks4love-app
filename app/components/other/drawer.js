@@ -100,7 +100,7 @@ export default class Drawer extends Component {
         </TouchableOpacity>
         <View style={styles.menuItemMoreContainer}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('settings') }</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Contact')} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('contact') }</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Contact', { title: I18n.t('contact.title') })} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('contact.title') }</Text></TouchableOpacity>
         </View>
           <View style={styles.menuItemSocialContainer}>
             <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/kicks4love')} style={styles.menuItemSocialIcon}><Icon name="facebook" size={23} color='#333' /></TouchableOpacity>
