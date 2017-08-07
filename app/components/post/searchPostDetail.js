@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageProgress from 'react-native-image-progress';
 
 import searchStyles from '../../styles/search.styles';
+import I18n from '../../i18n/I18n';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -32,8 +33,8 @@ const SearchPostDetail = ( { metadata, navigation } ) => {
         <ImageProgress source={{uri: metadata.image_url}} style={{width: WIDTH * 0.4, height: 100}} />
       </View>
       <View style={searchStyles.boxContent}>
-        <Text style={[searchStyles.textColor, searchStyles.boxTitle]}>{metadata.post.title_en} <Text style={searchStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
-        <Text style={[searchStyles.textColor, searchStyles.boxPostType]}><Icon name="tags" /><Text style={searchStyles.boxPostTypeText}>{getPostStr(metadata.post_type, 'title')}</Text></Text>
+        <Text style={[searchStyles.textColor, searchStyles.boxTitle]}>{metadata.title} <Text style={searchStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
+        <Text style={[searchStyles.textColor, searchStyles.boxPostType]}><Icon name="tags" /><Text style={searchStyles.boxPostTypeText}>{ I18n.t(metadata.post_type) }</Text></Text>
         {rating}
       </View>
     </TouchableOpacity>

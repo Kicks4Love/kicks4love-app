@@ -4,6 +4,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Storage from 'react-native-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import I18n from './i18n/I18n';
 import Drawer from './components/other/drawer';
 import Index from './components/index'
 import Features from './components/features';
@@ -37,7 +38,7 @@ const navigationOptions = ({navigation}) => ({
     </TouchableOpacity>
   ),
   headerRight: (
-    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Search', { lang: I18n.locale.substr(0, 2), title: I18n.t('settings') } )}>
       <Icon name="search" style={appStyles.headerRight} />
     </TouchableOpacity>
   )

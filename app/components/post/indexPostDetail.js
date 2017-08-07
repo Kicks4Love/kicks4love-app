@@ -3,6 +3,7 @@ import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'rea
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageProgress from 'react-native-image-progress';
+import I18n from '../../i18n/I18n';
 
 import indexStyles from '../../styles/index.styles';
 
@@ -18,7 +19,7 @@ const IndexPostDetail = ( { metadata, navigation } ) => {
       </View>
       <View style={indexStyles.boxContent}>
         <Text style={indexStyles.boxTitle}>{metadata.post.title} <Text style={indexStyles.boxDate}>{metadata.post.created_at.slice(0, 10)}</Text></Text>
-        <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{getPostStr(metadata.post_type, 'title')}</Text></Text>
+        <Text style={indexStyles.boxPostType}><Icon name="tags" /><Text style={indexStyles.boxPostTypeText}>{I18n.t(metadata.post_type)}</Text></Text>
         <Text style={indexStyles.boxRate}>{metadata.score.toFixed(1)}/5.0 <Image source={require('../../images/sneakerblack.png')} style={indexStyles.boxRateImage} /></Text>
       </View>
     </TouchableOpacity>

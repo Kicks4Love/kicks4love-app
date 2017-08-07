@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import I18n from '../../i18n/I18n';
 
 import { marginContent, postContainer, postBackgroundImage, postInnerFrame, topInfo, date, ratingImage, moreLink, postContent, playerName, playerFirstName, playerLastName, postTitle, postTitleText } from '../../styles/oncourt.styles';
 
@@ -21,7 +22,7 @@ const OnCourtPostDetail = ( { metadata, navigation } ) => {
           <View style={topInfo}>
             <Text style={date}>{metadata.post.created_at.slice(0, 10)}</Text>
             {rating}
-            <Text onPress={() => navigation.navigate('Show', {postType: 'oncourt', id: metadata.post.id, title: metadata.post.title})} style={moreLink}>more</Text>
+            <Text onPress={() => navigation.navigate('Show', {postType: 'oncourt', id: metadata.post.id, title: metadata.post.title})} style={moreLink}>{I18n.t("more")}</Text>
           </View>
           <View style={postContent}>
             <TouchableOpacity onPress={() => navigation.navigate('Show', {postType: 'oncourt', id: metadata.post.id, title: metadata.post.title})}>

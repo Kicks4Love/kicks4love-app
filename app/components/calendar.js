@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
 import CalendarPostDetail from './post/calendarPostDetail';
 import Loader from './other/loader';
+import I18n from '../i18n/I18n';
 
 import moment from 'moment';
 
@@ -15,9 +16,9 @@ const WIDTH = Dimensions.get('window').width;
 const CURRENT_DATE = new moment();
 
 export default class Calendar extends Component {
-  static navigationOptions = {
-    headerTitle: 'Calendar'
-  }
+  static navigationOptions = ({navigation}) => ({
+    headerTitle: navigation.state.params.title
+  })
 
 	constructor(props) {
     super(props);
@@ -50,11 +51,11 @@ export default class Calendar extends Component {
   }
 
   componentDidMount() {
-    return this.requestData(false);
+    return this.requestData();
   }
 
-  requestData(chinese) {
-    let lang = chinese ? 'zh' : 'en';
+  requestData() {
+    let lang = this.props.navigation.state.params.lang;
     let selectedMonth = this.state.months[this.state.currentMonthIndex];
     let request_uri = `${BASE_REQUEST_URI}?year=${selectedMonth.year()}&month=${selectedMonth.month() + 1}&l=${lang}`;
     let authConfig = { headers: { Authorization: `Token token=${CONFIG.KEY}` } };
@@ -98,7 +99,7 @@ export default class Calendar extends Component {
         posts: []
       });
       this.state.currentMonthIndex = state.index;
-      this.requestData(false);
+      this.requestData();
     }
 
     return (
@@ -133,7 +134,7 @@ export default class Calendar extends Component {
       content = (
         <ScrollView style={[calendarStyles.fullBackground, calendarStyles.whiteBackground]}>
           {monthSwiper}
-          <Text style={[calendarStyles.textColor, calendarStyles.noData]}>No release this month</Text>
+          <Text style={[calendarStyles.textColor, calendarStyles.noData]}>{I18n.t("noRelease")}</Text>
         </ScrollView>
       );
     } else {

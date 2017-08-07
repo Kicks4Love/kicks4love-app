@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { ScrollView, View, Text, Image, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import I18n from '../../i18n/I18n';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -38,7 +39,8 @@ const styles = StyleSheet.create({
   menuItemMoreItemText: {
     color: '#333',
     fontWeight: '200',
-    fontSize: 17
+    fontSize: 17,
+    marginLeft: 3
   },
   menuItemSocialContainer: {
     flexDirection: 'row',
@@ -58,17 +60,22 @@ export default class Drawer extends Component {
     this.state = {currentPage: 'Home'};
   }
 
-  navigate(currentPage) {
+  navigate(currentPage, extraParams={}) {
     if (this.state.currentPage == currentPage)
       this.props.navigation.navigate('DrawerClose');
     else {
       this.props.navigation.dispatch(NavigationActions.reset(
         {
           index: 0,
-          actions: [ NavigationActions.navigate({routeName: currentPage}) ]
+          actions: [ NavigationActions.navigate({routeName: currentPage, params: extraParams}) ]
         }));
       this.state.currentPage = currentPage;
     }
+  }
+
+  navigate2(currentPage, extraParams) {
+    this.state.currentPage = 'Home';
+    this.props.navigation.navigate( currentPage, extraParams );
   }
 
   render() {
@@ -76,17 +83,31 @@ export default class Drawer extends Component {
       <View style={styles.drawerContainer}>
         <Image source={require('../../images/main_logo.png')} style={styles.drawerImage} />
         <ScrollView scrollsToTop={false} style={styles.menu}>
-          <TouchableOpacity onPress={() => this.navigate('Home')}><Text style={styles.menuItem}>Home</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.navigate('Features')}><Text style={styles.menuItem}>Features</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.navigate('Calendar')}><Text style={styles.menuItem}>Calendar</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.navigate('Trend')}><Text style={styles.menuItem}>Trend</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.navigate('OnCourt')}><Text style={styles.menuItem}>On Court</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.navigate('StreetSnap')}><Text style={styles.menuItem}>Street Snaps</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.navigate('Rumor')}><Text style={styles.menuItem}>Rumors</Text></TouchableOpacity>
-          <View style={styles.menuItemMoreContainer}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}> Setting</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Contact')} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}> Contact Us</Text></TouchableOpacity>
-          </View>
+        <TouchableOpacity onPress={() => this.navigate('Home')}>
+          <Text style={styles.menuItem}>{I18n.t('home')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.navigate('Features', { lang: I18n.locale, title: I18n.t('features') })}>
+          <Text style={styles.menuItem}>{I18n.t('features')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.navigate('Calendar', { lang: I18n.locale, title: I18n.t('calendar') })}>
+          <Text style={styles.menuItem}>{I18n.t('calendar')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.navigate('Trend', { lang: I18n.locale, title: I18n.t('trend') })}>
+          <Text style={styles.menuItem}>{I18n.t('trend')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.navigate('OnCourt', { lang: I18n.locale, title: I18n.t('oncourt') })}>
+          <Text style={styles.menuItem}>{I18n.t('oncourt')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.navigate('StreetSnap', { lang: I18n.locale, title: I18n.t('streetsnap') })}>
+          <Text style={styles.menuItem}>{I18n.t('streetsnap')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.navigate('Rumor', { lang: I18n.locale, title: I18n.t('rumors') })}>
+          <Text style={styles.menuItem}>{I18n.t('rumors')}</Text>
+        </TouchableOpacity>
+        <View style={styles.menuItemMoreContainer}>
+          <TouchableOpacity onPress={() => this.navigate2('Setting', { title: I18n.t('settings') })} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('settings') }</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate2( 'Contact', { title: I18n.t('contact.title') } )} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('contact.title') }</Text></TouchableOpacity>
+        </View>
           <View style={styles.menuItemSocialContainer}>
             <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/kicks4love')} style={styles.menuItemSocialIcon}><Icon name="facebook" size={23} color='#333' /></TouchableOpacity>
             <TouchableOpacity onPress={() => Linking.openURL('http://weibo.com/u/5704994024')} style={styles.menuItemSocialIcon}><Icon name="weibo" size={23} color='#333' /></TouchableOpacity>
