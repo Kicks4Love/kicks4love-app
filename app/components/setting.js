@@ -91,5 +91,4 @@ export default class Setting extends Component {
     });
     I18n.locale = lang;
   }
-
 }

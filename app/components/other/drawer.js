@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   menuItemMoreItemText: {
     color: '#333',
     fontWeight: '200',
-    fontSize: 17
+    fontSize: 17,
+    marginLeft: 3
   },
   menuItemSocialContainer: {
     flexDirection: 'row',
@@ -72,6 +73,11 @@ export default class Drawer extends Component {
     }
   }
 
+  navigate2(currentPage, extraParams) {
+    this.state.currentPage = 'Home';
+    this.props.navigation.navigate( currentPage, extraParams );
+  }
+
   render() {
     return(
       <View style={styles.drawerContainer}>
@@ -99,8 +105,8 @@ export default class Drawer extends Component {
           <Text style={styles.menuItem}>{I18n.t('rumors')}</Text>
         </TouchableOpacity>
         <View style={styles.menuItemMoreContainer}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate( 'Setting', { title: I18n.t('settings') } )} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('settings') }</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate( 'Contact', { title: I18n.t('contact.title') } )} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('contact.title') }</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate2('Setting', { title: I18n.t('settings') })} style={styles.meunItemMoreItem}><Icon name="cog" size={16} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('settings') }</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.navigate2( 'Contact', { title: I18n.t('contact.title') } )} style={styles.meunItemMoreItem}><Icon name="envelope" size={14} color='#333' /><Text style={styles.menuItemMoreItemText}>{ I18n.t('contact.title') }</Text></TouchableOpacity>
         </View>
           <View style={styles.menuItemSocialContainer}>
             <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/kicks4love')} style={styles.menuItemSocialIcon}><Icon name="facebook" size={23} color='#333' /></TouchableOpacity>

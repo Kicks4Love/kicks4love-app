@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Text, View, ScrollView, FlatList } from 'react-native';
 import RumorPostDetail from './post/rumorPostDetail';
 import Loader from './other/loader';
+import I18n from '../i18n/I18n';
 
 import rumorStyles from '../styles/rumor.styles';
-import I18n from '../i18n/I18n';
+
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/rumor_posts`;
 
 export default class Index extends Component {
 	static navigationOptions = ({navigation}) => ({
-    headerTitle: navigation.state.params.title
-  })
+    	headerTitle: navigation.state.params.title
+  	});
 
 	constructor(props) {
      	super(props);
@@ -68,7 +69,7 @@ export default class Index extends Component {
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    return <Loader type='more' text='Loading more Rumor posts...' />;
+	    return <Loader type='more' text={I18n.t('loadMoreIndicatorText')} />;
 	}
 
   	render() {

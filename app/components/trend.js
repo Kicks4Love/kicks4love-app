@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Text, View, FlatList } from 'react-native';
 import TrendPostDetail from './post/trendPostDetail';
 import Loader from './other/loader';
+import I18n from '../i18n/I18n';
 
 import { flatList } from '../styles/trend.styles';
 
@@ -59,7 +60,7 @@ export default class Index extends Component {
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    return <Loader type='more' text='Loading more Trend posts...' />;
+	    return <Loader type='more' text={I18n.t('loadMoreIndicatorText')} />;
 	}
 
   	render() {

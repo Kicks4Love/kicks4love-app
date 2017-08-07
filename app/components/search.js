@@ -3,11 +3,11 @@ import { ActivityIndicator, Alert, Text, FlatList, View, TouchableOpacity, TextI
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loader from './other/loader';
+import I18n from '../i18n/I18n';
 
 import SearchPostDetail from './post/searchPostDetail';
 import searchStyles from '../styles/search.styles';
 import { headerLeft } from '../styles/application.styles';
-import I18n from '../i18n/I18n';
 
 const CONFIG = require('../config');
 const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/search`;
@@ -39,7 +39,7 @@ export default class Index extends Component {
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    	return <Loader type='more' text={I18n.t('loadMoreSearch')} />;
+	    	return <Loader type='more' text={I18n.t('search.loadMoreSearch')} />;
   	}
 
   	requestData(initial) {

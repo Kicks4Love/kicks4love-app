@@ -65,7 +65,7 @@ export default class Index extends Component {
 
   	loadMoreIndicator = () => {
 	    if (this.state.noMore) return null;
-	    return <Loader type='more' text='Loading more streetsnap posts...' />;
+	    return <Loader type='more' text={I18n.t('loadMoreIndicatorText')} />;
 	}
 
   	render() {

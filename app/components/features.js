@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Alert, FlatList } from 'react-native';
 import FeaturePostDetail from './post/featurePostDetail';
 import Loader from './other/loader';
+import I18n from '../i18n/I18n';
 
 import { flatList } from '../styles/features.styles';
 
@@ -57,7 +58,7 @@ export default class Features extends Component {
 
   loadMoreIndicator = () => {
     if (this.state.noMore) return null;
-    return <Loader type='more' text='Loading more Features posts...' />;
+    return <Loader type='more' text={I18n.t('loadMoreIndicatorText')} />;
   }
 
   render() {

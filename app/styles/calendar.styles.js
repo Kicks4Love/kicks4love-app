@@ -49,7 +49,8 @@ var styles = StyleSheet.create({
 	coverRemoved: {
 	    backgroundColor: 'rgba(255, 255, 255, 0)',
 	    height: 0,
-	    borderWidth: 0
+	    borderWidth: 0,
+	    opacity: 0
 	},
 	coverTitle: {
 	    padding: 5,
