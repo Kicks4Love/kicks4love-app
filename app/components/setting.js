@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { View, Text, TouchableOpacity, FlatList, Platform, BackHandler } from 'react-native';
+import { Text, ScrollView, TouchableOpacity, FlatList, Platform, BackHandler } from 'react-native';
+import LanguagePicker from './other/languagePicker';
 import I18n from '../i18n/I18n';
 
 import { headerLeft } from '../styles/application.styles';
-import LanguagePicker from './LanguagePicker';
+import { container, languageTitle } from '../styles/setting.styles';
 
 export default class Setting extends Component {
   	static navigationOptions = ({navigation}) => ({
@@ -16,7 +17,7 @@ export default class Setting extends Component {
             index: 0,
             actions: [ NavigationActions.navigate({routeName: 'Main'}) ]
           })) } >
-		      	<Icon name="times" style={headerLeft} />
+		      <Icon name="times" style={headerLeft} />
 		    </TouchableOpacity>
 		),
 		headerStyle: { backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#e7e7e7' }
@@ -27,9 +28,8 @@ export default class Setting extends Component {
     gaTracker.trackScreenView('Setting');
     let langList = [];
     for (var key in I18n.translations) {
-      if (I18n.translations.hasOwnProperty(key)) {
+      if (I18n.translations.hasOwnProperty(key))
         langList.push({ lang: key, selected: key == I18n.locale.substr(0, 2) });
-      }
     }
     this.state = {
       language: I18n.locale.substr(0, 2),
@@ -38,14 +38,12 @@ export default class Setting extends Component {
   }
 
   componentWillMount() {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android')
       BackHandler.addEventListener('hardwareBackPress', this._handleSettingsBack);
-    }
   }
   componentWillUnmount() {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android')
       BackHandler.removeEventListener('hardwareBackPress', this._handleSettingsBack);
-    }
   }
 
   _handleSettingsBack = () => {
@@ -59,16 +57,15 @@ export default class Setting extends Component {
 
 	render() {
 		return (
-      <View>
-        <Text>{I18n.t('language')}</Text>
+      <ScrollView style={container}>
+        <Text style={languageTitle}>{I18n.t('language')}</Text>
         <FlatList
           data={this.state.languageList}
           extraData={this.state}
           keyExtractor={(item) => item.lang}
           renderItem={this._renderItem}
         />
-
-      </View>
+      </ScrollView>
     )
 	}
 
