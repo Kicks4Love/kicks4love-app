@@ -34,7 +34,7 @@ export default class Show extends Component {
 	constructor(props) {
 	    super(props);
 	    this.article = null;
-	    this.key = getPostStr(this.props.navigation.state.params.postType, 'share') + '/' + this.props.navigation.state.params.id;
+	    this.key = getPostStr(this.props.navigation.state.params.postType, 'share') + this.props.navigation.state.params.id;
 	    this.state = { isLoading: true, newRate: 0, hideRate: true, ratePosted: false, currentRate: 0, voteCount: 0, imageModalShow: false, imageModalIndex: 0, mainImagesRatio: [] };
 
 	    storage.load({
@@ -42,8 +42,6 @@ export default class Show extends Component {
 		}).catch(error => {
 			this.setState({hideRate: false});	// no recent rating found -> show the rating container
 		});
-
-		gaTracker.trackScreenView(this.key);
 	}
 
 	componentDidMount() {

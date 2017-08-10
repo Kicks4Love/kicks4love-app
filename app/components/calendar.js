@@ -46,8 +46,6 @@ export default class Calendar extends Component {
       months: allMonth,
       posts: []
     };
-
-    gaTracker.trackScreenView('Calendar');
   }
 
   componentDidMount() {

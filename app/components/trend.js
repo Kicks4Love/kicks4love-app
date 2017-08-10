@@ -11,8 +11,8 @@ const BASE_REQUEST_URI = `${CONFIG.HOST}/api/v0/trend_posts`;
 
 export default class Index extends Component {
 	static navigationOptions = ({navigation}) => ({
-    headerTitle: navigation.state.params.title
-  })
+    	headerTitle: navigation.state.params.title
+  	});
 
 	constructor(props) {
      	super(props);
@@ -23,7 +23,6 @@ export default class Index extends Component {
 	      moreIsLoading: false,
 	      trendPosts: []
     	};
-    	gaTracker.trackScreenView('Trend');
   	}
 
   	componentDidMount() {
