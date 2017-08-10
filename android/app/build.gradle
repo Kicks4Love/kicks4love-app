@@ -133,6 +133,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fabric')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-i18n')
     compile fileTree(dir: "libs", include: ["*.jar"])
