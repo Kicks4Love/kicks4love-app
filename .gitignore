@@ -54,3 +54,4 @@ fastlane/screenshots
 
 # config
 app/config.js
+android/app/fabric.properties
