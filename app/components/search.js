@@ -91,7 +91,7 @@ export default class Index extends Component {
 			        renderItem={ ({ item }) => <SearchPostDetail metadata={item} /> }
 			        keyExtractor={ item => item.post_type + '/' + item.post.id }
 			        onEndReached={ () => this.requestData(false) }
-			        onEndReachedThreshold={0}
+			        onEndReachedThreshold={0.5}
 			        ListFooterComponent={this.loadMoreIndicator}
 			    />
 			);

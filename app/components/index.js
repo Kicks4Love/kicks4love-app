@@ -106,7 +106,7 @@ export default class Index extends Component {
         renderItem={ ({ item }) => <IndexPostDetail metadata={item} /> }
         ListHeaderComponent={postSwiper}
         onEndReached={ () => this.makeRemoteRequest() }
-        onEndReachedThreshold={0}
+        onEndReachedThreshold={0.5}
         ListFooterComponent={this.loadMoreIndicator}
         keyExtractor={item => item.post_type + '/' + item.post.id}
         style={indexStyles.list}

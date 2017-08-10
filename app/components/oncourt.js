@@ -73,7 +73,7 @@ export default class OnCourt extends Component {
           extraData={this.state}
           renderItem={ ({ item }) => <OnCourtPostDetail metadata={item} /> }
           onEndReached={ () => this.requestData() }
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.5}
           ListFooterComponent={this.loadMoreIndicator}
           style={flatList}/>
       );

@@ -148,7 +148,7 @@ export default class Calendar extends Component {
             extraData={this.state}
             ListHeaderComponent={monthSwiper}
             onEndReached={ () => this.updatePostIndex() }
-            onEndReachedThreshold={0}
+            onEndReachedThreshold={0.5}
             renderItem={ ({ item }) => <CalendarPostDetail metadata={item} /> }
             style={calendarStyles.whiteBackground}
           />

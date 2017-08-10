@@ -88,7 +88,7 @@ export default class Index extends Component {
 		            ListHeaderComponent={header}
 		            renderItem={ ({ item }) => <StreetSnapPostDetail metadata={item} /> }
 		            onEndReached={ () => this.requestData() }
-		            onEndReachedThreshold={0}
+		            onEndReachedThreshold={0.5}
 		            ListFooterComponent={this.loadMoreIndicator}
 		            style={streetsnapStyles.whiteBackground}/>
 			);

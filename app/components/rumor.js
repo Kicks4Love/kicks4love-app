@@ -92,7 +92,7 @@ export default class Index extends Component {
 		            ListHeaderComponent={header}
 		            renderItem={ ({ item }) => <RumorPostDetail metadata={item} /> }
 		            onEndReached={ () => this.requestData() }
-		            onEndReachedThreshold={0}
+		            onEndReachedThreshold={0.5}
 		            ListFooterComponent={this.loadMoreIndicator}
 		            style={rumorStyles.whiteBackground}/>
 			);

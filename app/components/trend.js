@@ -75,7 +75,7 @@ export default class Index extends Component {
 		            extraData={this.state}
 		            renderItem={ ({ item }) => <TrendPostDetail metadata={item} /> }
 		            onEndReached={ () => this.requestData() }
-		            onEndReachedThreshold={0}
+		            onEndReachedThreshold={0.5}
 		            ListFooterComponent={this.loadMoreIndicator}
 		            style={flatList}/>
 			);
