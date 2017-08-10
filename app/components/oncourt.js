@@ -23,7 +23,6 @@ export default class OnCourt extends Component {
       moreIsLoading: false,
       oncourtPosts: []
     };
-    gaTracker.trackScreenView('OnCourt');
   }
 
   componentDidMount() {

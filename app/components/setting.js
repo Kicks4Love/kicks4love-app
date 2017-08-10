@@ -25,7 +25,6 @@ export default class Setting extends Component {
 
   constructor(props) {
     super(props);
-    gaTracker.trackScreenView('Setting');
     let langList = [];
     for (var key in I18n.translations) {
       if (I18n.translations.hasOwnProperty(key))

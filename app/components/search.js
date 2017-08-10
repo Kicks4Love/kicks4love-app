@@ -34,7 +34,6 @@ export default class Index extends Component {
 		    moreIsLoading: false,
 		    searchResult: []
 	    };
-	    gaTracker.trackScreenView('Search');
   	}
 
   	loadMoreIndicator = () => {

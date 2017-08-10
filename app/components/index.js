@@ -27,7 +27,6 @@ export default class Index extends Component {
       postRecord: [],
       page: 0
     };
-    gaTracker.trackScreenView('Home');
   }
 
   makeRemoteRequest = () => {
