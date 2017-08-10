@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: "io.fabric"
 
 import com.android.build.OutputFile
 
@@ -91,8 +92,11 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
 
+    repositories {
+        maven { url "https://maven.fabric.io/public" }
+    }
     defaultConfig {
         applicationId "com.kicks4loveapp"
         minSdkVersion 16
@@ -138,6 +142,9 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
+    compile("com.crashlytics.sdk.android:crashlytics:2.5.5@aar") {
+        transitive = true;
+    }
     apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 }
 
