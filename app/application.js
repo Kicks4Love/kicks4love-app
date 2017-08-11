@@ -36,7 +36,7 @@ const navigationOptions = ({navigation}) => ({
     </TouchableOpacity>
   ),
   headerRight: (
-    <TouchableOpacity onPress={() => navigation.navigate('Search', { lang: I18n.locale.substr(0, 2), title: I18n.t('settings') } )}>
+    <TouchableOpacity onPress={() => navigation.navigate('Search', { lang: I18n.locale.substr(0, 2), title: I18n.t('search.title') } )}>
       <Icon name="search" style={appStyles.headerRight} />
     </TouchableOpacity>
   )
