@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 25,
     fontWeight: '200',
-    marginTop: 5,
+    lineHeight: 32,
     textAlign: 'center'
   },
   menuItemMoreContainer: {
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   meunItemMoreItem: {
     flexDirection: 'row',
-    marginTop: 5,
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center'
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
     color: '#333',
     fontWeight: '200',
     fontSize: 17,
+    lineHeight: 24,
     marginLeft: 3
   },
   menuItemSocialContainer: {
